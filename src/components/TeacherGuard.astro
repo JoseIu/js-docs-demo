@@ -1,0 +1,26 @@
+---
+const { redirectTo = "/profes/login/" } = Astro.props;
+---
+
+<div class="teacher-guard">
+  <slot />
+</div>
+
+<script is:inline>
+  const STORAGE_KEY = "jsdocs_teacher_ok";
+
+  window.addEventListener("load", () => {
+    const isLogged = localStorage.getItem(STORAGE_KEY) === "true";
+
+    if (!isLogged) {
+      window.location.href = "${redirectTo}";
+      console.log("No esa logeado");
+    }
+  });
+</script>
+
+<style scoped>
+  .teacher-guard {
+    position: relative;
+  }
+</style>

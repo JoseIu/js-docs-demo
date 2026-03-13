@@ -1,0 +1,212 @@
+---
+title: "Lista de productos con carrito"
+description: "Desarrolla un proyecto de lista de productos con carrito funcional, siguiendo un diseño específico y utilizando datos dinámicos."
+---
+
+# 📝 Resumen del Proyecto
+
+<img src="https://res.cloudinary.com/dz209s6jk/image/upload/v1720604597/Challenges/agjwp44wyf0uabnp9bwg.jpg"/>
+[https://res.cloudinary.com/dz209s6jk/image/upload/v1720614556/Challenges/mkgnp0bjdgnxv6ujzekm.jpg] (Dineño del proyecto)
+
+[https://res.cloudinary.com/dz209s6jk/image/upload/v1720614556/Challenges/gqsjnah9yf3fnipy1ku2.jpg] (Dineño del proyecto)
+
+Tu desafío es desarrollar este proyecto de lista de productos que incluya un carrito funcional, y lograr que se vea lo más parecido posible al diseño proporcionado.
+
+Puedes utilizar cualquier herramienta que te guste para completar el desafío. Así que, si hay algo que quieras practicar, siéntete libre de intentarlo.
+
+Proporcionamos los datos de los productos en un archivo local `data.json`. Puedes usarlo para poblar la interfaz de usuario de forma dinámica si así lo decides.
+
+## Funcionalidades Requeridas
+
+Los usuarios deberían poder:
+
+- **Agregar** artículos al carrito y **eliminarlos**
+- **Aumentar/disminuir** la cantidad de artículos en el carrito
+- Ver una **ventana modal de confirmación** del pedido al hacer clic en "Confirmar Pedido"
+- **Reiniciar** sus selecciones al hacer clic en "Iniciar Nuevo Pedido"
+- **Navegar** por todo el proyecto y realizar todas las acciones usando únicamente el **teclado**
+- Ver el **diseño óptimo** para la interfaz según el **tamaño de pantalla** de su dispositivo
+- Ver los **estados de hover y focus** para todos los elementos interactivos en la página
+
+```json
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Classic Cheeseburger",
+      "category": "Burgers",
+      "price": 12.99,
+      "description": "Juicy beef patty with cheddar cheese, lettuce, tomato, and our special sauce",
+      "image": "/images/classic-cheeseburger.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Bacon Deluxe Burger",
+      "category": "Burgers",
+      "price": 15.99,
+      "description": "Double beef patty with crispy bacon, smoked gouda, caramelized onions, and BBQ sauce",
+      "image": "/images/bacon-deluxe.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Mushroom Swiss Burger",
+      "category": "Burgers",
+      "price": 14.49,
+      "description": "Beef patty topped with sautéed mushrooms, Swiss cheese, and garlic aioli",
+      "image": "/images/mushroom-swiss.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Veggie Garden Burger",
+      "category": "Burgers",
+      "price": 13.49,
+      "description": "Plant-based patty with avocado, sprouts, tomato, and vegan mayo",
+      "image": "/images/veggie-burger.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Crispy Chicken Sandwich",
+      "category": "Chicken",
+      "price": 11.99,
+      "description": "Buttermilk fried chicken breast with pickles and house-made ranch",
+      "image": "/images/crispy-chicken.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Grilled Chicken Club",
+      "category": "Chicken",
+      "price": 13.99,
+      "description": "Grilled chicken breast with bacon, lettuce, tomato, and honey mustard",
+      "image": "/images/grilled-chicken-club.jpg"
+    },
+    {
+      "id": 7,
+      "name": "Spicy Buffalo Wings",
+      "category": "Appetizers",
+      "price": 10.99,
+      "description": "8 pieces of crispy chicken wings tossed in spicy buffalo sauce",
+      "image": "/images/buffalo-wings.jpg"
+    },
+    {
+      "id": 8,
+      "name": "Loaded Nachos",
+      "category": "Appetizers",
+      "price": 9.99,
+      "description": "Tortilla chips topped with cheese, jalapeños, sour cream, and pico de gallo",
+      "image": "/images/loaded-nachos.jpg"
+    },
+    {
+      "id": 9,
+      "name": "Onion Rings",
+      "category": "Appetizers",
+      "price": 5.99,
+      "description": "Beer-battered onion rings served with spicy dipping sauce",
+      "image": "/images/onion-rings.jpg"
+    },
+    {
+      "id": 10,
+      "name": "French Fries",
+      "category": "Sides",
+      "price": 4.49,
+      "description": "Crispy golden fries seasoned with sea salt",
+      "image": "/images/french-fries.jpg"
+    },
+    {
+      "id": 11,
+      "name": "Sweet Potato Fries",
+      "category": "Sides",
+      "price": 5.49,
+      "description": "Sweet potato fries with cinnamon sugar and maple dip",
+      "image": "/images/sweet-potato-fries.jpg"
+    },
+    {
+      "id": 12,
+      "name": "Caesar Salad",
+      "category": "Salads",
+      "price": 8.99,
+      "description": "Crisp romaine lettuce with parmesan, croutons, and Caesar dressing",
+      "image": "/images/caesar-salad.jpg"
+    },
+    {
+      "id": 13,
+      "name": "Greek Salad",
+      "category": "Salads",
+      "price": 9.49,
+      "description": "Fresh mixed greens with feta cheese, olives, tomatoes, and Greek vinaigrette",
+      "image": "/images/greek-salad.jpg"
+    },
+    {
+      "id": 14,
+      "name": "Chocolate Milkshake",
+      "category": "Beverages",
+      "price": 6.49,
+      "description": "Creamy chocolate milkshake topped with whipped cream",
+      "image": "/images/chocolate-shake.jpg"
+    },
+    {
+      "id": 15,
+      "name": "Strawberry Milkshake",
+      "category": "Beverages",
+      "price": 6.49,
+      "description": "Fresh strawberry milkshake with vanilla ice cream",
+      "image": "/images/strawberry-shake.jpg"
+    },
+    {
+      "id": 16,
+      "name": "Vanilla Milkshake",
+      "category": "Beverages",
+      "price": 5.99,
+      "description": "Classic vanilla milkshake with your choice of toppings",
+      "image": "/images/vanilla-shake.jpg"
+    },
+    {
+      "id": 17,
+      "name": "Soft Drinks",
+      "category": "Beverages",
+      "price": 2.99,
+      "description": "Choice of Coca-Cola, Sprite, Fanta, or Diet Coke (free refills)",
+      "image": "/images/soft-drinks.jpg"
+    },
+    {
+      "id": 18,
+      "name": "Iced Tea",
+      "category": "Beverages",
+      "price": 2.99,
+      "description": "Fresh brewed sweet or unsweetened iced tea",
+      "image": "/images/iced-tea.jpg"
+    },
+    {
+      "id": 19,
+      "name": "Chocolate Chip Cookie",
+      "category": "Desserts",
+      "price": 3.49,
+      "description": "Warm, fresh-baked chocolate chip cookie with sea salt",
+      "image": "/images/cookie.jpg"
+    },
+    {
+      "id": 20,
+      "name": "Brownie Sundae",
+      "category": "Desserts",
+      "price": 7.99,
+      "description": "Warm chocolate brownie with vanilla ice cream, chocolate sauce, and cherry",
+      "image": "/images/brownie-sundae.jpg"
+    },
+    {
+      "id": 21,
+      "name": "Kids Cheeseburger Meal",
+      "category": "Kids Menu",
+      "price": 8.99,
+      "description": "Mini cheeseburger with small fries and a small soft drink or juice box",
+      "image": "/images/kids-meal.jpg"
+    },
+    {
+      "id": 22,
+      "name": "Chicken Tenders (3 pcs)",
+      "category": "Kids Menu",
+      "price": 7.99,
+      "description": "Crispy chicken tenders served with fries and your choice of dipping sauce",
+      "image": "/images/chicken-tenders.jpg"
+    }
+  ]
+}
+```

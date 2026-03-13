@@ -1,0 +1,144 @@
+---
+const { redirectTo = "/profes/respuestas/" } = Astro.props;
+---
+
+<section class="teacher-login">
+  <h1 class="teacher-login__title">Zona profesorado</h1>
+  <p class="teacher-login__subtitle">
+    Esta zona está pensada para profes y contiene las respuestas de las
+    actividades. Introduce la contraseña para acceder.
+  </p>
+
+  <form id="teacher-login-form" class="teacher-login__form">
+    <label class="teacher-login__label" for="teacher-password">
+      Contraseña
+    </label>
+    <input
+      id="teacher-password"
+      type="password"
+      class="teacher-login__input"
+      autocomplete="off"
+    />
+    <button type="submit" class="teacher-login__button" id="log-ing"
+      >Entrar</button
+    >
+    <p id="teacher-login-error" class="teacher-login__error" aria-live="polite">
+    </p>
+  </form>
+</section>
+
+<script is:inline>
+  const button = document.getElementById("log-ing");
+  const STORAGE_KEY = "jsdocs_teacher_ok";
+  const PASSWORD = "profes2025"; // contraseña mock, sólo en frontend
+  const form = document.getElementById("teacher-login-form");
+  const input = document.getElementById("teacher-password");
+  const error = document.getElementById("teacher-login-error");
+
+  if (!form || !input || !error) return;
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const value = input.value.trim();
+
+    if (value === PASSWORD) {
+      localStorage.setItem(STORAGE_KEY, "true");
+      error.textContent = "";
+      window.location.href = "${redirectTo}";
+    } else {
+      error.textContent = "Contraseña incorrecta";
+    }
+  });
+
+  document.addEventListener("astro:page-load", () => {
+    const form = document.getElementById("teacher-login-form");
+    const input = document.getElementById("teacher-password");
+    const error = document.getElementById("teacher-login-error");
+
+    if (!form || !input || !error) return;
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const value = input.value.trim();
+
+      if (value === PASSWORD) {
+        localStorage.setItem(STORAGE_KEY, "true");
+        error.textContent = "";
+        window.location.href = "${redirectTo}";
+      } else {
+        error.textContent = "Contraseña incorrecta";
+      }
+    });
+  });
+</script>
+
+<style scoped>
+  .teacher-login {
+    background: #020617;
+    border-radius: 1.25rem;
+    padding: 1.75rem 1.5rem;
+    border: 1px solid #1f2937;
+  }
+
+  .teacher-login__title {
+    margin: 0 0 0.5rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #facc15;
+  }
+
+  .teacher-login__subtitle {
+    margin: 0 0 1.5rem;
+    color: #e5e7eb;
+    line-height: 1.6;
+  }
+
+  .teacher-login__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    max-width: 20rem;
+  }
+
+  .teacher-login__label {
+    font-weight: 500;
+    color: #e5e7eb;
+  }
+
+  .teacher-login__input {
+    border-radius: 0.5rem;
+    border: 1px solid #4b5563;
+    padding: 0.55rem 0.75rem;
+    background: #020617;
+    color: #f9fafb;
+    font-size: 0.95rem;
+  }
+
+  .teacher-login__input:focus-visible {
+    outline: 2px solid #facc15;
+    outline-offset: 2px;
+  }
+
+  .teacher-login__button {
+    margin-top: 0.4rem;
+    border-radius: 999px;
+    border: 1px solid #facc15;
+    background: #facc15;
+    color: #1f2937;
+    padding: 0.5rem 1.2rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    align-self: flex-start;
+  }
+
+  .teacher-login__button:hover {
+    filter: brightness(1.05);
+  }
+
+  .teacher-login__error {
+    min-height: 1.25rem;
+    font-size: 0.85rem;
+    color: #fca5a5;
+  }
+</style>

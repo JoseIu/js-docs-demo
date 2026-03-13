@@ -1,0 +1,57 @@
+---
+title: "Proyecto: Países"
+description: "Desarrolla un proyecto de países utilizando la API REST Countries, con funcionalidades de búsqueda, filtrado y navegación entre países."
+---
+# 📝 Resumen del Proyecto
+
+<img src="https://res.cloudinary.com/dz209s6jk/image/upload/v1554827486/Challenges/jfrcfmcisi1xiwm4rl1s.jpg"/>
+[https://res.cloudinary.com/dz209s6jk/image/upload/v1554827486/Challenges/jfrcfmcisi1xiwm4rl1s.jpg] (imagen original)
+
+Tu desafío es integrarte con la API REST [https://restcountries.com/](Countries) para obtener datos de países y mostrarlos de manera similar a los diseños proporcionados.
+
+Puedes usar cualquier framework o librería de JavaScript en el front-end, como React o Vue. También tienes control total sobre qué paquetes utilizar para hacer las solicitudes HTTP o para estilizar tu proyecto.
+
+## Funcionalidades Requeridas
+
+Los usuarios deberían poder:
+
+- Ver **todos los países** desde la API en la página de inicio
+- **Buscar un país** utilizando un campo de entrada de texto
+- **Filtrar países por región**
+- **Hacer clic en un país** para ver información más detallada en una página separada
+- Navegar a través de los **países fronterizos** en la página de detalle
+- Ver el **diseño óptimo** para la interfaz según el **tamaño de pantalla** de su dispositivo
+- Ver los **estados de hover y focus** para todos los elementos interactivos en la página
+- **Bonus:** Alternar el esquema de colores entre **modo claro y oscuro**
+
+## Endpoint de la API
+
+La API que debes utilizar es: **https://restcountries.com**
+
+### Endpoints principales:
+
+- **Obtener todos los países:** `https://restcountries.com/v3.1/all`
+- **Buscar por nombre:** `https://restcountries.com/v3.1/name/{name}`
+- **Buscar por código de país:** `https://restcountries.com/v3.1/alpha/{code}`
+- **Filtrar por región:** `https://restcountries.com/v3.1/region/{region}`
+
+### Ejemplos:
+
+- Todos los países: https://restcountries.com/v3.1/all
+- Buscar "Colombia": https://restcountries.com/v3.1/name/colombia
+- Buscar por código "COL": https://restcountries.com/v3.1/alpha/col
+- Región "Europe": https://restcountries.com/v3.1/region/europe
+
+### Campos útiles para este proyecto:
+
+name (common, official)
+population
+region
+subregion
+capital
+tld (top level domain)
+currencies
+languages
+borders
+flags (png, svg)
+cca3 (código de 3 letras para border countries)

@@ -1,0 +1,92 @@
+---
+title: "Iteración de Arrays en JavaScript"
+description: "Aprende a iterar sobre arrays en JavaScript usando métodos como forEach, map, filter, reduce y más."
+---
+import Quiz from "@components/Quiz.astro"
+import { Arrays } from "@db/arrays"
+
+## Bucle while
+El bucle `while` vimos que permitía ejecutar un bloque de código mientras una condición era verdadera. En el caso de la iteración de arrays, la condición generalmente se basa en el índice del elemento.
+
+Podemos, por ejemplo, crear una variable con `let` para guardar un puntero al índice del elemento que estamos iterando. En cada iteración, podemos incrementar el valor de la variable en 1, para que en la siguiente iteración se imprima el siguiente elemento.
+
+```javascript
+let frutas = ['🍎', '🍌', '🍓']
+let i = 0 // lo usaremos como índice
+
+while (i < frutas.length) {
+  console.log(frutas[i]) // imprime el elemento en la posición i
+  i++ // incrementamos el índice en 1 para la siguiente iteración
+}
+```
+
+
+## Bucle for
+El bucle `for` nos permitía ejecutar un bloque de código un número determinado de veces. En el caso de la iteración de arrays, podemos usarlo para recorrer cada uno de los elementos del array, usando la longitud del array como condición.
+
+
+```javascript
+let frutas = ['🍎', '🍌', '🍓']
+
+for (let i = 0; i < frutas.length; i++) {
+  console.log(frutas[i]) // imprime el elemento en la posición i
+}
+```
+También podrías recorrer el array en orden inverso, empezando desde el último elemento hasta el primero, usando i-- en lugar de i++.
+
+```javascript
+let frutas = ['🍎', '🍌', '🍓']
+
+for (let i = frutas.length - 1; i >= 0; i--) {
+  console.log(frutas[i]) // imprime el elemento en la posición i
+}
+```
+
+## Bucle for...of
+
+Además de `while` y `for`, existe otra estructura de control que nos permite iterar sobre los elementos de un array: `for...of`. Esta estructura de control es más simple que `for`, ya que no necesitamos crear una variable para guardar el índice del elemento que estamos iterando.
+
+Es mucho más sencilla y fácil de entender:
+
+```javascript
+let frutas = ['🍎', '🍌', '🍓']
+
+for (let fruta of frutas) {
+  console.log(fruta) // imprime el elemento en la posición i
+}
+```
+>Como ves, hay algunas limitaciones en el uso de for...of. Por ejemplo, no podemos usarlo para recorrer un array en orden inverso y tampoco tenemos acceso al índice del elemento que estamos iterando.
+
+## El método `array.forEach()`
+
+Ya hemos visto en la clase anterior que los arrays tienen métodos que nos permiten realizar operaciones sobre ellos, como añadir elementos o eliminarlos. Pero tiene muchos más métodos que iremos viendo que nos ayuda a trabajar con ellos.
+
+Uno de esos métodos es `array.forEach()`, que nos permite ejecutar una function para cada uno de los elementos del array. Esta función recibe como parámetros el elemento que se está iterando en ese momento, el índice del elemento y el propio array.
+
+```javascript
+let frutas = ['🍎', '🍌', '🍓']
+
+frutas.forEach(function (fruta, index, originalArray) {
+  console.log(fruta) // imprime el elemento en la posición i
+})
+```
+
+Usando una `arrow function` e indicando sólo los parámetros que necesitamos de nuestra función podemos simplificarlo aún más:
+```javascript
+let frutas = ['🍎', '🍌', '🍓']
+
+frutas.forEach((fruta) => {
+  console.log(fruta) // imprime el elemento en la posición i
+})
+```
+
+## ¿Cuál usar? Depende...
+
+| MÉTODO  | ACCESO AL ÍNDICE | ACCESO AL VALOR | PUEDE USAR `break` | CONTROL MANUAL DEL ÍNDICE |
+|---------|-------------------|------------------|--------------------|---------------------------|
+| `for`   | ✅                | ✅               | ✅                 | ✅                        |
+| `while` | ✅                | ✅               | ✅                 | ✅                        |
+| `for...of` | ❌             | ✅               | ✅                 | ❌                        |
+| `forEach` | ✅              | ✅               | ❌*                | ❌                        |
+
+\* En `forEach` no puedes usar `break` para salir del bucle; solo puedes terminar antes usando `return` dentro de la función de callback, o técnicas más avanzadas como lanzar una excepción.
