@@ -1,0 +1,110 @@
+---
+import { Icon } from "@astrojs/starlight/components";
+import CardLink from "./CardLink.astro";
+---
+
+<section aria-labelledby="quick-links-heading" class="cards-section">
+  <h2 id="quick-links-heading" class="">Accesos directos</h2>
+
+  <ul class="card-grid" role="list">
+    <li class="card-item">
+      <CardLink
+        href="#html"
+        title="HTML"
+        description="Aprende sobre HTML, el lenguaje de marcado que estructura el contenido de la web."
+      >
+        <Icon name="open-book" />
+      </CardLink>
+    </li>
+
+    <li class="card-item">
+      <CardLink
+        href="#css"
+        title="CSS"
+        description="CSS es el lenguaje de estilos que da vida a tus páginas web con colores, fuentes y diseños."
+      >
+        <Icon name="seti:css" />
+      </CardLink>
+    </li>
+
+    <li class="card-item">
+      <CardLink
+        href="/js/que-es-javascript/ "
+        title="JavaScript"
+        description="JavaScript es un lenguaje de programación que permite crear interacciones dinámicas en las páginas web."
+      >
+        <Icon name="seti:javascript" />
+      </CardLink>
+    </li>
+
+    <li class="card-item">
+      <CardLink
+        href="#react"
+        title="React"
+        description="React es una biblioteca de JavaScript para construir interfaces de usuario interactivas y reutilizables."
+      >
+        <Icon name="seti:react" />
+      </CardLink>
+    </li>
+
+    <li class="card-item">
+      <CardLink
+        href="#angular"
+        title="Angular"
+        description="Angular es un framework de JavaScript para construir aplicaciones web robustas y escalables."
+      >
+        <Icon name="rocket" />
+      </CardLink>
+    </li>
+    <li class="card-item">
+      <CardLink
+        href="/accesibilidad/section-1/1/"
+        title="Accesibilidad"
+        description="La accesibilidad web es el diseño y desarrollo de sitios web que pueden ser utilizados por personas con discapacidades, garantizando que todos tengan acceso a la información y funcionalidades."
+      >
+        <Icon name="rocket" />
+      </CardLink>
+    </li>
+  </ul>
+</section>
+
+<style>
+  .cards-section {
+    margin-block: 2rem;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .card-grid {
+    list-style: none;
+    display: grid;
+    gap: 1.5rem;
+    padding: 0;
+  }
+
+  .card-item {
+    /* sin estilos propios para que el foco se vea en el <a> */
+  }
+  @media (min-width: 768px) {
+    .card-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .card-item:nth-child(2),
+    .card-item:nth-child(4),
+    .card-item:nth-child(6) {
+      transform: translateY(5rem);
+    }
+  }
+</style>

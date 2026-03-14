@@ -1,0 +1,47 @@
+---
+title: "Desestructuración de objetos "
+description: "Aprende a desestructurar objetos en JavaScript para extraer valores de manera más sencilla y legible."
+---
+import Quiz from "@components/quiz/Quiz.astro"
+import { Arrays } from "@db/arrays"
+
+A la hora de acceder a las propiedades existe un atajo llamado **desestructuración** (o destructuring en inglés) muy interesante que nos permite recuperar el valor de una propiedad y guardarlo en una variable de una.
+
+Lo importante es que tengamos en cuenta que **la variable que se creará tendrá el mismo nombre que la propiedad que estamos recuperando**
+
+```javascript
+const spiderman = {
+  name: 'Spidey',
+  universe: 42,
+  powers: ['web', 'invisibility', 'spider-sense']
+}
+
+const { name, universe, powers } = spiderman
+console.log(name) // Spidey
+console.log(universe) // 42
+console.log(powers) // ['web', 'invisibility', 'spider-sense']
+```
+
+## Renombrar variables y valores por defecto
+Si quieres que la variable que se crea tenga un nombre diferente al de la propiedad, puedes hacerlo así:
+
+```javascript
+const { universe: universeNumber } = spiderman
+console.log(universeNumber) // 42
+```
+
+Lo que estamos haciendo es recuperar la propiedad `universe` pero crear la constante con el nombre `universeNumber`.`
+
+**Si la propiedad no existe, podemos asignarle un valor por defecto:**
+
+```javascript
+const { name, isAvenger = false } = spiderman
+console.log(name) // 'Spidey'
+console.log(isAvenger) // false
+```
+
+El objeto que hemos creado antes no tenía la propiedad `isAvenger`, pero al recuperarla le hemos asignado un valor por defecto de `false`. Si no le hubiéramos asignado un valor por defecto, la variable `isAvenger` sería `undefined`.
+
+Así que si recuperamos una propiedad que no existe, la variable que se creará tendrá el valor por defecto que le hayamos asignado. Y lo hacemos usando el operador `=`.
+
+>Esto es muy útil, por ejemplo, para recuperar opciones o configuración del usuario que quizás no ha definido todos los valores pero tenemos claro qué comportamiento queremos que tenga nuestra aplicación por defecto.

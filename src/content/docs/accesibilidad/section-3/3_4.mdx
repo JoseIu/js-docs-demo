@@ -1,0 +1,181 @@
+---
+title: Formularios accesibles
+description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
+---
+
+## Formularios accesibles
+
+Los formularios son elementos críticos de interacción en la web. Un formulario inaccesible puede impedir que usuarios con discapacidades completen tareas esenciales como registrarse, comprar o contactar.
+
+### 1. Etiquetas asociadas a campos
+
+Cada campo de entrada debe tener una etiqueta `<label>` asociada explícitamente mediante el atributo `for`:
+
+#### ✅ Correcto:
+
+```
+<label for="email">Correo electrónico</label>
+<input type="email" id="email" name="email" />
+```
+
+#### ❌ Incorrecto:
+
+```
+<!-- Sin etiqueta -->
+<input type="email" placeholder="Email" />
+
+<!-- Etiqueta no asociada -->
+<span>Email</span>
+<input type="email" />
+```
+
+**Beneficio:** Los lectores de pantalla leen la etiqueta cuando el campo recibe el foco. Además, hacer clic en la etiqueta activa el campo.
+
+### 2. Campos obligatorios
+
+Indica visualmente y programáticamente qué campos son requeridos:
+
+```
+<label for="nombre">
+  Nombre <span aria-label="obligatorio">*</span>
+</label>
+<input
+  type="text"
+  id="nombre"
+  name="nombre"
+  required
+  aria-required="true"
+/>
+```
+
+### 3. Mensajes de error accesibles
+
+Los errores deben ser claros, específicos y anunciados a los lectores de pantalla:
+
+```
+<label for="contrasena">Contraseña</label>
+<input
+  type="password"
+  id="contrasena"
+  aria-invalid="true"
+  aria-describedby="error-contrasena"
+/>
+<span id="error-contrasena" class="error">
+  La contraseña debe tener al menos 8 caracteres
+</span>
+```
+
+El atributo `aria-describedby` asocia el mensaje de error con el campo, y el lector de pantalla lo anuncia automáticamente.
+
+### 4. Agrupación de campos relacionados
+
+Usa `<fieldset>` y `<legend>` para agrupar campos relacionados, especialmente radios y checkboxes:
+
+```
+<fieldset>
+  <legend>¿Cómo prefieres que te contactemos?</legend>
+
+  <label>
+    <input type="radio" name="contacto" value="email" />
+    Email
+  </label>
+
+  <label>
+    <input type="radio" name="contacto" value="telefono" />
+    Teléfono
+  </label>
+
+  <label>
+    <input type="radio" name="contacto" value="correo" />
+    Correo postal
+  </label>
+</fieldset>
+```
+
+### 5. Instrucciones y ayudas
+
+Proporciona instrucciones claras antes de los campos complejos:
+
+```
+<label for="telefono">Teléfono</label>
+<span id="ayuda-telefono" class="help-text">
+  Formato: +34 XXX XXX XXX
+</span>
+<input
+  type="tel"
+  id="telefono"
+  aria-describedby="ayuda-telefono"
+/>
+```
+
+### 6. Atributos ARIA útiles
+
+- `aria-required="true"` — Indica campo obligatorio
+- `aria-invalid="true"` — Marca campo con error
+- `aria-describedby` — Asocia descripciones o errores
+- `aria-labelledby` — Referencia múltiples elementos como etiqueta
+- `aria-live="polite"` — Anuncia cambios dinámicos (errores)
+
+### Ejemplo visual de formulario accesible:
+
+Aquí puedes ver y probar un formulario con las mejores prácticas de accesibilidad:
+
+Datos de contacto Nombre completo * Correo electrónico * Te enviaremos una confirmación a este correo Método de contacto preferidoEmailTeléfonoWhatsAppDeseo recibir novedades y ofertasEnviar formulario
+
+### Código del formulario anterior:
+
+```
+<form novalidate>
+  <fieldset>
+    <legend>Datos de contacto</legend>
+
+    <div>
+      <label for="nombre">
+        Nombre completo <span aria-label="obligatorio">*</span>
+      </label>
+      <input
+        type="text"
+        id="nombre"
+        required
+        aria-required="true"
+      />
+    </div>
+
+    <div>
+      <label for="email">
+        Correo electrónico <span aria-label="obligatorio">*</span>
+      </label>
+      <input
+        type="email"
+        id="email"
+        required
+        aria-required="true"
+        aria-describedby="ayuda-email"
+      />
+      <span id="ayuda-email">
+        Te enviaremos una confirmación
+      </span>
+    </div>
+
+    <fieldset>
+      <legend>Método de contacto preferido</legend>
+      <label>
+        <input type="radio" name="contacto" value="email" checked />
+        Email
+      </label>
+      <label>
+        <input type="radio" name="contacto" value="telefono" />
+        Teléfono
+      </label>
+    </fieldset>
+
+    <div role="alert" aria-live="assertive">
+      <!-- Errores dinámicos -->
+    </div>
+
+    <button type="submit">Enviar formulario</button>
+  </fieldset>
+</form>
+```
+
+**Consejo:** Prueba el formulario anterior navegando solo con teclado (Tab, Shift+Tab, Enter, Espacio) y con un lector de pantalla para experimentar cómo se anuncia cada elemento.

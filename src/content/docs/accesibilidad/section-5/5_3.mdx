@@ -1,0 +1,195 @@
+---
+title: Herramientas para inspección
+description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
+---
+
+## Herramientas para inspección
+
+Para desarrollar sitios web accesibles, es fundamental poder inspeccionar y validar el árbol de accesibilidad. Aquí encontrarás las mejores herramientas y cómo usarlas.
+
+### 🔧 Herramientas integradas en navegadores
+
+#### 🟢 Chrome DevTools - Panel Accessibility
+
+La herramienta más completa para inspeccionar el árbol de accesibilidad
+
+📍 Cómo acceder:
+
+1. Abre DevTools: `F12` o `Cmd+Option+I` (Mac)
+1. Ve a la pestaña **Elements**
+1. En el panel lateral derecho, selecciona **Accessibility**
+1. Selecciona cualquier elemento en el DOM para ver su información de accesibilidad
+
+🔍 Información que muestra:
+
+| Propiedad | Descripción |
+| --- | --- |
+| **Name** | Nombre accesible del elemento (lo que anuncia el lector de pantalla) |
+| **Role** | Rol ARIA o rol implícito del elemento HTML |
+| **Keyboard-focusable** | Si el elemento puede recibir foco por teclado |
+| **Description** | Descripción adicional (aria-describedby) |
+| **Computed Properties** | Estados ARIA calculados (checked, expanded, etc.) |
+
+✨ Funcionalidades adicionales:
+
+- **Full-page accessibility tree**: Ver el árbol completo de la página
+- **Source order viewer**: Visualizar el orden de foco
+- **Contrast checker**: Verificar ratios de contraste de color
+- **Emulate vision deficiencies**: Simular daltonismo y otros problemas visuales
+
+💡 **Tip:** Usa `Cmd+Shift+P` (Mac) o `Ctrl+Shift+P` (Windows) y busca "Show Accessibility" para acceder rápidamente.
+
+#### 🦊 Firefox Developer Tools - Accessibility Inspector
+
+Herramienta especializada con vista de árbol interactiva
+
+📍 Cómo acceder:
+
+1. Abre Developer Tools: `F12` o `Cmd+Option+I` (Mac)
+1. Ve a la pestaña **Accessibility**
+1. Activa el inspector con el botón "Turn On Accessibility Features"
+1. Explora el árbol jerárquico interactivo
+
+🎯 Características únicas:
+
+- **Árbol navegable completo**: Vista jerárquica de toda la estructura de accesibilidad
+- **Simulador de pantalla**: Ver cómo ven personas con diferentes discapacidades visuales
+- **Auditoría de contraste**: Detecta automáticamente problemas de contraste
+- **Inspección de orden de teclado**: Visualiza el orden de tabulación
+- **Detección de problemas**: Marca automáticamente elementos con issues de accesibilidad
+
+💡 **Ventaja:** Firefox muestra warnings visuales directamente en el árbol cuando detecta problemas comunes.
+
+#### 🔵 Edge DevTools - Accessibility Panel
+
+Similar a Chrome con algunas características adicionales de Microsoft
+
+- **Issues tracking**: Panel de problemas de accesibilidad integrado
+- **Accessibility insights**: Integración con la extensión de Microsoft
+- **Automated testing**: Auditorías automáticas basadas en axe-core
+
+💡 Acceso: Igual que Chrome DevTools (basado en Chromium)
+
+#### 🧭 Safari Web Inspector - Accessibility
+
+Herramienta integrada en Safari (macOS/iOS)
+
+📍 Cómo acceder:
+
+1. Habilita el menú Develop: Preferences → Advanced → Show Develop menu
+1. Abre Web Inspector: `Cmd+Option+I`
+1. Ve a la pestaña **Node**
+1. En el panel lateral derecho, selecciona **Accessibility**
+
+💡 **Importante:** Safari es crucial para probar compatibilidad con VoiceOver en macOS e iOS.
+
+### 🔌 Extensiones del navegador
+
+#### ⚙️ axe DevTools (Deque)
+
+La extensión más popular para auditorías de accesibilidad automatizadas
+
+- Detecta automáticamente problemas de accesibilidad
+- Proporciona guías de corrección paso a paso
+- Soporta WCAG 2.1, 2.2, Section 508
+- Gratuita con versión Pro disponible
+
+🔗 Disponible para Chrome, Firefox y Edge
+
+#### 🌐 WAVE (WebAIM)
+
+Evaluación visual de accesibilidad directamente en la página
+
+- Overlay visual con iconos de errores y alertas
+- Muestra la estructura de encabezados
+- Identifica problemas de contraste
+- Gratuita y de código abierto
+
+🔗 Disponible para Chrome, Firefox y Edge
+
+#### 👁️ Accessibility Insights (Microsoft)
+
+Herramienta completa para testing manual y automatizado
+
+- FastPass: auditoría rápida automatizada
+- Assessment: evaluación manual guiada
+- Tab stops visualizer: muestra orden de tabulación
+- Gratuita y de código abierto
+
+🔗 Disponible para Chrome y Edge
+
+#### 🎯 Lighthouse (Google)
+
+Auditoría integral incluyendo accesibilidad
+
+- Integrada en Chrome DevTools
+- Genera reportes completos con puntuaciones
+- Incluye performance, SEO y best practices
+- Gratuita
+
+🔗 Integrada en Chrome/Edge DevTools (panel Lighthouse)
+
+### 🗣️ Lectores de pantalla con herramientas de inspección
+
+#### 🖥️ NVDA (Windows) - Speech Viewer
+
+Visualiza lo que NVDA está anunciando
+
+**Activar Speech Viewer:**
+
+`NVDA menu → Tools → Speech Viewer`
+
+Muestra en una ventana todo lo que NVDA lee en tiempo real
+
+#### 🍎 VoiceOver (macOS/iOS) - Rotor
+
+Navegación contextual por tipo de elemento
+
+**Usar el Rotor:**
+
+`VO + U` o girar dos dedos en el trackpad
+
+Navega por encabezados, enlaces, landmarks, formularios, etc.
+
+#### 🤖 TalkBack (Android) - Menú de lectura
+
+Navegación por tipo de elemento en Android
+
+**Abrir menú de lectura:**
+
+Deslizar arriba y luego derecha
+
+Permite navegar por encabezados, enlaces, controles, etc.
+
+#### 🎤 JAWS (Windows) - Virtual Viewer
+
+Visualiza el buffer virtual de JAWS
+
+**Activar Virtual Viewer:**
+
+`Insert + Spacebar` luego `V`
+
+Muestra la representación textual de la página
+
+### 📋 Comparativa de herramientas
+
+ Cuándo usar cada herramienta | Herramienta | Mejor para | Tipo | Plataforma |
+| --- | --- | --- | --- |
+| Chrome DevTools | Inspección detallada del árbol | Integrada | Chrome, Edge |
+| Firefox Inspector | Vista jerárquica completa | Integrada | Firefox |
+| axe DevTools | Auditorías automatizadas | Extensión | Multi-navegador |
+| WAVE | Evaluación visual rápida | Extensión | Multi-navegador |
+| Lighthouse | Auditoría completa + métricas | Integrada | Chrome, Edge |
+| NVDA Speech Viewer | Testing real con lector | Lector de pantalla | Windows |
+| VoiceOver Rotor | Testing en ecosistema Apple | Lector de pantalla | macOS, iOS |
+
+### 🎯 Workflow recomendado de inspección
+
+1. **Durante el desarrollo:** Chrome/Firefox DevTools para inspección del árbol
+1. **Auditoría automática:** axe DevTools o Lighthouse
+1. **Revisión visual:** WAVE para identificar problemas rápidamente
+1. **Testing con teclado:** Navega con Tab y verifica el orden
+1. **Testing con lector de pantalla:** NVDA (Windows) o VoiceOver (Mac)
+1. **Validación final:** Testing en múltiples navegadores y dispositivos
+
+**💡 Consejo profesional:** Ninguna herramienta automatizada detecta el 100% de los problemas. Las auditorías automáticas cubren aproximadamente 30-50% de los problemas de accesibilidad. El testing manual con lectores de pantalla y teclado es imprescindible para una validación completa.

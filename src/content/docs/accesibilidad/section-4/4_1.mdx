@@ -1,0 +1,135 @@
+---
+title: Qué es ARIA y cuándo usarlo
+description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
+---
+
+## Qué es ARIA y cuándo usarlo
+
+**ARIA (Accessible Rich Internet Applications)** es una especificación del W3C que proporciona atributos adicionales para mejorar la accesibilidad de contenido dinámico y componentes de interfaz avanzados que HTML no puede describir de forma nativa.
+
+### ¿Para qué sirve ARIA?
+
+ARIA permite que las tecnologías asistivas entiendan:
+
+- **Roles:** Qué es el elemento (botón, menú, diálogo, etc.)
+- **Estados:** Cómo está el elemento (expandido, seleccionado, deshabilitado)
+- **Propiedades:** Características del elemento (etiqueta, descripción, valor)
+- **Relaciones:** Cómo se conecta con otros elementos
+- **Cambios dinámicos:** Actualizaciones en tiempo real del contenido
+
+### Las 5 reglas de ARIA (según W3C)
+
+1. **Si puedes usar un elemento HTML nativo, úsalo**
+No uses `<div role="button">` cuando existe `<button>`
+1. **No cambies la semántica nativa**
+No hagas `<h1 role="button">` - es confuso y problemático
+1. **Todos los controles interactivos deben ser operables con teclado**
+ARIA solo describe, no añade funcionalidad de teclado
+1. **No uses `role="presentation"` o `aria-hidden="true"` en elementos enfocables**
+Crea confusión cuando el usuario puede enfocar pero no "ver" el elemento
+1. **Todos los elementos interactivos deben tener un nombre accesible**
+Usa `aria-label`, `aria-labelledby`, o contenido de texto visible
+
+### ¿Cuándo SÍ usar ARIA?
+
+#### ✅ Casos apropiados:
+
+- **Widgets personalizados sin equivalente HTML:** Tabs, acordeones, tree views, sliders complejos
+- **Regiones dinámicas:** Notificaciones, alertas, contenido que se actualiza automáticamente
+- **Estados no representables en HTML:** Expandido/colapsado, seleccionado, presionado
+- **Etiquetas adicionales:** Cuando el texto visible no es suficientemente descriptivo
+- **Relaciones complejas:** Asociar elementos que no están directamente conectados en el DOM
+
+### ¿Cuándo NO usar ARIA?
+
+#### ❌ Casos inapropiados:
+
+- **Existe un elemento HTML nativo:** Usa `<button>` en lugar de `<div role="button">`
+- **Solo para validación W3C:** ARIA no "arregla" HTML inválido
+- **Como sustituto de semántica correcta:** No uses ARIA para compensar HTML mal estructurado
+- **En exceso "por si acaso":** ARIA innecesario puede crear más confusión
+- **Sin probar con tecnologías asistivas:** Verifica que realmente mejora la experiencia
+
+### Ejemplos comparativos
+
+#### Ejemplo 1: Botón
+
+| ❌ Incorrecto (ARIA innecesario) | ✅ Correcto (HTML nativo) |
+| --- | --- |
+| ``` <div role="button" tabindex="0" onclick="submit()" onkeydown="handleKey()" > Enviar </div> ``` | ``` <button onclick="submit()"> Enviar </button> ``` Mucho más simple y accesible por defecto |
+
+#### Ejemplo 2: Acordeón (uso apropiado de ARIA)
+
+```
+<!-- Aquí ARIA es necesario porque no hay elemento nativo -->
+<div class="accordion">
+  <button
+    aria-expanded="false"
+    aria-controls="panel1"
+    id="accordion1"
+  >
+    ¿Qué es la accesibilidad web?
+  </button>
+
+  <div
+    id="panel1"
+    role="region"
+    aria-labelledby="accordion1"
+    hidden
+  >
+    <p>Contenido del panel...</p>
+  </div>
+</div>
+```
+
+#### Ejemplo 3: Alerta dinámica (uso apropiado de ARIA)
+
+```
+<!-- Las alertas dinámicas necesitan ARIA para anunciarse -->
+<div
+  role="alert"
+  aria-live="assertive"
+  id="notification"
+>
+  <!-- El contenido insertado aquí se anuncia inmediatamente -->
+</div>
+
+<script>
+document.getElementById('notification').textContent =
+  'Cambios guardados correctamente';
+</script>
+```
+
+### Ejemplo visual interactivo
+
+Compara estos dos botones personalizados:
+
+❌ Div con ARIA (más código, más errores posibles):
+
+Botón personalizado
+
+```
+<div role="button" tabindex="0" onclick="..." onkeydown="...">
+  Botón personalizado
+</div>
+<!-- + JavaScript para manejar Enter y Espacio -->
+```
+
+✅ Button nativo (simple y accesible):
+
+Botón nativo
+
+```
+<button>Botón nativo</button>
+<!-- Teclado, foco y accesibilidad incluidos -->
+```
+
+### Categorías principales de ARIA
+
+- **Roles:**`role="button"`, `role="dialog"`, `role="navigation"`
+- **Estados:**`aria-expanded`, `aria-checked`, `aria-pressed`
+- **Propiedades:**`aria-label`, `aria-describedby`, `aria-required`
+- **Live regions:**`aria-live`, `aria-atomic`, `aria-relevant`
+- **Relaciones:**`aria-controls`, `aria-owns`, `aria-labelledby`
+
+**Principio fundamental:** ARIA es un complemento, no un reemplazo. HTML semántico primero, ARIA solo cuando sea necesario. "No ARIA es mejor que ARIA mal implementado".

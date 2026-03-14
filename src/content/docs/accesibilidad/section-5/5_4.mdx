@@ -1,0 +1,252 @@
+---
+title: Problemas comunes
+description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
+---
+
+## Problemas comunes
+
+Al trabajar con el árbol de accesibilidad, es frecuente encontrar ciertos errores que afectan la experiencia de usuarios con tecnologías asistivas. Aquí están los problemas más habituales y cómo solucionarlos.
+
+### ❌ Problema 1: Elementos sin nombre accesible
+
+El lector de pantalla no puede anunciar de qué se trata el elemento
+
+#### Ejemplo incorrecto:
+
+```
+❌ PROBLEMA
+<button><img src="icon-close.png"></button>
+<input type="text">
+<div role="button" tabindex="0" onclick="save()"><i class="icon"></i></div>
+
+Árbol de accesibilidad:
+→ button "" (nombre vacío)
+→ textbox "" (sin etiqueta)
+→ button "" (sin texto)
+```
+
+#### ✅ Solución:
+
+```
+<button aria-label="Cerrar">
+  <img src="icon-close.png" alt="">
+</button>
+
+<label for="username">Nombre de usuario</label>
+<input type="text" id="username">
+
+<div role="button" tabindex="0" onclick="save()">
+  <i class="icon" aria-hidden="true"></i>
+  Guardar
+</div>
+```
+
+### ❌ Problema 2: Roles que contradicen la semántica HTML
+
+Cambiar el rol de elementos nativos confunde a las tecnologías asistivas
+
+#### Ejemplo incorrecto:
+
+```
+❌ PROBLEMA
+<h2 role="button">Haz clic aquí</h2>
+<button role="heading" aria-level="1">Título principal</button>
+<ul role="navigation">...</ul>
+
+Árbol de accesibilidad:
+→ button "Haz clic aquí" (pierde estructura de encabezado)
+→ heading "Título principal" (no es interactivo como button)
+→ navigation (ul pierde semántica de lista)
+```
+
+#### ✅ Solución:
+
+```
+<button>Haz clic aquí</button>
+<h1>Título principal</h1>
+<nav>
+  <ul>...</ul>
+</nav>
+```
+
+💡 **Regla:** Nunca uses `role` para contradecir la semántica nativa de un elemento HTML.
+
+### ❌ Problema 3: Desincronización entre visual y árbol de accesibilidad
+
+El contenido oculto visualmente aparece en el árbol, o viceversa
+
+#### Ejemplo incorrecto:
+
+```
+❌ PROBLEMA 1: Visible pero oculto en el árbol
+<div aria-hidden="true">
+  <button>Comprar ahora</button>
+</div>
+→ El botón es visible y enfocable, pero invisible para lectores
+
+❌ PROBLEMA 2: Oculto visualmente pero presente en el árbol
+<div style="opacity: 0; position: absolute;">
+  Contenido que debería estar oculto
+</div>
+→ No es visible pero el lector lo anuncia
+```
+
+#### ✅ Solución:
+
+```
+<!-- Para ocultar completamente (visual Y árbol) -->
+<div hidden>
+  <button>Comprar ahora</button>
+</div>
+
+<!-- O con CSS -->
+<div style="display: none;">
+  Contenido oculto
+</div>
+
+<!-- Para ocultar solo visualmente (accesible para lectores) -->
+<span class="sr-only">Contenido solo para lectores</span>
+
+<style>
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+</style>
+```
+
+### ❌ Problema 4: Elementos interactivos no enfocables
+
+El elemento tiene rol interactivo pero no puede recibir foco por teclado
+
+#### Ejemplo incorrecto:
+
+```
+❌ PROBLEMA
+<div role="button" onclick="doSomething()">Clic</div>
+<span role="link" onclick="navigate()">Ir a página</span>
+
+Árbol de accesibilidad:
+→ button "Clic" (pero no es enfocable con Tab)
+→ link "Ir a página" (no navegable por teclado)
+```
+
+#### ✅ Solución:
+
+```
+<div
+  role="button"
+  tabindex="0"
+  onclick="doSomething()"
+  onkeydown="if(event.key==='Enter'||event.key===' ')doSomething()"
+>
+  Clic
+</div>
+
+<!-- Mejor aún: usa elementos nativos -->
+<button onclick="doSomething()">Clic</button>
+<a href="/page">Ir a página</a>
+```
+
+### ❌ Problema 5: Estados ARIA no actualizados dinámicamente
+
+El atributo ARIA no refleja el estado visual actual
+
+#### Ejemplo incorrecto:
+
+```
+❌ PROBLEMA
+<button aria-expanded="false" onclick="toggleMenu()">
+  Menú
+</button>
+<ul id="menu" style="display: block;">...</ul>
+
+<!-- El menú está visible pero aria-expanded dice "false" -->
+
+<script>
+function toggleMenu() {
+  const menu = document.getElementById('menu');
+  menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+  // ❌ No actualiza aria-expanded
+}
+</script>
+```
+
+#### ✅ Solución:
+
+```
+<button
+  id="menu-btn"
+  aria-expanded="false"
+  aria-controls="menu"
+  onclick="toggleMenu()"
+>
+  Menú
+</button>
+<ul id="menu" hidden>...</ul>
+
+<script>
+function toggleMenu() {
+  const button = document.getElementById('menu-btn');
+  const menu = document.getElementById('menu');
+  const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+  // Actualiza ARIA y visual simultáneamente
+  button.setAttribute('aria-expanded', !isExpanded);
+  menu.hidden = isExpanded;
+}
+</script>
+```
+
+### ❌ Problema 6: Contenido generado por CSS sin alternativa
+
+Iconos o texto generado con ::before/::after que aporta significado
+
+#### Ejemplo incorrecto:
+
+```
+❌ PROBLEMA
+<style>
+.error::before {
+  content: "⚠️ Error: ";
+}
+</style>
+
+<p class="error">Usuario no encontrado</p>
+
+→ Visual: "⚠️ Error: Usuario no encontrado"
+→ Lector: "Advertencia Error: Usuario no encontrado" (emoji se lee como palabra)
+```
+
+#### ✅ Solución:
+
+```
+<!-- Opción 1: Usar aria-label -->
+<p class="error" role="alert" aria-label="Error: Usuario no encontrado">
+  Usuario no encontrado
+</p>
+
+<!-- Opción 2: Incluir el texto en HTML -->
+<p class="error" role="alert">
+  <span aria-hidden="true">⚠️</span>
+  <span class="sr-only">Error:</span>
+  Usuario no encontrado
+</p>
+```
+
+### Checklist de validación del árbol
+
+- ☑️ ¿Todos los elementos interactivos tienen nombre accesible?
+- ☑️ ¿Los roles ARIA coinciden con la función del elemento?
+- ☑️ ¿Los elementos ocultos visualmente también lo están en el árbol?
+- ☑️ ¿Los elementos con role interactivo son enfocables por teclado?
+- ☑️ ¿Los estados ARIA se actualizan cuando cambia el estado visual?
+- ☑️ ¿El contenido decorativo está correctamente excluido del árbol?
+
+**💡 Herramienta clave:** Usa el panel Accessibility de Chrome DevTools para verificar cómo se expone cada elemento en el árbol. Si algo no aparece como esperas, revisa estos problemas comunes.

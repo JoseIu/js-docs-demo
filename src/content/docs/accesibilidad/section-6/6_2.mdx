@@ -1,0 +1,226 @@
+---
+title: Menús y menús desplegables
+description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
+---
+
+## Menús y menús desplegables
+
+Los menús desplegables son uno de los componentes más comunes en aplicaciones web. Sin embargo, existe una confusión importante sobre cuándo usar `role="menu"` vs navegación estándar.
+
+### ⚠️ Diferencia crítica: Menu vs Navegación
+
+#### 🍔 role="menu" (Menu de aplicación)
+
+Para acciones dentro de una aplicación
+
+**Ejemplos:**
+
+- Menú contextual (clic derecho)
+- Menú de opciones de un editor
+- Menú de acciones en una fila de tabla
+- Menu File/Edit/View de aplicaciones
+
+#### 🧭 Navegación estándar
+
+Para navegar entre páginas del sitio
+
+**Ejemplos:**
+
+- Menú de navegación del sitio
+- Submenús con enlaces a páginas
+- Breadcrumbs
+- Menú hamburguesa con links
+
+**⚠️ Error común:** Usar `role="menu"` para la navegación de un sitio web es incorrecto. Los menús de aplicación requieren navegación con flechas y comportamiento específico que los usuarios no esperan en navegación web.
+
+### Patrón 1: Menú de aplicación (role="menu")
+
+#### Estructura HTML/ARIA
+
+```
+<button
+  aria-haspopup="true"
+  aria-expanded="false"
+  id="menu-button"
+>
+  Acciones
+</button>
+
+<ul
+  role="menu"
+  aria-labelledby="menu-button"
+  hidden
+  id="menu-list"
+>
+  <li role="menuitem" tabindex="-1">Editar</li>
+  <li role="menuitem" tabindex="-1">Duplicar</li>
+  <li role="separator"></li>
+  <li role="menuitem" tabindex="-1">Eliminar</li>
+</ul>
+```
+
+#### ⌨️ Comportamiento de teclado requerido
+
+| Tecla | Acción |
+| --- | --- |
+| `Enter` / `Space` | Abre el menú (en el botón) |
+| `↓` | Abre el menú y foco en primer item, o navega al siguiente |
+| `↑` | Navega al item anterior |
+| `Home` | Primer item del menú |
+| `End` | Último item del menú |
+| `Esc` | Cierra el menú y devuelve foco al botón |
+| `Enter` (en item) | Activa el item y cierra el menú |
+| `Tab` | Cierra el menú y mueve foco fuera |
+
+#### 📝 JavaScript necesario
+
+```
+const button = document.getElementById('menu-button');
+const menu = document.getElementById('menu-list');
+const items = menu.querySelectorAll('[role="menuitem"]');
+let currentIndex = -1;
+
+button.addEventListener('click', () => {
+  const isOpen = button.getAttribute('aria-expanded') === 'true';
+  button.setAttribute('aria-expanded', !isOpen);
+  menu.hidden = isOpen;
+  if (!isOpen) {
+    items[0].focus();
+    currentIndex = 0;
+  }
+});
+
+menu.addEventListener('keydown', (e) => {
+  switch(e.key) {
+    case 'ArrowDown':
+      e.preventDefault();
+      currentIndex = (currentIndex + 1) % items.length;
+      items[currentIndex].focus();
+      break;
+    case 'ArrowUp':
+      e.preventDefault();
+      currentIndex = currentIndex <= 0 ? items.length - 1 : currentIndex - 1;
+      items[currentIndex].focus();
+      break;
+    case 'Escape':
+      menu.hidden = true;
+      button.setAttribute('aria-expanded', 'false');
+      button.focus();
+      break;
+    case 'Enter':
+      // Ejecutar acción del item
+      menu.hidden = true;
+      button.setAttribute('aria-expanded', 'false');
+      break;
+  }
+});
+
+// Cerrar al hacer clic fuera
+document.addEventListener('click', (e) => {
+  if (!menu.contains(e.target) && e.target !== button) {
+    menu.hidden = true;
+    button.setAttribute('aria-expanded', 'false');
+  }
+});
+```
+
+### Patrón 2: Navegación desplegable (sin role="menu")
+
+#### Estructura HTML/ARIA
+
+```
+<nav aria-label="Principal">
+  <ul>
+    <li>
+      <a href="/">Inicio</a>
+    </li>
+    <li>
+      <button
+        aria-expanded="false"
+        aria-controls="submenu-productos"
+      >
+        Productos
+      </button>
+      <ul id="submenu-productos" hidden>
+        <li><a href="/productos/categoria1">Categoría 1</a></li>
+        <li><a href="/productos/categoria2">Categoría 2</a></li>
+        <li><a href="/productos/categoria3">Categoría 3</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="/contacto">Contacto</a>
+    </li>
+  </ul>
+</nav>
+```
+
+#### ⌨️ Comportamiento de teclado
+
+| Tecla | Acción |
+| --- | --- |
+| `Tab` | Navega entre links y botones |
+| `Enter` / `Space` | Abre/cierra submenú (en botón) o navega (en link) |
+| `Esc` | Cierra el submenú abierto (opcional pero recomendado) |
+
+**✨ Ventaja:** Navegación estándar con Tab. Los usuarios pueden navegar naturalmente sin aprender teclas especiales.
+
+#### 📝 JavaScript mínimo
+
+```
+document.querySelectorAll('[aria-expanded]').forEach(button => {
+  button.addEventListener('click', () => {
+    const isExpanded = button.getAttribute('aria-expanded') === 'true';
+    const submenu = document.getElementById(button.getAttribute('aria-controls'));
+
+    button.setAttribute('aria-expanded', !isExpanded);
+    submenu.hidden = isExpanded;
+  });
+});
+```
+
+### Comparación visual de casos de uso
+
+ ¿Qué patrón usar? | Caso de uso | Patrón | Razón |
+| --- | --- | --- |
+| Menú de navegación del sitio | Navegación desplegable | Son enlaces a páginas |
+| Menú contextual (clic derecho) | role="menu" | Acciones, no navegación |
+| Menú hamburguesa móvil | Navegación desplegable | Contiene links de navegación |
+| Botón de acciones en tabla | role="menu" | Editar/Eliminar/Duplicar |
+| Dropdown de cuenta de usuario | Depende del contenido | Links → Nav, Acciones → Menu |
+| Toolbar de editor (File/Edit) | role="menu" | Comportamiento de app |
+
+### Gestión avanzada: Submenús anidados
+
+Para menús con múltiples niveles:
+
+```
+<ul role="menu">
+  <li role="menuitem">Copiar</li>
+  <li role="menuitem">Pegar</li>
+  <li
+    role="menuitem"
+    aria-haspopup="true"
+    aria-expanded="false"
+  >
+    Más opciones
+    <ul role="menu">
+      <li role="menuitem">Opción 1</li>
+      <li role="menuitem">Opción 2</li>
+    </ul>
+  </li>
+</ul>
+```
+
+**⚠️ Complejidad:** Los submenús anidados requieren gestión adicional de foco y navegación con flechas → y ←. Considera usar librerías como Radix UI o Reach UI para casos complejos.
+
+### Checklist de implementación
+
+- ☑️ ¿He elegido el patrón correcto? (menu vs navegación)
+- ☑️ ¿El botón tiene `aria-haspopup` y `aria-expanded`?
+- ☑️ ¿Los estados ARIA se actualizan al abrir/cerrar?
+- ☑️ ¿La navegación por teclado funciona correctamente?
+- ☑️ ¿El foco se gestiona apropiadamente al abrir/cerrar?
+- ☑️ ¿El menú se cierra con Esc y clic fuera?
+- ☑️ ¿He probado con un lector de pantalla?
+
+**💡 Regla práctica:** Si tu "menú" contiene enlaces (&lt;a href&gt;), probablemente NO deberías usar `role="menu"`. Usa navegación estándar con `<nav>` y listas.

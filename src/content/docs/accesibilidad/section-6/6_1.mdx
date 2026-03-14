@@ -1,0 +1,147 @@
+---
+title: Qué son los patrones ARIA
+description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
+---
+
+## Qué son los patrones ARIA
+
+Los **patrones ARIA (ARIA Authoring Practices Guide - APG)** son guías estandarizadas que describen cómo implementar widgets y componentes interactivos complejos de forma accesible.
+
+### ¿Por qué existen los patrones?
+
+Cuando creas componentes personalizados (acordeones, modales, tabs, combobox), no hay una única forma "correcta" de hacerlo. Los patrones ARIA proporcionan:
+
+- **Roles ARIA consistentes**: qué atributos usar
+- **Estados y propiedades**: cómo indicar el estado actual
+- **Comportamiento de teclado esperado**: qué teclas deben funcionar
+- **Gestión del foco**: dónde debe ir el foco y cuándo
+
+### Documentación oficial
+
+**📚 ARIA Authoring Practices Guide (APG)**
+
+Guía oficial del W3C con patrones de diseño para componentes accesibles
+
+🔗 [https://www.w3.org/WAI/ARIA/apg/](https://www.w3.org/WAI/ARIA/apg/)
+
+### Ejemplo: Patrón de Tabs (Pestañas)
+
+Sin seguir un patrón, cada desarrollador podría implementar pestañas de forma diferente. El patrón APG define exactamente cómo deben funcionar:
+
+#### 🏗️ Estructura HTML/ARIA
+
+```
+<div role="tablist">
+  <button
+    role="tab"
+    aria-selected="true"
+    aria-controls="panel1"
+    id="tab1"
+  >
+    Tab 1
+  </button>
+  <button
+    role="tab"
+    aria-selected="false"
+    aria-controls="panel2"
+    id="tab2"
+    tabindex="-1"
+  >
+    Tab 2
+  </button>
+</div>
+
+<div
+  role="tabpanel"
+  id="panel1"
+  aria-labelledby="tab1"
+>
+  Contenido del Tab 1
+</div>
+
+<div
+  role="tabpanel"
+  id="panel2"
+  aria-labelledby="tab2"
+  hidden
+>
+  Contenido del Tab 2
+</div>
+```
+
+#### ⌨️ Comportamiento de teclado
+
+| Tecla | Acción |
+| --- | --- |
+| `Tab` | Entra/sale del tablist |
+| `→``←` | Navega entre tabs |
+| `Home` | Primer tab |
+| `End` | Último tab |
+
+🎯 Gestión de foco:
+
+- Solo el tab activo tiene `tabindex="0"`
+- Tabs inactivos tienen `tabindex="-1"`
+- Al activar un tab, el foco permanece en él
+
+### Componentes más comunes con patrones APG
+
+| Componente | Roles principales | Teclado clave |
+| --- | --- | --- |
+| **Accordion** | button + region | Enter, Space |
+| **Tabs** | tablist, tab, tabpanel | ← → Home End |
+| **Modal Dialog** | dialog, alertdialog | Esc, Tab (trap) |
+| **Combobox** | combobox, listbox, option | ↓ ↑ Enter Esc |
+| **Menu Button** | button, menu, menuitem | ↓ ↑ Esc |
+| **Disclosure** | button + aria-expanded | Enter, Space |
+| **Carousel** | group, button | Tab, flechas |
+| **Breadcrumb** | navigation, list, link | Tab |
+
+### ¿Cuándo seguir un patrón ARIA?
+
+#### ✅ SÍ usar patrones cuando:
+
+- Creas componentes interactivos complejos
+- No hay un elemento HTML nativo
+- Necesitas funcionalidad personalizada
+- Trabajas con frameworks (React, Vue, Angular)
+
+#### ❌ NO necesitas patrones si:
+
+- Puedes usar HTML nativo (`<details>`, `<select>`)
+- El componente es simple y estático
+- Ya usas una librería accesible (Radix, Reach UI)
+
+### Ejemplo práctico: Botón de revelación (Disclosure)
+
+Implementación siguiendo el patrón APG:
+
+```
+<button
+  aria-expanded="false"
+  aria-controls="content-1"
+  id="toggle-1"
+>
+  Mostrar más información
+</button>
+
+<div id="content-1" hidden>
+  <p>Contenido adicional que se muestra/oculta</p>
+</div>
+
+<script>
+document.getElementById('toggle-1').addEventListener('click', function() {
+  const content = document.getElementById('content-1');
+  const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+  this.setAttribute('aria-expanded', !isExpanded);
+  content.hidden = isExpanded;
+});
+
+// Patrón: Espacio y Enter funcionan automáticamente con <button>
+</script>
+```
+
+**✨ Beneficio:** Los usuarios con lectores de pantalla escucharán "Mostrar más información, botón, colapsado" y sabrán exactamente qué hace y su estado actual.
+
+**💡 Regla de oro:** No necesitas memorizar todos los patrones. Consulta la APG cuando implementes un componente complejo. Seguir estos patrones garantiza que tu interfaz funcione consistentemente con tecnologías asistivas.

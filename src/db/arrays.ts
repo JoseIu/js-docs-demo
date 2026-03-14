@@ -1,4 +1,4 @@
-import type { Quiz } from "@components/types/Quiz";
+import type { Quiz } from "src/types/Quiz";
 
 export const Arrays: Quiz[] = [
   {

@@ -1,0 +1,209 @@
+---
+title: Relación entre DOM y árbol
+description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
+---
+
+## Relación entre DOM y árbol
+
+El árbol de accesibilidad se genera a partir del DOM, pero **no es una copia exacta**. Es una versión filtrada y enriquecida que solo incluye información relevante para las tecnologías asistivas.
+
+### Principio fundamental
+
+**"No todos los nodos del DOM aparecen en el árbol de accesibilidad"**
+ El navegador aplica reglas para decidir qué incluir y qué excluir según la semántica, ARIA y estilos CSS.
+
+### Del DOM al árbol: proceso de transformación
+
+#### 📄 DOM (HTML completo)
+
+```
+<div class="container">
+  <span class="icon">🏠</span>
+  <button>Inicio</button>
+  <div style="display:none">
+    Oculto
+  </div>
+</div>
+```
+
+→
+
+#### 🌳 Árbol de Accesibilidad
+
+```
+button "Inicio"
+  └─ pressed: false
+  └─ focusable: true
+```
+
+ ❌ div.container → sin rol semántico
+ ❌ span.icon → decorativo
+ ❌ div oculto → display:none
+
+### Factores que influyen en la exposición
+
+#### 1. Semántica HTML
+
+Los elementos semánticos se incluyen automáticamente
+
+| HTML | Aparece en árbol | Rol expuesto |
+| --- | --- | --- |
+| `<button>` | ✅ Sí | button |
+| `<nav>` | ✅ Sí | navigation |
+| `<h1>` | ✅ Sí | heading level 1 |
+| `<div>` | ❌ No | — |
+| `<span>` | ❌ No | — |
+
+#### 2. Atributos ARIA
+
+ARIA puede añadir, modificar u ocultar nodos
+
+```
+<!-- Añade al árbol un div sin semántica -->
+<div role="button" tabindex="0">Clic</div>
+→ Aparece como: button "Clic"
+
+<!-- Oculta un elemento del árbol -->
+<span aria-hidden="true">Decorativo</span>
+→ No aparece en el árbol
+
+<!-- Cambia el nombre accesible -->
+<button aria-label="Cerrar ventana">×</button>
+→ Aparece como: button "Cerrar ventana"
+```
+
+#### 3. Estilos CSS
+
+Ciertos estilos excluyen elementos del árbol
+
+| CSS | Aparece en árbol | Razón |
+| --- | --- | --- |
+| `display: none` | ❌ No | Oculto completamente |
+| `visibility: hidden` | ❌ No | No visible |
+| `opacity: 0` | ✅ Sí | Transparente pero presente |
+| `position: absolute; left: -9999px` | ✅ Sí | Fuera de pantalla pero presente |
+
+#### 4. Atributo `hidden`
+
+El atributo HTML hidden excluye del árbol
+
+```
+<div hidden>Contenido oculto</div>
+→ No aparece en el árbol de accesibilidad
+```
+
+### Ejemplo visual completo: transformación paso a paso
+
+#### HTML Original
+
+```
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Título descriptivo de la página</title>
+</head>
+<body>
+  <header>
+    <nav aria-label="Navegación principal">
+      <!-- menú -->
+    </nav>
+  </header>
+
+  <main>
+    <h1>Título principal</h1>
+    <!-- contenido principal -->
+  </main>
+
+  <aside>
+    <!-- contenido complementario -->
+  </aside>
+
+  <footer>
+    <!-- información del sitio -->
+  </footer>
+</body>
+</html>
+```
+
+#### Árbol de accesibilidad resultante
+
+```
+banner
+├─ navigation "Navegación principal"
+
+main
+├─ heading level 1 "Título principal"
+
+complementary
+└─ group "Contenido complementario"
+
+contentinfo
+└─ group "Información del sitio"
+```
+
+Elementos excluidos:
+
+- ❌ `<body>` → No aporta información
+- ❌ `<div>` sin rol → Estructura visual únicamente
+- ❌ Comentarios HTML → No visibles para el usuario
+
+### Jerarquía y anidamiento
+
+Mantener una estructura HTML lógica asegura que el árbol de accesibilidad sea coherente:
+
+#### DOM con elementos anidados
+
+```
+<div>
+  <header>
+    <h1>Mi sitio</h1>
+  </header>
+  <main>
+    <article>
+      <h2>Artículo 1</h2>
+      <p>Contenido...</p>
+    </article>
+  </main>
+</div>
+```
+
+#### Árbol de accesibilidad
+
+```
+banner
+└─ heading level 1 "Mi sitio"
+
+main
+└─ article
+   └─ heading level 2 "Artículo 1"
+```
+
+### Caso especial: Contenido generado por CSS
+
+**⚠️ Importante:** El contenido generado con `::before` y `::after` NO está en el DOM, pero SÍ puede aparecer en el árbol de accesibilidad:
+
+```
+.required::after {
+  content: " *";
+  color: red;
+}
+
+<label class="required">Nombre</label>
+→ El lector dirá: "Nombre asterisco"
+```
+
+💡 Para excluirlo: `aria-hidden="true"` en el pseudo-elemento no funciona. Usa `content: "";` y añade el asterisco en el HTML.
+
+### Reglas clave de transformación
+
+- ✅ Elementos semánticos HTML siempre se incluyen
+- ✅ ARIA puede añadir rol a elementos sin semántica (`<div>`, `<span>`)
+- ❌ `aria-hidden="true"` excluye del árbol (y todos sus hijos)
+- ❌ `display: none` y `visibility: hidden` excluyen del árbol
+- ✅ `opacity: 0` y posicionamiento fuera de pantalla SÍ se incluyen
+- ✅ La jerarquía se mantiene, pero se colapsan elementos sin rol
+- ⚠️ Los nombres accesibles pueden venir del DOM o ARIA (aria-label, aria-labelledby)
+
+**💡 Regla práctica:** Si un elemento no tiene significado semántico (div, span vacíos), no tiene rol ARIA, o está oculto visualmente con CSS específico, no aparecerá en el árbol de accesibilidad.

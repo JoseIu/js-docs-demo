@@ -1,0 +1,146 @@
+---
+title: NVDA (Windows)
+description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
+---
+
+## NVDA (Windows)
+
+**NVDA (NonVisual Desktop Access)** es el lector de pantalla gratuito y de código abierto más popular para Windows. Es la mejor opción para desarrolladores que quieren probar la accesibilidad de sus sitios web.
+
+### ¿Por qué usar NVDA para desarrollo?
+
+#### ✅ Ventajas
+
+- **100% Gratuito**
+- Open source
+- Actualizado frecuentemente
+- Compatible con navegadores modernos
+- Comunidad activa
+- Portátil (puede ejecutarse desde USB)
+- Speech Viewer para ver el texto hablado
+
+#### 📊 Cuota de mercado
+
+Según WebAIM Screen Reader Survey:
+
+- JAWS: ~40-50%
+- NVDA: ~30-40%
+- VoiceOver: ~10%
+- Otros: ~10%
+
+NVDA es el segundo más usado y gratis, ideal para testing.
+
+### Instalación
+
+1. Descarga desde [nvaccess.org](https://www.nvaccess.org/download/)
+1. Ejecuta el instalador (o versión portable)
+1. Durante la instalación, se abrirá automáticamente y empezará a hablar
+1. Completa el asistente de configuración inicial
+1. NVDA se iniciará automáticamente con Windows (puedes desactivarlo)
+
+### ⌨️ Tecla modificadora: NVDA
+
+La mayoría de comandos usan la tecla modificadora **NVDA**, que por defecto es:
+
+**Insert**
+
+(En teclados de escritorio)
+
+**Bloq Mayús**
+
+(Alternativa en portátiles)
+
+En esta guía, `NVDA` se referirá a cualquiera de estas dos teclas.
+
+### Comandos esenciales
+
+ Control básico | Comando | Acción |
+| --- | --- |
+| `NVDA + Q` | Salir de NVDA |
+| `NVDA + S` | Alternar modo voz (silenciar temporalmente) |
+| `NVDA + N` | Abrir menú de NVDA |
+| `NVDA + Ctrl + C` | Guardar configuración |
+| `NVDA + Espacio` | Alternar entre modo lectura y modo formularios |
+
+ Lectura de contenido | Comando | Acción |
+| --- | --- |
+| `NVDA + ↓` | Iniciar/continuar lectura continua |
+| `Ctrl` | Detener lectura |
+| `↓` / `↑` | Leer línea siguiente/anterior |
+| `Ctrl + →` / `←` | Leer palabra siguiente/anterior |
+| `NVDA + T` | Leer título de la ventana |
+
+ Navegación web (modo lectura) | Comando | Acción |
+| --- | --- |
+| `H` / `Shift + H` | Siguiente/Anterior encabezado |
+| `1` a `6` | Siguiente encabezado de nivel específico |
+| `K` / `Shift + K` | Siguiente/Anterior enlace |
+| `B` / `Shift + B` | Siguiente/Anterior botón |
+| `F` / `Shift + F` | Siguiente/Anterior campo de formulario |
+| `T` / `Shift + T` | Siguiente/Anterior tabla |
+| `D` / `Shift + D` | Siguiente/Anterior landmark (región ARIA) |
+| `L` / `Shift + L` | Siguiente/Anterior lista |
+| `I` / `Shift + I` | Siguiente/Anterior elemento de lista |
+| `G` / `Shift + G` | Siguiente/Anterior gráfico (imagen) |
+
+ Herramientas útiles | Comando | Acción |
+| --- | --- |
+| `NVDA + F7` | Lista de elementos (enlaces, encabezados, landmarks, etc.) |
+| `NVDA + Ctrl + F` | Buscar texto en la página |
+| `NVDA + Tab` | Leer elemento con foco actual |
+| `NVDA + F` | Anunciar formato del texto (negrita, cursiva, etc.) |
+
+### 🔧 Herramienta clave: Speech Viewer
+
+**Speech Viewer** muestra en una ventana el texto que NVDA está diciendo, perfecto para desarrollo.
+
+Activar Speech Viewer:
+
+1. Presiona `NVDA + N` (abre menú de NVDA)
+1. Navega a **Tools → Speech Viewer**
+1. O presiona `NVDA + N`, luego `T`, luego `S`
+
+**✨ Ventaja:** Puedes ver exactamente qué está leyendo NVDA sin tener que escuchar el audio, ideal para hacer capturas de pantalla y documentación.
+
+### Configuración recomendada para desarrollo
+
+1. **Velocidad de voz rápida**: Menú NVDA → Preferences → Speech → Aumentar velocidad (más eficiente)
+1. **Activar Speech Viewer**: Para ver el texto sin escuchar
+1. **Usar Firefox o Chrome**: Mejor soporte que Edge/IE
+1. **Desactivar inicio automático**: Menú NVDA → Preferences → General → Desmarcar "Start automatically"
+1. **Aprender atajos de una tecla**: H, K, B, F para navegación rápida
+
+### Workflow de testing con NVDA
+
+1. **Inicia NVDA** (atajo de escritorio o buscar en inicio)
+1. **Abre Speech Viewer** (`NVDA + N` → Tools → Speech Viewer)
+1. **Navega a tu sitio** en el navegador
+1. **Presiona `H`** varias veces para navegar por encabezados
+
+  - ¿Los encabezados tienen sentido?
+  - ¿Están en orden lógico?
+
+1. **Presiona `NVDA + F7`** para ver lista de elementos
+
+  - ¿Los enlaces tienen nombres descriptivos?
+  - ¿Los landmarks aparecen correctamente?
+
+1. **Navega a un formulario** y presiona `Tab`
+
+  - ¿Cada campo tiene una etiqueta clara?
+  - ¿Se anuncian los errores?
+
+1. **Presiona `NVDA + Q`** para salir
+
+### Problemas comunes detectados con NVDA
+
+| Problema | Lo que escucharás |
+| --- | --- |
+| Botón sin texto | "Botón sin etiqueta" o solo "Botón" |
+| Imagen sin alt | Nombre del archivo o URL de la imagen |
+| Input sin label | "Edición" sin contexto |
+| Enlace genérico | "Clic aquí, enlace" (sin contexto) |
+| Encabezados mal estructurados | Saltos ilógicos (h1 → h4 → h2) |
+| Contenido oculto incorrectamente | Texto que no debería leerse pero se lee |
+
+**💡 Consejo:** Dedica 15-30 minutos semanales a probar tu sitio con NVDA. Con la práctica, aprenderás a detectar problemas rápidamente y entenderás mejor la experiencia de tus usuarios con discapacidad visual.

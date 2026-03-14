@@ -1,0 +1,86 @@
+---
+type Props = {
+  href: string;
+  title: string;
+  description: string;
+};
+
+const { href, title, description } = Astro.props;
+---
+
+<a href={href} class="card-link">
+  <div class="card-icon" aria-hidden="true">
+    <slot />
+  </div>
+  <div class="card-content">
+    <h3 class="card-title">{title}</h3>
+    <p class="card-description">
+      {description}
+    </p>
+  </div>
+</a>
+
+<style>
+  .card-link {
+    display: flex;
+    gap: 1rem;
+    align-items: start;
+    padding: 2.5rem;
+    border-radius: 0.4rem;
+    border: 1px solid var(--border-card);
+    background: var(--bg-card);
+    text-decoration: none;
+    color: inherit;
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.15s ease,
+      border-color 0.15s ease,
+      background-color 0.15s ease;
+  }
+
+  .card-link:hover,
+  .card-link:focus-visible {
+    transform: translateY(-2px);
+    border-color: var(--border-card-hover);
+    background: var(--bg-card-hover);
+    box-shadow: 0 12px 30px var(--box-shadow-card);
+    outline: none;
+  }
+
+  .card-link:focus-visible {
+    box-shadow:
+      0 0 0 3px var(--sl-color-yellow),
+      0 12px 30px var(--box-shadow-card);
+  }
+
+  .card-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.75rem;
+    background: var(--icon-card);
+    color: var(--sl-color-yellow);
+    flex-shrink: 0;
+  }
+
+  .card-content {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.95rem;
+    color: inherit;
+  }
+</style>

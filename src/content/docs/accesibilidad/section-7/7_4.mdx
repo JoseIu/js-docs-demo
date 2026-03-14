@@ -1,0 +1,198 @@
+---
+title: TalkBack (Android)
+description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
+---
+
+## TalkBack (Android)
+
+**TalkBack** es el lector de pantalla oficial de Android desarrollado por Google. Es fundamental para probar la accesibilidad en dispositivos Android, que representan más del 70% del mercado mundial de smartphones.
+
+### Ventajas de TalkBack
+
+- ✅ **Preinstalado** en la mayoría de dispositivos Android
+- ✅ **100% gratuito** y de código abierto (AOSP)
+- ✅ **Mayor cuota de mercado móvil** a nivel mundial
+- ✅ **Integración con Chrome** y navegadores Android
+- ✅ **Actualizaciones vía Google Play**
+- ✅ **Compatible con braille** (pantallas braille Bluetooth)
+- ✅ **Amplio soporte de idiomas**
+
+### Activar TalkBack
+
+#### 🔊 Método 1: Atajo rápido (más común)
+
+Atajo de volumen:
+
+Mantén presionados **ambos botones de volumen** durante 3 segundos
+
+💡 Activa esta opción en: **Ajustes → Accesibilidad → TalkBack → Atajo de TalkBack**
+
+#### ⚙️ Método 2: Desde ajustes
+
+1. Abrir **Ajustes** (Settings)
+1. Ir a **Accesibilidad** (Accessibility)
+1. Seleccionar **TalkBack**
+1. Activar el interruptor
+
+### 🎯 Gestos fundamentales de TalkBack
+
+TalkBack utiliza un **sistema de gestos táctiles** para la navegación. Es importante dominar estos gestos básicos:
+
+ Navegación básica | Gesto | Acción |
+| --- | --- |
+| **Tocar una vez** | Explorar al tacto (escuchar elemento) |
+| **Doble toque (en cualquier lugar)** | Activar el último elemento seleccionado |
+| **Deslizar derecha** | Ir al siguiente elemento |
+| **Deslizar izquierda** | Ir al anterior elemento |
+| **Deslizar abajo** | Acción contextual (depende del elemento) |
+| **Deslizar arriba** | Acción contextual alternativa |
+| **Deslizar abajo y derecha (L)** | Retroceder / Volver atrás |
+| **Deslizar arriba y derecha** | Ir a inicio |
+| **Deslizar abajo y arriba** | Leer desde el inicio |
+| **Deslizar arriba y abajo** | Leer desde el elemento actual |
+
+### ⚙️ Controles de lectura
+
+ Control de TalkBack | Gesto | Acción |
+| --- | --- |
+| **Tocar con 2 dedos** | Pausar/reanudar TalkBack |
+| **Deslizar 2 dedos arriba** | Desplazar hacia arriba (scroll up) |
+| **Deslizar 2 dedos abajo** | Desplazar hacia abajo (scroll down) |
+| **Deslizar 2 dedos izquierda/derecha** | Desplazar horizontal |
+| **Tocar con 3 dedos** | Leer información adicional |
+| **Deslizar 3 dedos arriba/abajo** | Cambiar granularidad de lectura |
+| **Deslizar 3 dedos izquierda/derecha** | Cambiar ajustes de lectura |
+
+### 🎛️ Granularidad de lectura
+
+TalkBack permite cambiar el **nivel de detalle** con el que navegas por el contenido:
+
+Cambiar granularidad:
+
+**Deslizar 3 dedos arriba/abajo** para ciclar entre niveles:
+
+- **Por defecto**: Elemento a elemento
+- **Caracteres**: Letra por letra
+- **Palabras**: Palabra por palabra
+- **Líneas**: Línea por línea
+- **Párrafos**: Párrafo por párrafo
+- **Encabezados**: Solo encabezados (H1-H6)
+- **Controles**: Solo elementos interactivos
+- **Enlaces**: Solo enlaces
+- **Landmarks**: Solo regiones ARIA
+
+Una vez seleccionada la granularidad, **desliza izquierda/derecha** para navegar a ese nivel.
+
+### 📱 Menú contextual de TalkBack
+
+Abrir menú: **Deslizar arriba y derecha en un gesto en L**
+
+Opciones del menú:
+
+- **Leer desde arriba**: Lee toda la página desde el inicio
+- **Leer desde el siguiente elemento**: Lectura continua
+- **Acciones locales**: Acciones disponibles para el elemento actual
+- **Ortografía**: Deletrear el texto actual
+- **Copiar último enunciado**: Copia lo último que dijo TalkBack
+- **Compartir texto**: Comparte el texto seleccionado
+- **Buscar en pantalla**: Busca texto en la pantalla actual
+- **Ajustes de TalkBack**: Acceso rápido a configuración
+
+### 🌐 Navegación web con TalkBack
+
+ Navegación por tipo de elemento | Configuración de granularidad | Navegar con |
+| --- | --- |
+| Cambiar a "Encabezados" | Deslizar izquierda/derecha salta entre headings |
+| Cambiar a "Enlaces" | Deslizar izquierda/derecha salta entre links |
+| Cambiar a "Controles" | Deslizar izquierda/derecha salta entre botones/campos |
+| Cambiar a "Landmarks" | Deslizar izquierda/derecha salta entre regiones ARIA |
+
+### ⌨️ Navegación con teclado externo (opcional)
+
+Si conectas un teclado físico Bluetooth a tu dispositivo Android, TalkBack también soporta navegación por teclado:
+
+| Comando | Acción |
+| --- | --- |
+| `Alt + Tab` | Cambiar entre apps |
+| `Alt + ←` / `→` | Siguiente/Anterior elemento |
+| `Alt + Enter` | Activar elemento |
+| `Alt + [` | Retroceder |
+| `Alt + Shift + ↑` / `↓` | Cambiar granularidad |
+
+### Configuración recomendada para testing
+
+#### Ajustes → Accesibilidad → TalkBack → Ajustes
+
+- **✅ Activar atajo de volumen**: Para activar/desactivar rápidamente
+- **Aumentar velocidad de voz**: Para testing más rápido (Ajustes → Cambiar velocidad de lectura)
+- **✅ Habilitar navegación enfocada**: Mejor control en formularios complejos
+- **Ajustar verbosidad**: Controla cuánto detalle anuncia TalkBack (Ajustes → Verbosidad)
+- **Practicar gestos**: Tutorial interactivo (Ajustes → Tutorial y ayuda)
+- **Usar Chrome**: Mejor soporte de accesibilidad web en Android
+
+### Workflow de testing con TalkBack
+
+1. **Activa TalkBack** (ambos botones de volumen 3 seg.)
+1. **Abre Chrome** y navega a tu sitio web
+1. **Practica la navegación básica**
+
+  - Deslizar derecha: ¿El orden de lectura es lógico?
+  - Tocar elementos: ¿Las descripciones son claras?
+
+1. **Prueba navegación por encabezados**
+
+  - Cambia granularidad a "Encabezados" (3 dedos arriba/abajo)
+  - Desliza derecha/izquierda: ¿La estructura tiene sentido?
+
+1. **Prueba navegación por enlaces**
+
+  - Cambia granularidad a "Enlaces"
+  - ¿Los textos de enlace son descriptivos fuera de contexto?
+
+1. **Prueba un formulario**
+
+  - Cambia granularidad a "Controles"
+  - ¿Se anuncian las etiquetas correctamente?
+  - ¿Los mensajes de error son claros?
+  - Doble toque para activar campos y botones
+
+1. **Prueba un componente interactivo**
+
+  - Modal, tabs, accordion, etc.
+  - ¿Se anuncia el estado (expandido/colapsado)?
+  - ¿El foco se gestiona correctamente?
+
+1. **Desactiva TalkBack** (ambos botones de volumen 3 seg.)
+
+### Problemas comunes detectados con TalkBack
+
+| Problema | Síntoma en TalkBack | Solución |
+| --- | --- | --- |
+| Imágenes sin alt | Anuncia nombre de archivo o "imagen sin etiqueta" | Añadir `alt=""` o `alt="descripción"` |
+| Botones sin etiqueta | Solo dice "botón" sin contexto | Añadir texto visible o `aria-label` |
+| Formularios sin `<label>` | Solo dice "cuadro de edición" sin propósito | Usar `<label>` con `for` o `aria-label` |
+| Orden DOM incorrecto | Navegación confusa o ilógica | Reorganizar HTML o usar `tabindex` con cuidado |
+| Estados no comunicados | No anuncia si algo está expandido/colapsado | Usar `aria-expanded`, `aria-pressed`, etc. |
+| Modales sin gestión de foco | Puede navegar fuera del modal | Focus trap + `aria-modal="true"` |
+| Enlaces genéricos ("clic aquí") | No tiene sentido fuera de contexto | Texto de enlace descriptivo |
+
+### Diferencias: TalkBack vs VoiceOver vs NVDA
+
+| Aspecto | TalkBack | VoiceOver | NVDA |
+| --- | --- | --- | --- |
+| **Plataforma** | Android | iOS / macOS | Windows |
+| **Interfaz** | Gestos táctiles | Gestos táctiles / Teclado | Solo teclado |
+| **Granularidad** | 3 dedos arriba/abajo | Rotor (2 dedos girando) | Teclas individuales |
+| **Navegación** | Deslizar derecha/izquierda | Deslizar derecha/izquierda | Flechas del teclado |
+| **Activar** | Doble toque | Doble toque | Enter / Espacio |
+| **Cuota de mercado** | ~70% móvil mundial | ~30% móvil, minoritario desktop | Popular en Windows |
+
+### 🎓 Recursos para aprender TalkBack
+
+- 📚 **Tutorial integrado**: Ajustes → Accesibilidad → TalkBack → Tutorial y ayuda
+- 📱 **Práctica con gestos**: Ajustes → Accesibilidad → TalkBack → Ajustes → Tutorial
+- 🌐 **Documentación oficial**: [support.google.com/accessibility/android](https://support.google.com/accessibility/android/answer/6283677)
+- 🎥 **Google Accessibility YouTube**: Videos oficiales y guías
+- 🛠️ **Android Accessibility Scanner**: App complementaria para detectar problemas
+
+**💡 Consejo crítico:** TalkBack es imprescindible para testing móvil. Con más del 70% del tráfico web mundial desde móviles, ignorar TalkBack significa ignorar a la mayoría de usuarios con discapacidad visual. Instala un emulador Android con TalkBack o prueba en un dispositivo físico regularmente.

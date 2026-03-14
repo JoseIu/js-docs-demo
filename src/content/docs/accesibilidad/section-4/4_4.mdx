@@ -1,0 +1,274 @@
+---
+title: Buenas y malas prácticas de ARIA
+description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
+---
+
+## Buenas y malas prácticas de ARIA
+
+ARIA es una herramienta poderosa, pero puede hacer más daño que bien si se usa incorrectamente. Aquí aprenderás los errores más comunes y cómo evitarlos.
+
+### ✅ Buenas prácticas
+
+#### 1. Usa HTML nativo siempre que sea posible
+
+El HTML semántico ya tiene accesibilidad integrada
+
+```
+✅ CORRECTO
+<button>Guardar</button>
+<input type="checkbox" id="accept">
+<nav>...</nav>
+
+❌ INCORRECTO
+<div role="button" tabindex="0" onclick="...">Guardar</div>
+<div role="checkbox" aria-checked="false">...</div>
+<div role="navigation">...</div>
+```
+
+#### 2. Proporciona siempre un nombre accesible
+
+Todo elemento interactivo necesita una etiqueta comprensible
+
+```
+✅ CORRECTO
+<button aria-label="Cerrar">×</button>
+<input aria-labelledby="search-label" />
+<button>Enviar formulario</button>
+
+❌ INCORRECTO
+<button>×</button>  <!-- Sin contexto -->
+<div role="button"><img src="icon.png"></div>  <!-- Sin alt -->
+```
+
+#### 3. Actualiza los estados dinámicamente
+
+Los atributos ARIA deben reflejar el estado actual del elemento
+
+```
+✅ CORRECTO
+const button = document.querySelector('[aria-expanded]');
+button.addEventListener('click', () => {
+  const isExpanded = button.getAttribute('aria-expanded') === 'true';
+  button.setAttribute('aria-expanded', !isExpanded);
+  menu.hidden = isExpanded;
+});
+
+❌ INCORRECTO
+<!-- aria-expanded no se actualiza con JavaScript -->
+<button aria-expanded="false" onclick="toggleMenu()">Menú</button>
+```
+
+#### 4. Gestiona el foco y la navegación por teclado
+
+ARIA solo describe, no añade funcionalidad
+
+```
+✅ CORRECTO
+<div
+  role="button"
+  tabindex="0"
+  onclick="save()"
+  onkeydown="if(event.key==='Enter'||event.key===' ')save()"
+>
+  Guardar
+</div>
+
+❌ INCORRECTO
+<div role="button" onclick="save()">
+  Guardar  <!-- No accesible por teclado -->
+</div>
+```
+
+#### 5. Usa ARIA solo cuando sea necesario
+
+No agregues ARIA "por si acaso". Menos es más
+
+```
+✅ CORRECTO
+<nav>
+  <ul>
+    <li><a href="/">Inicio</a></li>
+  </ul>
+</nav>
+
+❌ INCORRECTO (ARIA redundante)
+<nav role="navigation" aria-label="navigation">
+  <ul role="list">
+    <li role="listitem">
+      <a href="/" role="link">Inicio</a>
+    </li>
+  </ul>
+</nav>
+```
+
+#### 6. Prueba con tecnologías asistivas reales
+
+Las herramientas automáticas no detectan todo
+
+- Prueba con NVDA (Windows)
+- Prueba con VoiceOver (macOS/iOS)
+- Prueba con TalkBack (Android)
+- Navega solo con teclado (Tab, flechas, Enter, Espacio)
+
+### ❌ Malas prácticas (errores comunes)
+
+#### 1. Contradecir la semántica nativa
+
+No cambies el rol de elementos HTML nativos
+
+```
+❌ INCORRECTO
+<h1 role="button">Hacer clic</h1>
+<button role="heading">Título</button>
+<table role="list">...</table>
+
+✅ CORRECTO
+<button>Hacer clic</button>
+<h1>Título</h1>
+<table>...</table>
+```
+
+#### 2. Usar aria-hidden en elementos enfocables
+
+Crea confusión: el usuario puede enfocar pero no "ver"
+
+```
+❌ INCORRECTO
+<button aria-hidden="true">Enviar</button>
+<a href="/page" aria-hidden="true">Ver más</a>
+<input type="text" aria-hidden="true">
+
+✅ CORRECTO
+<span aria-hidden="true">🎨</span> <!-- Icono decorativo -->
+<div aria-hidden="true" class="background">...</div>
+```
+
+#### 3. Usar role="menu" para navegación web
+
+role="menu" es para menús de aplicación, no navegación
+
+```
+❌ INCORRECTO
+<ul role="menu">
+  <li role="menuitem"><a href="/">Inicio</a></li>
+  <li role="menuitem"><a href="/about">Acerca</a></li>
+</ul>
+
+✅ CORRECTO
+<nav>
+  <ul>
+    <li><a href="/">Inicio</a></li>
+    <li><a href="/about">Acerca</a></li>
+  </ul>
+</nav>
+```
+
+💡 role="menu" requiere navegación con flechas y comportamiento específico de aplicación de escritorio
+
+#### 4. No proporcionar alternativas de texto
+
+Imágenes, iconos y gráficos necesitan descripción
+
+```
+❌ INCORRECTO
+<button><img src="save.png"></button>
+<div role="img">[gráfico complejo]</div>
+<i class="icon-trash"></i>
+
+✅ CORRECTO
+<button><img src="save.png" alt="Guardar"></button>
+<div role="img" aria-label="Gráfico de ventas mensuales">...</div>
+<button>
+  <i class="icon-trash" aria-hidden="true"></i>
+  Eliminar
+</button>
+```
+
+#### 5. Usar tabindex con valores positivos
+
+Rompe el orden natural de navegación
+
+```
+❌ INCORRECTO
+<input tabindex="3">
+<button tabindex="1">Enviar</button>
+<input tabindex="2">
+
+✅ CORRECTO
+<input>  <!-- tabindex natural -->
+<input>
+<button>Enviar</button>
+<div tabindex="0">...</div>  <!-- Para hacerlo enfocable -->
+<div tabindex="-1">...</div>  <!-- Para foco programático -->
+```
+
+#### 6. Abusar de aria-label
+
+aria-label oculta el contenido visible del elemento
+
+```
+❌ INCORRECTO
+<button aria-label="Guardar">Guardar los cambios</button>
+<!-- El lector solo dirá "Guardar", no "Guardar los cambios" -->
+
+✅ CORRECTO
+<button>Guardar los cambios</button>
+<button aria-label="Cerrar ventana">×</button> <!-- Aquí sí -->
+```
+
+#### 7. No sincronizar atributos con el estado visual
+
+El estado ARIA debe coincidir con lo visual
+
+```
+❌ INCORRECTO
+<button aria-expanded="false">Menú</button>
+<ul style="display: block;">...</ul>
+<!-- aria-expanded dice "cerrado" pero el menú está visible -->
+
+✅ CORRECTO
+<button aria-expanded="true">Menú</button>
+<ul style="display: block;">...</ul>
+```
+
+#### 8. Usar ARIA para "arreglar" HTML mal estructurado
+
+ARIA no compensa mala semántica HTML
+
+```
+❌ INCORRECTO
+<div role="main">
+  <div role="heading" aria-level="1">Título</div>
+  <span role="button" tabindex="0">Clic</span>
+</div>
+
+✅ CORRECTO
+<main>
+  <h1>Título</h1>
+  <button>Clic</button>
+</main>
+```
+
+### Comparación visual de casos comunes
+
+ Comparación de implementaciones correctas vs incorrectas | ❌ Incorrecto | ✅ Correcto |
+| --- | --- |
+| ``` <div role="button"> Clic </div> ``` | ``` <button> Clic </button> ``` |
+| ``` <span aria-label="X"> Texto visible </span> ``` | ``` <span> Texto visible </span> ``` |
+| ``` <button aria-hidden="true"> Enviar </button> ``` | ``` <button hidden> Enviar </button> ``` |
+| ``` <h2 role="button"> Título </h2> ``` | ``` <button> Título </button> ``` |
+
+### Checklist de validación ARIA
+
+- ☑️ ¿Puedo usar HTML nativo en lugar de ARIA?
+- ☑️ ¿Todos los elementos interactivos son accesibles por teclado?
+- ☑️ ¿Cada elemento tiene un nombre accesible claro?
+- ☑️ ¿Los estados ARIA se actualizan dinámicamente?
+- ☑️ ¿He evitado aria-hidden en elementos enfocables?
+- ☑️ ¿Los roles ARIA no contradicen la semántica HTML?
+- ☑️ ¿He probado con un lector de pantalla real?
+- ☑️ ¿La navegación por teclado es lógica y completa?
+- ☑️ ¿He evitado ARIA redundante o innecesario?
+- ☑️ ¿El estado visual coincide con el estado ARIA?
+
+**Regla de oro:** "No ARIA es mejor que ARIA mal implementado". Si no estás seguro de cómo usar ARIA correctamente, es mejor no usarlo y confiar en HTML semántico nativo.

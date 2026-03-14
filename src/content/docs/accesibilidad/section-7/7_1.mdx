@@ -1,0 +1,136 @@
+---
+title: Qué son y cómo funcionan
+description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
+---
+
+## Qué son y cómo funcionan
+
+Los **lectores de pantalla (screen readers)** son tecnologías asistivas que convierten el contenido digital en voz sintética o salida braille, permitiendo a personas ciegas o con baja visión navegar e interactuar con sitios web y aplicaciones.
+
+### ¿Cómo funcionan?
+
+1. **Leen el árbol de accesibilidad**, no el DOM visual directamente
+1. **Extraen información**: roles, nombres, estados y propiedades de los elementos
+1. **Convierten a voz** usando síntesis de voz (TTS - Text-to-Speech)
+1. **O envían a línea braille** para usuarios de dispositivos braille
+1. **Responden a comandos del usuario** para navegar, buscar e interactuar
+
+### Flujo de información
+
+```
+HTML/CSS/JavaScript
+       ↓
+    Navegador
+       ↓
+Árbol de Accesibilidad
+       ↓
+API de Accesibilidad del SO
+       ↓
+Lector de Pantalla
+       ↓
+Voz sintética o Braille
+       ↓
+   👤 Usuario
+```
+
+### Qué "ve" un lector de pantalla
+
+Los lectores no ven colores, diseño o posición visual. Solo perciben:
+
+| Información | Ejemplo | Anuncio del lector |
+| --- | --- | --- |
+| **Rol** | `<button>Enviar</button>` | "Enviar, botón" |
+| **Nombre** | `<input aria-label="Email">` | "Email, cuadro de edición" |
+| **Estado** | `aria-expanded="true"` | "expandido" |
+| **Propiedades** | `aria-required="true"` | "requerido" |
+| **Valor** | `<input value="Juan">` | "Juan" |
+| **Nivel** | `<h2>Título</h2>` | "Título, encabezado nivel 2" |
+
+### Ejemplo: Cómo se anuncia un elemento
+
+#### 📄 HTML
+
+```
+<button
+  aria-expanded="false"
+  aria-controls="menu"
+  disabled
+>
+  Abrir menú
+</button>
+```
+
+#### 🔊 Anuncio del lector
+
+"Abrir menú,
+botón,
+colapsado,
+no disponible"
+
+El orden puede variar según el lector
+
+### Modos de navegación
+
+#### 📖 Modo de lectura (Browse/Virtual mode)
+
+Para navegar y leer contenido
+
+- El usuario puede usar flechas para leer palabra por palabra, línea por línea
+- Atajos especiales para saltar entre encabezados, enlaces, formularios, etc.
+- Búsqueda de texto dentro de la página
+
+#### ✏️ Modo de formularios (Forms/Focus mode)
+
+Para interactuar con controles
+
+- Se activa automáticamente al enfocar un input, textarea, select
+- Las teclas se pasan directamente al control (para escribir, seleccionar opciones)
+- Atajos del lector de pantalla desactivados temporalmente
+- Usuario puede alternar manualmente entre modos
+
+### Principales lectores de pantalla
+
+| Lector | Plataforma | Precio | Características |
+| --- | --- | --- | --- |
+| **NVDA** | Windows | Gratuito | Open source, más usado para desarrollo, muy completo |
+| **JAWS** | Windows | ~$1000+ | Más popular en empresas, muy potente, costoso |
+| **VoiceOver** | macOS, iOS | Gratuito | Integrado en Apple, excelente en ecosistema Apple |
+| **TalkBack** | Android | Gratuito | Integrado en Android, gestural navigation |
+| **Narrator** | Windows | Gratuito | Integrado en Windows 10/11, mejorando continuamente |
+
+### Comandos comunes (ejemplo: NVDA)
+
+| Acción | Comando | Resultado |
+| --- | --- | --- |
+| Iniciar/Detener lectura | `NVDA + Flecha abajo` | Lee desde la posición actual |
+| Leer todo | `NVDA + A` | Lee toda la página |
+| Siguiente encabezado | `H` | Salta al siguiente &lt;h1&gt;-&lt;h6&gt; |
+| Siguiente enlace | `K` | Salta al siguiente link |
+| Siguiente formulario | `F` | Salta al siguiente campo |
+| Lista de elementos | `NVDA + F7` | Muestra lista de enlaces, encabezados, etc. |
+| Cambiar modo | `NVDA + Espacio` | Alterna entre modo lectura/formularios |
+
+**Nota:** Cada lector tiene sus propios comandos. NVDA usa la tecla `Insert` o `Bloq Mayús` como modificador principal.
+
+### Por qué es crucial probar con lectores reales
+
+**Las herramientas automáticas NO detectan:**
+
+- ❌ Si el orden de lectura tiene sentido
+- ❌ Si las etiquetas son claras y descriptivas
+- ❌ Si la navegación por teclado es intuitiva
+- ❌ Si la experiencia es fluida o frustrante
+- ❌ Si falta contexto importante
+
+**✅ Solo probando con un lector de pantalla** puedes entender realmente cómo experimentan tu sitio los usuarios con discapacidad visual.
+
+### Cómo empezar a probar
+
+1. **Instala NVDA** (Windows) o activa VoiceOver (Mac)
+1. **Aprende 5 comandos básicos**: iniciar/detener, siguiente encabezado, siguiente enlace, siguiente formulario, lista de elementos
+1. **Cierra los ojos** (o reduce el brillo al mínimo)
+1. **Intenta completar una tarea** en tu sitio usando solo el lector
+1. **Identifica puntos confusos**: ¿Te perdiste? ¿Faltó información? ¿Fue frustrante?
+1. **Itera y mejora** basándote en la experiencia
+
+**💡 Consejo:** No necesitas ser un experto en lectores de pantalla para detectar problemas básicos. Incluso 10 minutos de prueba con NVDA o VoiceOver revelarán problemas que las herramientas automáticas nunca detectarán.

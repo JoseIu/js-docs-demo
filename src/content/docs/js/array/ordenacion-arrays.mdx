@@ -1,0 +1,71 @@
+---
+title: "Ordenamiento de Arrays en JavaScript"
+description: "Aprende a iterar sobre arrays en JavaScript usando métodos como forEach, map, filter, reduce y más."
+---
+import Quiz from "@components/quiz/Quiz.astro"
+import { Arrays } from "@db/arrays"
+
+JavaScript proporciona un método incorporado en arrays llamado `.sort()`. Es importante saber que `.sort()` **MODIFICA EL ARRAY ORIGINAL** si no quiere eso lo suyo es hacer una cópia del array o usar `.toSorted()`
+
+
+
+## Ordenamiento básico con sort()
+
+```javascript
+const names = ['Dorian', 'Nala', 'Anubis', 'Simba' ]
+
+console.log(names.sort()) // -> ['Anubis', 'Dorian', 'Nala', 'Simba']
+```
+
+Como se puede ver, el método `.sort()` ordena los elementos de un array en orden alfabético.
+
+Por defecto, `.sort()` hace una ordenación un poco extraña cuando se trata de números:
+```javascript
+const numeros = [33, 65, 11,88, 45, 4]
+
+console.log(numeros.sort()) // -> [11, 33, 4, 45, 88]
+```
+
+¿Qué ha pasado? **Este comportamiento puede resultar confuso cuando se trabaja con números**, ya que `.sort()` independientemente de lo que tengamos en el array, el lo va a trartar cono `Strings`, entonces lo que pasa en realidad es que me esta ordenando el array de números de forma alfabetica, si miramos vemos que el caractes `1` va antes del caracter `3`, por eso el número `11` va antes que el número `4`.
+
+**Aquí es donde entra en juego la función de callback!**
+
+## Ordenamiento personalizado con sort()
+
+Si tenemos que ordenar `Numbers` o `Strings` de otra forma, necesitamos la funcion de callback si o si. esta función recibe dos parametros `a` y `b`, dentro del callback es donde vamos a realizar la comparación entre los elementos del array para determinar su orden.
+
+Es importante enteder que espera `.sort()` para entender si algo es más grande o más pequeño, en otras palabras que va antes y que va despues: un valor `Negativo`, `Positivo`, `Neutro 0`.
+
+```javascript
+const numeros = [33, 65, 11,88, 45, 4]
+console.log(numeros.sort((a, b) => {
+  console.log(a, b)
+})) 
+//Siempre coje pares de números para compararlos sindo a el segundo valor y b el primero
+
+//Primera vuelta => 65 33
+//Segunda vuelta => 11 65
+//Tercera vuelta => 88 11
+//Cuarta vuelta => 45 88
+//Quinta vuelta => 4 45
+```
+
+Un algoritmo de ordenamiento que tenemos es el siguiente:
+
+```javascript
+const numeros = [33, 65, 11,88, 45, 4]
+console.log(numeros.sort((a, b) => a - b)) // -> [4, 11, 33, 45, 65, 88]
+
+//Primera vuelta => 65 - 33 => 65 - 33 =  32 => 32 es un numero positivo, entonces 65 va despues de 33
+//Segunda vuelta => 11 - 65 => 11 - 65 = -54 => -54 es un numero negativo, entonces 11 va antes de 65
+
+
+//Así con todos hasta llegar al ultimo numero, esto lo va a realizar hasta tenerlo ordenadro y el resultado es un array ordenado de menor a mayor
+```
+
+Pero y si queremos ordenarlo de mayor a menor, pues simplemente cambiamos el orden de la resta:
+
+```javascript
+const numeros = [33, 65, 11,88, 45, 4]
+console.log(numeros.sort((a, b) => b - a)) // -> [88, 65, 45, 33, 11, 4]
+```

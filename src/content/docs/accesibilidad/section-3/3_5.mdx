@@ -1,0 +1,86 @@
+---
+title: Roles nativos de los elementos
+description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
+---
+
+## Roles nativos de los elementos
+
+Cada elemento HTML semántico tiene un **rol implícito** que los navegadores y tecnologías asistivas reconocen automáticamente. Usar elementos nativos es siempre preferible a crear componentes personalizados con `<div>` y ARIA.
+
+### ¿Por qué preferir elementos nativos?
+
+- **Semántica automática:** No necesitas agregar roles ARIA manualmente
+- **Comportamiento integrado:** Navegación por teclado, foco, estados, ya funcionan
+- **Compatibilidad garantizada:** Funcionan en todos los navegadores y lectores de pantalla
+- **Menos código:** No necesitas JavaScript adicional para accesibilidad básica
+- **Mantenibilidad:** Código más simple y estándar
+
+### Elementos HTML y sus roles implícitos:
+
+ Roles nativos de elementos HTML comunes | Elemento HTML | Rol implícito | Uso apropiado |
+| --- | --- | --- |
+| `<button>` | button | Acciones interactivas (enviar, abrir, cerrar) |
+| `<a href>` | link | Navegación a otras páginas o secciones |
+| `<nav>` | navigation | Bloques principales de navegación |
+| `<main>` | main | Contenido principal único de la página |
+| `<header>` | banner (en body) | Cabecera de la página o sección |
+| `<footer>` | contentinfo (en body) | Pie de página con info legal, contacto |
+| `<aside>` | complementary | Contenido relacionado pero secundario |
+| `<article>` | article | Contenido independiente y reutilizable |
+| `<section>` | region (con aria-label) | Agrupación temática de contenido |
+| `<form>` | form | Formularios de entrada de datos |
+| `<input type="checkbox">` | checkbox | Opciones múltiples activar/desactivar |
+| `<input type="radio">` | radio | Selección única entre opciones |
+
+### Comparación: Nativo vs. Personalizado
+
+#### ✅ Correcto - Usando elemento nativo:
+
+Guardar cambios
+
+```
+<button>Guardar cambios</button>
+```
+
+ ✓ Navegable por teclado (Tab, Enter, Espacio)
+ ✓ Anunciado como "botón" automáticamente
+ ✓ Estados de foco y hover incluidos
+
+#### ❌ Incorrecto - Div con rol manual:
+
+Guardar cambios
+
+```
+<div role="button" tabindex="0" onclick="save()">
+  Guardar cambios
+</div>
+```
+
+ ✗ Necesitas agregar tabindex manualmente
+ ✗ Debes gestionar eventos de teclado (Enter, Espacio)
+ ✗ Sin estilos de foco por defecto
+ ✗ Más código y posibles errores
+
+### Ejemplo visual de elementos nativos:
+
+Navegación (elemento &lt;nav&gt;)
+
+[Inicio](#)[Productos](#)[Contacto](#)
+
+Contenido principal (elemento &lt;main&gt;)
+
+Artículo (elemento &lt;article&gt;)
+
+Contenido independiente que puede ser reutilizado...
+
+Información complementaria (elemento &lt;aside&gt;)
+
+Datos relacionados pero secundarios...
+
+Pie de página (elemento &lt;footer&gt;) - © 2025 Todos los derechos reservados
+
+### Regla de oro:
+
+**Si existe un elemento HTML nativo para tu propósito, úsalo.** Solo recurre a ARIA cuando necesites crear componentes que no tienen equivalente HTML nativo (como tabs, accordions, tree views, etc.).
+
+**Recuerda:** La primera regla de ARIA es "No uses ARIA si puedes usar un elemento HTML nativo".

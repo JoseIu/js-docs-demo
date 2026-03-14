@@ -1,0 +1,342 @@
+---
+title: Diálogos/modales accesibles
+description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
+---
+
+## Diálogos/modales accesibles
+
+Los diálogos modales son uno de los patrones más complejos de implementar correctamente. Requieren gestión cuidadosa del foco, atributos ARIA específicos y captura del teclado para ser completamente accesibles.
+
+### Tipos de diálogos
+
+#### 💬 role="dialog"
+
+Diálogo informativo o interactivo estándar
+
+**Ejemplos:** Formularios, edición de datos, configuración, galería de imágenes
+
+#### ⚠️ role="alertdialog"
+
+Diálogo que requiere atención inmediata
+
+**Ejemplos:** Confirmación de eliminación, errores críticos, advertencias importantes
+
+### Estructura completa de un modal accesible
+
+#### HTML/ARIA
+
+```
+<!-- Botón que abre el modal -->
+<button id="open-modal">Abrir diálogo</button>
+
+<!-- Overlay de fondo (opcional pero recomendado) -->
+<div
+  class="modal-overlay"
+  hidden
+  aria-hidden="true"
+></div>
+
+<!-- Modal -->
+<div
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="dialog-title"
+  aria-describedby="dialog-desc"
+  class="modal"
+  hidden
+>
+  <h2 id="dialog-title">Confirmar acción</h2>
+
+  <p id="dialog-desc">
+    ¿Estás seguro de que quieres eliminar este elemento?
+    Esta acción no se puede deshacer.
+  </p>
+
+  <div class="modal-actions">
+    <button id="confirm-btn">Confirmar</button>
+    <button id="cancel-btn">Cancelar</button>
+  </div>
+
+  <!-- Botón de cierre (opcional) -->
+  <button
+    class="modal-close"
+    aria-label="Cerrar diálogo"
+  >
+    ×
+  </button>
+</div>
+```
+
+### 🔑 Requisitos críticos de accesibilidad
+
+#### 1. Gestión del foco inicial
+
+El foco debe moverse al modal al abrirse
+
+**Opciones de foco inicial:**
+
+- **Primer elemento enfocable**: Para formularios o contenido interactivo
+- **Botón de acción principal**: Para confirmaciones
+- **Botón de cancelar**: Para acciones destructivas (recomendado)
+- **El contenedor del modal**: Para diálogos informativos con mucho texto
+
+#### 2. Focus trap (captura de foco)
+
+El foco debe permanecer dentro del modal mientras esté abierto
+
+```
+// El Tab debe ciclar entre elementos del modal
+// No debe salir al contenido de fondo
+
+Elementos enfocables:
+[Botón Cerrar] → [Confirmar] → [Cancelar] → [Botón Cerrar] → ...
+```
+
+#### 3. Restauración del foco
+
+Al cerrar, el foco debe volver al elemento que lo abrió
+
+```
+// Guardar referencia al elemento que abrió el modal
+const triggerElement = document.activeElement;
+
+// Al cerrar, devolver el foco
+triggerElement.focus();
+```
+
+#### 4. Teclado: Cerrar con Escape
+
+La tecla Esc debe cerrar el modal
+
+```
+dialog.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeModal();
+  }
+});
+```
+
+#### 5. Ocultar contenido de fondo
+
+El contenido detrás del modal debe ser inaccesible para tecnologías asistivas
+
+**✅ Solución:**`aria-modal="true"` le dice a los lectores que ignoren el contenido fuera del modal. Como respaldo, puedes añadir `aria-hidden="true"` al contenedor principal.
+
+### JavaScript completo para modal accesible
+
+```
+class AccessibleModal {
+  constructor(modalElement) {
+    this.modal = modalElement;
+    this.overlay = document.querySelector('.modal-overlay');
+    this.triggerElement = null;
+    this.focusableElements = null;
+    this.firstFocusable = null;
+    this.lastFocusable = null;
+
+    // Elementos enfocables
+    this.focusableSelectors = [
+      'a[href]',
+      'button:not([disabled])',
+      'textarea:not([disabled])',
+      'input:not([disabled])',
+      'select:not([disabled])',
+      '[tabindex]:not([tabindex="-1"])'
+    ].join(',');
+  }
+
+  open(triggerElement) {
+    // Guardar referencia al elemento que abrió el modal
+    this.triggerElement = triggerElement || document.activeElement;
+
+    // Mostrar modal y overlay
+    this.modal.hidden = false;
+    if (this.overlay) this.overlay.hidden = false;
+
+    // Ocultar contenido de fondo (respaldo para navegadores antiguos)
+    document.body.setAttribute('aria-hidden', 'true');
+    this.modal.removeAttribute('aria-hidden');
+
+    // Prevenir scroll del body
+    document.body.style.overflow = 'hidden';
+
+    // Obtener elementos enfocables
+    this.updateFocusableElements();
+
+    // Foco inicial (primer elemento o el modal mismo)
+    if (this.firstFocusable) {
+      this.firstFocusable.focus();
+    } else {
+      this.modal.tabIndex = -1;
+      this.modal.focus();
+    }
+
+    // Event listeners
+    this.modal.addEventListener('keydown', this.handleKeydown);
+    if (this.overlay) {
+      this.overlay.addEventListener('click', this.close);
+    }
+  }
+
+  close = () => {
+    // Ocultar modal
+    this.modal.hidden = true;
+    if (this.overlay) this.overlay.hidden = true;
+
+    // Restaurar contenido de fondo
+    document.body.removeAttribute('aria-hidden');
+    document.body.style.overflow = '';
+
+    // Devolver foco al elemento que abrió el modal
+    if (this.triggerElement) {
+      this.triggerElement.focus();
+    }
+
+    // Limpiar event listeners
+    this.modal.removeEventListener('keydown', this.handleKeydown);
+    if (this.overlay) {
+      this.overlay.removeEventListener('click', this.close);
+    }
+  }
+
+  handleKeydown = (e) => {
+    // Cerrar con Escape
+    if (e.key === 'Escape') {
+      this.close();
+      return;
+    }
+
+    // Focus trap con Tab
+    if (e.key === 'Tab') {
+      if (e.shiftKey) {
+        // Shift + Tab (hacia atrás)
+        if (document.activeElement === this.firstFocusable) {
+          e.preventDefault();
+          this.lastFocusable.focus();
+        }
+      } else {
+        // Tab (hacia adelante)
+        if (document.activeElement === this.lastFocusable) {
+          e.preventDefault();
+          this.firstFocusable.focus();
+        }
+      }
+    }
+  }
+
+  updateFocusableElements() {
+    this.focusableElements = [
+      ...this.modal.querySelectorAll(this.focusableSelectors)
+    ];
+    this.firstFocusable = this.focusableElements[0];
+    this.lastFocusable = this.focusableElements[this.focusableElements.length - 1];
+  }
+}
+
+// Uso
+const modal = new AccessibleModal(document.querySelector('[role="dialog"]'));
+
+document.getElementById('open-modal').addEventListener('click', function() {
+  modal.open(this);
+});
+
+// Botones de cerrar
+document.querySelectorAll('.modal-close, #cancel-btn').forEach(btn => {
+  btn.addEventListener('click', () => modal.close());
+});
+
+document.getElementById('confirm-btn').addEventListener('click', () => {
+  // Realizar acción
+  console.log('Acción confirmada');
+  modal.close();
+});
+```
+
+### Diferencia: dialog vs alertdialog
+
+| Aspecto | role="dialog" | role="alertdialog" |
+| --- | --- | --- |
+| **Propósito** | Interacción general, formularios, información | Advertencias, confirmaciones críticas |
+| **Anuncio** | Los lectores anuncian "diálogo" | Los lectores interrumpen y anuncian "alerta" |
+| **Foco inicial** | Primer elemento o botón primario | Botón de cancelar (para acciones destructivas) |
+| **Contenido** | Puede ser largo y complejo | Debe ser breve y claro |
+| **Cuándo usar** | Mayoría de casos | Solo para mensajes urgentes |
+
+### Elemento nativo: &lt;dialog&gt;
+
+HTML5 incluye el elemento `<dialog>` con accesibilidad integrada:
+
+```
+<dialog id="my-dialog">
+  <h2>Título del diálogo</h2>
+  <p>Contenido del diálogo...</p>
+  <form method="dialog">
+    <button value="cancel">Cancelar</button>
+    <button value="confirm">Confirmar</button>
+  </form>
+</dialog>
+
+<script>
+const dialog = document.getElementById('my-dialog');
+
+// Abrir como modal
+document.getElementById('open').addEventListener('click', () => {
+  dialog.showModal(); // Foco automático, focus trap, Esc integrado
+});
+
+// Abrir como no-modal
+// dialog.show();
+
+// Cerrar
+dialog.addEventListener('close', () => {
+  console.log('Valor retornado:', dialog.returnValue);
+});
+</script>
+```
+
+**✅ Ventajas del &lt;dialog&gt; nativo:**
+
+- Focus trap automático con `showModal()`
+- Cierre con Esc integrado
+- Backdrop (::backdrop) con CSS
+- Menos JavaScript necesario
+
+**⚠️ Consideraciones:**
+
+- No soportado en IE11 (pero sí en todos los navegadores modernos)
+- Requiere polyfill para navegadores antiguos
+- Animaciones requieren trabajo adicional
+
+### Casos especiales
+
+#### Modal con contenido dinámico
+
+Si el contenido del modal cambia después de abrirse, actualiza los elementos enfocables:
+
+```
+modal.updateFocusableElements();
+```
+
+#### Modal con scroll interno
+
+Si el contenido es largo, asegúrate de que el foco del teclado hace scroll automáticamente para mantener el elemento enfocado visible.
+
+#### Modales anidados
+
+**⚠️ Evitar:** Los modales anidados (un modal que abre otro modal) son muy difíciles de manejar correctamente. Considera alternativas como steps dentro del mismo modal o cerrar el primer modal antes de abrir el segundo.
+
+### Checklist de implementación
+
+- ☑️ `role="dialog"` o `role="alertdialog"`
+- ☑️ `aria-modal="true"`
+- ☑️ `aria-labelledby` apunta al título
+- ☑️ `aria-describedby` apunta a la descripción (si existe)
+- ☑️ El foco se mueve al modal al abrirse
+- ☑️ Focus trap: Tab cicla solo dentro del modal
+- ☑️ Esc cierra el modal
+- ☑️ El foco vuelve al elemento que lo abrió al cerrar
+- ☑️ El contenido de fondo es inaccesible
+- ☑️ Botones de acción claramente etiquetados
+- ☑️ Probado con lector de pantalla
+
+**💡 Recomendación:** Para proyectos nuevos, considera usar el elemento `<dialog>` nativo o librerías especializadas como Radix UI Dialog, Headless UI Dialog o React ARIA Dialog, que manejan toda la complejidad de accesibilidad por ti.

@@ -1,0 +1,203 @@
+---
+title: Roles ARIA más utilizados
+description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
+---
+
+## Roles ARIA más utilizados
+
+Los roles ARIA definen qué tipo de elemento es para las tecnologías asistivas. Hay más de 80 roles en la especificación completa, pero aquí veremos los más comunes y útiles en el desarrollo web.
+
+### Categorías de roles ARIA
+
+- **Roles de estructura:** Organizan el contenido (banner, navigation, main, etc.)
+- **Roles de widgets:** Componentes interactivos (button, slider, tab, etc.)
+- **Roles de región:** Áreas con contenido específico (alert, dialog, search, etc.)
+- **Roles de landmark:** Puntos de referencia para navegación (complementary, contentinfo, etc.)
+
+### Roles más utilizados
+
+#### 1. button
+
+**Uso:** Elemento que ejecuta una acción cuando se activa
+
+**Cuándo usar:** Solo si no puedes usar `<button>` nativo
+
+```
+<div role="button" tabindex="0" onclick="save()">
+  Guardar
+</div>
+<!-- Mejor: <button onclick="save()">Guardar</button> -->
+```
+
+#### 2. dialog
+
+**Uso:** Ventanas modales o diálogos que requieren interacción
+
+**Cuándo usar:** Modales, popups que interrumpen el flujo
+
+```
+<div
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="dialog-title"
+>
+  <h2 id="dialog-title">Confirmar acción</h2>
+  <p>¿Estás seguro de que deseas continuar?</p>
+  <button>Aceptar</button>
+  <button>Cancelar</button>
+</div>
+```
+
+#### 3. alert
+
+**Uso:** Mensaje importante que requiere atención inmediata
+
+**Cuándo usar:** Errores críticos, confirmaciones, avisos urgentes
+
+```
+<div role="alert">
+  Error: El formulario no pudo ser enviado
+</div>
+<!-- Se anuncia automáticamente al usuario -->
+```
+
+#### 4. navigation
+
+**Uso:** Colección de enlaces de navegación
+
+**Cuándo usar:** Ya incluido en `<nav>`, úsalo si necesitas un contenedor no-semántico
+
+```
+<nav aria-label="Navegación principal">
+  <ul>
+    <li><a href="/">Inicio</a></li>
+    <li><a href="/productos">Productos</a></li>
+  </ul>
+</nav>
+```
+
+#### 5. tab, tablist, tabpanel
+
+**Uso:** Sistema de pestañas para alternar contenido
+
+**Cuándo usar:** Interfaces con pestañas, no hay elemento HTML nativo
+
+```
+<div role="tablist" aria-label="Configuración">
+  <button role="tab" aria-selected="true" aria-controls="panel1">
+    General
+  </button>
+  <button role="tab" aria-selected="false" aria-controls="panel2">
+    Avanzado
+  </button>
+</div>
+
+<div role="tabpanel" id="panel1">
+  Contenido general...
+</div>
+<div role="tabpanel" id="panel2" hidden>
+  Contenido avanzado...
+</div>
+```
+
+#### 6. menu, menubar, menuitem
+
+**Uso:** Menús de aplicación (no de navegación)
+
+**Cuándo usar:** Menús tipo aplicación de escritorio (Archivo, Editar, etc.)
+
+```
+<div role="menubar">
+  <button aria-haspopup="true" aria-expanded="false">
+    Archivo
+  </button>
+  <ul role="menu" hidden>
+    <li role="menuitem">Nuevo</li>
+    <li role="menuitem">Abrir</li>
+    <li role="menuitem">Guardar</li>
+  </ul>
+</div>
+```
+
+⚠️ **Cuidado:** No uses `role="menu"` para navegación web común. Usa `<nav>` en su lugar.
+
+#### 7. search
+
+**Uso:** Región que contiene funcionalidad de búsqueda
+
+**Cuándo usar:** Formularios o áreas de búsqueda
+
+```
+<div role="search">
+  <label for="site-search">Buscar en el sitio</label>
+  <input type="search" id="site-search" />
+  <button>Buscar</button>
+</div>
+```
+
+#### 8. status
+
+**Uso:** Información de estado actualizada dinámicamente
+
+**Cuándo usar:** Contadores, progreso, información no crítica
+
+```
+<div role="status" aria-live="polite">
+  3 elementos en el carrito
+</div>
+```
+
+#### 9. progressbar
+
+**Uso:** Indica el progreso de una tarea
+
+**Cuándo usar:** Barras de carga, progreso de formularios
+
+```
+<div
+  role="progressbar"
+  aria-valuenow="65"
+  aria-valuemin="0"
+  aria-valuemax="100"
+  aria-label="Progreso de carga"
+>
+  <div style="width: 65%;"></div>
+</div>
+```
+
+#### 10. slider
+
+**Uso:** Control deslizante para seleccionar un valor
+
+**Cuándo usar:** Solo si no puedes usar `<input type="range">`
+
+```
+<div
+  role="slider"
+  aria-valuenow="50"
+  aria-valuemin="0"
+  aria-valuemax="100"
+  aria-label="Volumen"
+  tabindex="0"
+>
+</div>
+```
+
+### Tabla resumen de roles
+
+ Roles ARIA más comunes y su equivalente HTML | Role ARIA | Equivalente HTML | Descripción |
+| --- | --- | --- |
+| `button` | `<button>` | Elemento interactivo que ejecuta acción |
+| `link` | `<a href>` | Navegación a otro recurso |
+| `navigation` | `<nav>` | Colección de enlaces de navegación |
+| `main` | `<main>` | Contenido principal de la página |
+| `banner` | `<header>` | Cabecera del sitio (nivel superior) |
+| `contentinfo` | `<footer>` | Pie de página del sitio (nivel superior) |
+| `complementary` | `<aside>` | Contenido complementario |
+| `form` | `<form>` | Formulario de entrada de datos |
+| `search` | — | Funcionalidad de búsqueda |
+| `dialog` | `<dialog>`* | Ventana modal (*soporte limitado) |
+| `alert` | — | Mensaje importante e inmediato |
+| `status` | — | Información de estado actualizable |
+
+**Recuerda:** Antes de usar cualquier role ARIA, pregúntate: "¿Existe un elemento HTML que haga esto?" Si la respuesta es sí, usa el elemento HTML nativo. Los roles deben ser tu último recurso, no tu primera opción.

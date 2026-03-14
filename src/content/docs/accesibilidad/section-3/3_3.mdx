@@ -1,0 +1,90 @@
+---
+title: Listas y tablas accesibles
+description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
+---
+
+## Listas y tablas accesibles
+
+Las listas y tablas son estructuras fundamentales para organizar información. Cuando se marcan correctamente, los lectores de pantalla pueden anunciar el tipo de estructura, el número de elementos y facilitar la navegación.
+
+### Listas ordenadas y desordenadas
+
+Los lectores de pantalla anuncian automáticamente el tipo de lista y el número total de elementos, lo que ayuda a los usuarios a entender el contexto antes de escuchar el contenido.
+
+#### Cuándo usar cada tipo:
+
+- `<ul>` (lista desordenada) — Para elementos sin orden específico: menús, características, opciones
+- `<ol>` (lista ordenada) — Para secuencias o pasos: instrucciones, rankings, procesos
+- `<dl>` (lista de definiciones) — Para pares término-definición: glosarios, metadatos
+
+#### Ejemplo de lista ordenada:
+
+```
+<ol>
+  <li>Analizar los requisitos de accesibilidad</li>
+  <li>Implementar HTML semántico</li>
+  <li>Probar con lectores de pantalla</li>
+  <li>Corregir problemas encontrados</li>
+</ol>
+```
+
+#### ❌ Error común:
+
+```
+<!-- No hagas esto -->
+<div>• Elemento 1</div>
+<div>• Elemento 2</div>
+<!-- Los lectores de pantalla no detectan esto como lista -->
+```
+
+### Tablas accesibles
+
+Las tablas deben usarse para datos tabulares, nunca para diseño. Una tabla accesible necesita encabezados claros y asociaciones correctas entre celdas.
+
+#### Elementos esenciales:
+
+- `<caption>` — Título descriptivo de la tabla
+- `<th>` — Encabezados de columna o fila
+- `scope` — Define si el encabezado aplica a fila (`row`) o columna (`col`)
+- `<thead>`, `<tbody>`, `<tfoot>` — Agrupan secciones lógicas
+
+#### Ejemplo de tabla accesible:
+
+ Participantes del proyecto | Nombre | Rol | Asiste |
+| --- | --- | --- |
+| Alejandra | Desarrolladora |  |
+| Carlos | Diseñador |  |
+| María | QA Tester |  |
+
+#### Código de la tabla anterior:
+
+```
+<table>
+  <caption>Participantes del proyecto</caption>
+  <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Rol</th>
+      <th scope="col">Asiste</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Alejandra</td>
+      <td>Desarrolladora</td>
+      <td><input type="checkbox" aria-label="Alejandra asiste" /></td>
+    </tr>
+  </tbody>
+</table>
+```
+
+#### Para tablas complejas:
+
+Si tienes encabezados en múltiples niveles o celdas que abarcan varias filas/columnas, usa los atributos `headers` e `id` para asociaciones explícitas:
+
+```
+<th id="nombre">Nombre</th>
+<td headers="nombre">Ana García</td>
+```
+
+**Beneficio clave:** Los lectores de pantalla anuncian los encabezados correspondientes al navegar por cada celda, proporcionando contexto constante al usuario.

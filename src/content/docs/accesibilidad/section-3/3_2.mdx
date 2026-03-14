@@ -1,0 +1,57 @@
+---
+title: Estructura de encabezados y jerarquía
+description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
+---
+
+## Estructura de encabezados y jerarquía
+
+Los encabezados HTML (`<h1>` a `<h6>`) son fundamentales para estructurar el contenido de forma jerárquica. Los lectores de pantalla los utilizan como puntos de navegación rápida, permitiendo a los usuarios saltar entre secciones sin tener que leer todo el contenido linealmente.
+
+### Reglas fundamentales:
+
+- **Un único &lt;h1&gt; por página:** Representa el título principal del documento o contenido único de la página.
+- **Jerarquía lógica:** No saltes niveles (❌ de `<h2>` a `<h4>`). Progresa secuencialmente.
+- **Anidamiento coherente:** Los encabezados deben reflejar la estructura real del contenido.
+- **No uses encabezados solo por estilo:** Si necesitas un texto grande, usa CSS, no un `<h3>`.
+
+### Ejemplo de estructura correcta:
+
+```
+<h1>Guía de Accesibilidad Web</h1>
+
+<h2>Introducción</h2>
+<p>Contenido de la introducción...</p>
+
+<h2>Principios de Accesibilidad</h2>
+<p>Explicación de los principios...</p>
+
+  <h3>Perceptible</h3>
+  <p>La información debe ser presentable...</p>
+
+  <h3>Operable</h3>
+  <p>Los componentes deben ser operables...</p>
+
+    <h4>Navegación por teclado</h4>
+    <p>Detalle sobre navegación...</p>
+
+<h2>Conclusiones</h2>
+<p>Resumen final...</p>
+```
+
+### Beneficios para usuarios de lectores de pantalla:
+
+- Pueden generar un índice automático de la página
+- Saltan rápidamente entre secciones usando atajos de teclado
+- Entienden la estructura y relación entre contenidos
+- Pueden navegar por niveles específicos (ej: solo `<h2>`)
+
+### ❌ Ejemplo incorrecto:
+
+```
+<h1>Título Principal</h1>
+<h3>Subsección</h3>  <!-- ❌ Salta de h1 a h3 -->
+<h2>Otra Sección</h2>  <!-- ❌ Vuelve a h2 después de h3 -->
+<h4>Texto grande</h4>  <!-- ❌ Usado solo para estilo -->
+```
+
+**Herramienta útil:** Usa extensiones de navegador como "HeadingsMap" o el panel de accesibilidad de DevTools para visualizar la jerarquía de encabezados de tu página.

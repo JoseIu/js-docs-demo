@@ -1,0 +1,192 @@
+---
+title: VoiceOver (macOS/iOS)
+description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
+---
+
+## VoiceOver (macOS/iOS)
+
+**VoiceOver** es el lector de pantalla integrado en todos los dispositivos Apple (Mac, iPhone, iPad, Apple Watch). Es esencial para probar la accesibilidad en el ecosistema Apple y tiene una cuota de mercado significativa, especialmente en móviles.
+
+### Ventajas de VoiceOver
+
+#### ✅ macOS
+
+- Integrado en el sistema (no requiere instalación)
+- 100% gratuito
+- Excelente integración con Safari
+- Actualizado con cada versión de macOS
+- Herramienta de práctica incluida
+
+#### 📱 iOS
+
+- Líder en accesibilidad móvil
+- Gestos táctiles intuitivos
+- Rotor para navegación rápida
+- Integración con apps nativas
+- Siri para control por voz
+
+### Activar VoiceOver
+
+#### 🖥️ macOS
+
+Atajo rápido:
+
+`Cmd + F5`
+
+(En MacBooks con Touch Bar: `Cmd + Touch ID 3 veces`)
+
+O desde: **Preferencias del Sistema → Accesibilidad → VoiceOver**
+
+#### 📱 iOS/iPadOS
+
+Atajo rápido:
+
+Triple clic en el **botón lateral** (o botón Home en dispositivos antiguos)
+
+O desde: **Ajustes → Accesibilidad → VoiceOver**
+
+💡 Configura el triple clic en: **Ajustes → Accesibilidad → Atajos de accesibilidad**
+
+### ⌨️ Tecla modificadora: VO
+
+Los comandos de VoiceOver usan la combinación **VO**, que por defecto es:
+
+**`Control + Option`**
+
+Manténlas presionadas mientras usas otros comandos
+
+En esta guía, **VO** se referirá a `Control + Option`.
+
+### Comandos esenciales (macOS)
+
+ Control básico | Comando | Acción |
+| --- | --- |
+| `Cmd + F5` | Activar/Desactivar VoiceOver |
+| `VO + H` | Abrir menú de ayuda de VoiceOver |
+| `VO + Cmd + F8` | Abrir utilidad de VoiceOver (configuración) |
+| `Control` | Detener lectura |
+
+ Navegación básica | Comando | Acción |
+| --- | --- |
+| `VO + →` / `←` | Siguiente/Anterior elemento |
+| `VO + A` | Leer desde la posición actual |
+| `VO + Shift + ↓` | Interactuar con elemento (entrar en grupos) |
+| `VO + Shift + ↑` | Salir de elemento (dejar grupos) |
+| `VO + Espacio` | Activar/hacer clic en elemento |
+| `Tab` / `Shift + Tab` | Siguiente/Anterior elemento enfocable |
+
+ Navegación web con el Rotor | Comando | Acción |
+| --- | --- |
+| `VO + U` | Abrir el Rotor (lista de elementos) |
+| `←` / `→` (en Rotor) | Cambiar entre categorías (encabezados, enlaces, etc.) |
+| `↑` / `↓` (en Rotor) | Navegar dentro de la categoría |
+| `Enter` (en Rotor) | Ir al elemento seleccionado |
+| `VO + Cmd + H` | Siguiente encabezado |
+| `VO + Cmd + L` | Siguiente enlace |
+| `VO + Cmd + J` | Siguiente campo de formulario |
+| `VO + Cmd + T` | Siguiente tabla |
+| `VO + Cmd + G` | Siguiente gráfico (imagen) |
+
+### 🔄 El Rotor: Herramienta clave de VoiceOver
+
+**El Rotor** es una interfaz circular que permite navegar rápidamente por diferentes tipos de elementos en la página.
+
+Cómo usar el Rotor:
+
+1. Presiona `VO + U` para abrir el Rotor
+1.  Usa `←` / `→` para cambiar categorías:
+
+  - Encabezados (Headings)
+  - Enlaces (Links)
+  - Controles de formulario (Form Controls)
+  - Tablas (Tables)
+  - Landmarks
+  - Artículos (Articles)
+
+1. Usa `↑` / `↓` para navegar en la lista
+1. Presiona `Enter` para ir al elemento
+
+**✨ Ventaja:** El Rotor te da una vista general instantánea de la estructura de la página. Si está vacío o mal organizado, es señal de problemas de accesibilidad.
+
+### Gestos en iOS (VoiceOver móvil)
+
+ Gestos esenciales | Gesto | Acción |
+| --- | --- |
+| **Tocar una vez** | Seleccionar y escuchar elemento |
+| **Doble toque** | Activar elemento seleccionado |
+| **Deslizar derecha** | Siguiente elemento |
+| **Deslizar izquierda** | Anterior elemento |
+| **Deslizar arriba** | Leer desde la parte superior |
+| **Deslizar abajo** | Leer desde la posición actual |
+| **Girar dos dedos (rotor)** | Cambiar modo de navegación |
+| **Deslizar arriba/abajo (con rotor)** | Navegar según modo del rotor |
+| **Toque con 3 dedos izquierda/derecha** | Desplazar página |
+| **Tocar con 2 dedos** | Detener/reanudar lectura |
+
+### Rotor en iOS
+
+En iOS, el Rotor se activa con un **gesto de rotación con dos dedos** (como girando un dial).
+
+Opciones del Rotor móvil:
+
+- Caracteres
+- Palabras
+- Líneas
+- Encabezados
+- Enlaces
+- Controles de formulario
+- Botones
+- Landmarks
+- Contenedores (divs, artículos)
+
+Una vez seleccionada la opción, **desliza arriba o abajo con un dedo** para navegar entre elementos de ese tipo.
+
+### Configuración recomendada para desarrollo
+
+#### macOS
+
+- **Velocidad de voz más rápida**: Utilidad de VO → Voz → Aumentar velocidad
+- **Usar Safari**: Mejor compatibilidad con VoiceOver
+- **Practicar con VoiceOver Training**: Utilidad de VO → Ayuda → Iniciar entrenamiento
+- **Habilitar atajos de teclado**: Para navegación web rápida
+
+#### iOS
+
+- **Configurar triple clic**: Para activar/desactivar rápidamente
+- **Ajustar velocidad**: Ajustes → Accesibilidad → VoiceOver → Velocidad de habla
+- **Practicar gestos**: Ajustes → Accesibilidad → VoiceOver → Práctica de VoiceOver
+- **Probar en Safari**: Principal navegador en iOS
+
+### Workflow de testing con VoiceOver (macOS)
+
+1. **Activa VoiceOver** (`Cmd + F5`)
+1. **Abre Safari** y navega a tu sitio
+1. **Abre el Rotor** (`VO + U`)
+
+  - Revisa la lista de encabezados
+  - Revisa la lista de enlaces
+  - Revisa los landmarks
+
+1. **Navega con `VO + →`** elemento por elemento
+
+  - ¿El orden de lectura tiene sentido?
+  - ¿Las descripciones son claras?
+
+1. **Prueba un formulario**
+
+  - ¿Se anuncian correctamente las etiquetas?
+  - ¿Los errores son claros?
+
+1. **Desactiva VoiceOver** (`Cmd + F5`)
+
+### Diferencias clave: VoiceOver vs NVDA
+
+| Aspecto | VoiceOver | NVDA |
+| --- | --- | --- |
+| **Navegación** | VO + flechas para moverse | Flechas directamente |
+| **Grupos/Regiones** | Requiere "entrar" con VO+Shift+↓ | Navegación plana automática |
+| **Herramienta clave** | El Rotor (VO + U) | Lista de elementos (NVDA + F7) |
+| **Atajos** | VO + Cmd + letra | Tecla única (H, K, F, etc.) |
+| **Móvil** | Líder en iOS | No disponible en móvil |
+
+**💡 Consejo:** Si desarrollas para Mac/iOS o tienes usuarios de Apple, VoiceOver es imprescindible. Si tienes un Mac, aprovecha que viene preinstalado y dedica tiempo a dominarlo. En iOS, los gestos táctiles pueden revelar problemas que no se ven en desktop.

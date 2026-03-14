@@ -1,0 +1,109 @@
+---
+title: Qué es y cómo funciona
+description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
+---
+
+## Qué es y cómo funciona
+
+El **árbol de accesibilidad** (accessibility tree) es una representación paralela al DOM que utilizan los lectores de pantalla y otras tecnologías asistivas para interpretar y navegar por la página web.
+
+### Concepto clave
+
+Mientras que el DOM representa toda la estructura HTML de la página, el árbol de accesibilidad solo contiene la información relevante para la accesibilidad:
+
+- **Roles**: qué tipo de elemento es (botón, enlace, título, etc.)
+- **Nombres**: cómo se identifica (texto, etiqueta, aria-label)
+- **Estados**: su condición actual (expandido, seleccionado, deshabilitado)
+- **Propiedades**: características adicionales (requerido, nivel de título)
+
+### ¿Cómo funciona?
+
+1. **El navegador crea el DOM** a partir del HTML
+1. **El navegador genera el árbol de accesibilidad** filtrando y procesando el DOM
+1. **Se excluyen elementos decorativos** (div sin rol, span vacíos, aria-hidden="true")
+1. **Se calculan nombres accesibles** desde etiquetas, aria-label, contenido, etc.
+1. **Las tecnologías asistivas consultan este árbol** para anunciar la información al usuario
+
+### Ejemplo visual: Del HTML al árbol de accesibilidad
+
+#### 📄 HTML (DOM)
+
+```
+<nav>
+  <ul>
+    <li>
+      <a href="/">Inicio</a>
+    </li>
+    <li>
+      <button
+        aria-expanded="false"
+        aria-controls="submenu"
+      >
+        Productos
+      </button>
+      <ul id="submenu" hidden>
+        <li>
+          <a href="/cat">Catálogo</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+```
+
+#### 🌳 Árbol de Accesibilidad
+
+```
+navigation
+├─ list
+   ├─ listitem
+   │  └─ link "Inicio"
+   └─ listitem
+      ├─ button "Productos"
+      │  ├─ expanded: false
+      │  └─ controls: submenu
+      └─ list (hidden)
+         └─ listitem
+            └─ link "Catálogo"
+```
+
+### Elementos que se filtran del árbol
+
+**NO aparecen en el árbol de accesibilidad:**
+
+- `<div>`, `<span>` sin rol semántico
+- Elementos con `aria-hidden="true"`
+- Elementos con `hidden` o `display: none`
+- Elementos decorativos puros (CSS pseudo-elementos)
+- Nodos de texto vacíos o solo espacios
+
+### Ejemplo interactivo: Inspeccionar el árbol de accesibilidad
+
+#### 🧪 Elemento de ejemplo
+
+ Nombre de usuario * Mínimo 5 caracteres
+
+#### 🔍 Cómo inspeccionarlo en DevTools:
+
+1. Abre las DevTools (F12 o Cmd+Option+I)
+1. Ve a la pestaña **Elements**
+1. Selecciona un elemento en el HTML
+1. En el panel lateral, ve a la pestaña **Accessibility**
+1.  Verás el árbol de accesibilidad con:
+
+  - **Name**: "Nombre de usuario"
+  - **Role**: textbox
+  - **Required**: true
+  - **Placeholder**: "Ej: usuario123"
+
+### Diferencias clave: DOM vs Árbol de Accesibilidad
+
+| Aspecto | DOM | Árbol de Accesibilidad |
+| --- | --- | --- |
+| **Propósito** | Representar toda la estructura HTML | Exponer información para tecnologías asistivas |
+| **Contenido** | Todos los elementos HTML | Solo elementos semánticos/relevantes |
+| **Decoración** | Incluye div, span, etc. | Excluye elementos sin significado |
+| **Estados** | Atributos HTML y CSS | Roles, estados y propiedades ARIA |
+| **Actualización** | Cada cambio en el HTML | Cuando cambian atributos de accesibilidad |
+
+**💡 Tip:** Usa la pestaña "Accessibility" en las DevTools de Chrome, Firefox o Edge para ver el árbol de accesibilidad en tiempo real mientras desarrollas. Es la mejor forma de entender qué "ven" realmente los lectores de pantalla.

@@ -1,0 +1,296 @@
+---
+title: Estados y propiedades más comunes
+description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
+---
+
+## Estados y propiedades más comunes
+
+Los atributos ARIA se dividen en dos categorías principales: **estados** (cambian dinámicamente) y **propiedades** (suelen ser estáticas). Ambos proporcionan información crucial a las tecnologías asistivas sobre el comportamiento y características de los elementos.
+
+### Diferencia entre estados y propiedades
+
+- **Estados:** Valores que cambian con la interacción del usuario (expandido/colapsado, seleccionado/no seleccionado)
+- **Propiedades:** Características más estables del elemento (etiqueta, descripción, nivel)
+
+### Estados ARIA más utilizados
+
+#### aria-expanded
+
+**Valores:**`true` | `false`
+
+**Uso:** Indica si un elemento desplegable (acordeón, menú, tooltip) está expandido o colapsado
+
+```
+<button aria-expanded="false" aria-controls="menu">
+  Menú
+</button>
+<ul id="menu" hidden>
+  <li>Opción 1</li>
+  <li>Opción 2</li>
+</ul>
+
+<script>
+button.addEventListener('click', () => {
+  const isExpanded = button.getAttribute('aria-expanded') === 'true';
+  button.setAttribute('aria-expanded', !isExpanded);
+  menu.hidden = isExpanded;
+});
+</script>
+```
+
+#### aria-checked
+
+**Valores:**`true` | `false` | `mixed`
+
+**Uso:** Estado de checkboxes y radios personalizados
+
+```
+<div role="checkbox" aria-checked="false" tabindex="0">
+  Acepto términos y condiciones
+</div>
+
+<!-- Mejor: usar checkbox nativo -->
+<input type="checkbox" id="terms">
+<label for="terms">Acepto términos y condiciones</label>
+```
+
+💡 `mixed` se usa cuando un checkbox padre controla múltiples opciones y solo algunas están marcadas
+
+#### aria-selected
+
+**Valores:**`true` | `false`
+
+**Uso:** Indica qué elemento está seleccionado en tabs, listas, grids
+
+```
+<div role="tablist">
+  <button role="tab" aria-selected="true">Tab 1</button>
+  <button role="tab" aria-selected="false">Tab 2</button>
+  <button role="tab" aria-selected="false">Tab 3</button>
+</div>
+```
+
+#### aria-pressed
+
+**Valores:**`true` | `false` | `mixed`
+
+**Uso:** Botones de alternancia (toggle buttons)
+
+```
+<button aria-pressed="false">
+  Negrita
+</button>
+
+<script>
+button.addEventListener('click', () => {
+  const isPressed = button.getAttribute('aria-pressed') === 'true';
+  button.setAttribute('aria-pressed', !isPressed);
+  // Aplicar estilo de negrita...
+});
+</script>
+```
+
+#### aria-disabled
+
+**Valores:**`true` | `false`
+
+**Uso:** Indica que un elemento está deshabilitado pero visible
+
+```
+<button aria-disabled="true" style="opacity: 0.5;">
+  Enviar
+</button>
+
+<!-- Mejor: usar disabled nativo -->
+<button disabled>Enviar</button>
+```
+
+⚠️ `aria-disabled` no previene la interacción, debes hacerlo con JavaScript. Usa `disabled` nativo cuando sea posible.
+
+#### aria-hidden
+
+**Valores:**`true` | `false`
+
+**Uso:** Oculta elementos del árbol de accesibilidad
+
+```
+<!-- Iconos decorativos -->
+<button>
+  <span aria-hidden="true">🔍</span>
+  Buscar
+</button>
+
+<!-- Contenido duplicado -->
+<div aria-hidden="true" class="decorative-background">
+  Patrón decorativo
+</div>
+```
+
+⚠️ **Peligro:** No uses `aria-hidden="true"` en elementos enfocables o con contenido importante. El usuario podría enfocar algo que no puede "ver".
+
+### Propiedades ARIA más utilizadas
+
+#### aria-label
+
+**Valores:** Texto (string)
+
+**Uso:** Proporciona una etiqueta accesible cuando no hay texto visible
+
+```
+<button aria-label="Cerrar ventana">
+  ×
+</button>
+
+<nav aria-label="Navegación principal">
+  <!-- enlaces -->
+</nav>
+
+<input type="search" aria-label="Buscar productos" />
+```
+
+#### aria-labelledby
+
+**Valores:** ID de elemento(s)
+
+**Uso:** Asocia un elemento con su etiqueta usando IDs
+
+```
+<div role="dialog" aria-labelledby="dialog-title">
+  <h2 id="dialog-title">Confirmar eliminación</h2>
+  <p>¿Estás seguro?</p>
+</div>
+
+<!-- Múltiples IDs para etiqueta compuesta -->
+<div aria-labelledby="section-title section-subtitle">
+  <h2 id="section-title">Productos</h2>
+  <span id="section-subtitle">Destacados del mes</span>
+</div>
+```
+
+💡 `aria-labelledby` tiene prioridad sobre `aria-label` y sobre el contenido del elemento
+
+#### aria-describedby
+
+**Valores:** ID de elemento(s)
+
+**Uso:** Asocia descripción o ayuda adicional
+
+```
+<input
+  type="password"
+  aria-describedby="pwd-hint pwd-error"
+/>
+<div id="pwd-hint">Mínimo 8 caracteres</div>
+<div id="pwd-error" class="error" hidden>
+  La contraseña es muy corta
+</div>
+```
+
+#### aria-required
+
+**Valores:**`true` | `false`
+
+**Uso:** Indica que un campo es obligatorio
+
+```
+<label for="email">Email *</label>
+<input
+  type="email"
+  id="email"
+  required
+  aria-required="true"
+/>
+```
+
+💡 Usa tanto `required` (HTML5) como `aria-required` para máxima compatibilidad
+
+#### aria-invalid
+
+**Valores:**`true` | `false` | `grammar` | `spelling`
+
+**Uso:** Indica que un campo contiene un error
+
+```
+<input
+  type="email"
+  aria-invalid="true"
+  aria-describedby="email-error"
+/>
+<span id="email-error" role="alert">
+  El formato del email es incorrecto
+</span>
+```
+
+#### aria-live
+
+**Valores:**`off` | `polite` | `assertive`
+
+**Uso:** Define cómo se anuncian cambios dinámicos
+
+```
+<!-- Notificación no urgente -->
+<div aria-live="polite">
+  Producto añadido al carrito
+</div>
+
+<!-- Alerta urgente -->
+<div role="alert" aria-live="assertive">
+  Error: No se pudo procesar el pago
+</div>
+```
+
+💡 `polite` = espera a que el usuario termine de leer | `assertive` = interrumpe y anuncia inmediatamente
+
+#### aria-controls
+
+**Valores:** ID de elemento(s)
+
+**Uso:** Indica qué elemento(s) controla este elemento
+
+```
+<button
+  aria-expanded="false"
+  aria-controls="submenu"
+>
+  Más opciones
+</button>
+<ul id="submenu" hidden>
+  <li>Opción 1</li>
+  <li>Opción 2</li>
+</ul>
+```
+
+#### aria-haspopup
+
+**Valores:**`true` | `false` | `menu` | `listbox` | `tree` | `grid` | `dialog`
+
+**Uso:** Indica que el elemento activa un popup
+
+```
+<button aria-haspopup="menu" aria-expanded="false">
+  Opciones
+</button>
+
+<button aria-haspopup="dialog">
+  Ayuda
+</button>
+```
+
+### Tabla resumen
+
+ Estados y propiedades ARIA más comunes | Atributo | Tipo | Uso principal |
+| --- | --- | --- |
+| `aria-expanded` | Estado | Elemento expandido/colapsado |
+| `aria-checked` | Estado | Checkbox/radio marcado |
+| `aria-selected` | Estado | Elemento seleccionado |
+| `aria-pressed` | Estado | Botón de alternancia activado |
+| `aria-disabled` | Estado | Elemento deshabilitado |
+| `aria-hidden` | Estado | Oculto para lectores de pantalla |
+| `aria-label` | Propiedad | Etiqueta accesible |
+| `aria-labelledby` | Propiedad | Referencia a etiqueta |
+| `aria-describedby` | Propiedad | Referencia a descripción |
+| `aria-required` | Propiedad | Campo obligatorio |
+| `aria-invalid` | Estado | Campo con error |
+| `aria-live` | Propiedad | Región dinámica |
+
+**Buena práctica:** Actualiza los estados ARIA dinámicamente con JavaScript cuando el usuario interactúa. Un estado desactualizado es peor que no tener estado, ya que proporciona información incorrecta.

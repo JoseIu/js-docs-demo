@@ -1,0 +1,152 @@
+---
+title: Buenas prácticas de marcado y validación
+description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
+---
+
+## Buenas prácticas de marcado y validación
+
+Un HTML bien estructurado y válido es la base de la accesibilidad web. Los errores de marcado pueden romper la interpretación de las tecnologías asistivas y causar problemas graves de usabilidad.
+
+### 1. Validación del código HTML
+
+Validar tu HTML regularmente ayuda a detectar errores que pueden afectar la accesibilidad:
+
+#### Herramientas de validación:
+
+- **W3C Markup Validator** — [validator.w3.org](https://validator.w3.org/) — Valida la sintaxis HTML
+- **WAVE** — [wave.webaim.org](https://wave.webaim.org/) — Evalúa accesibilidad visual
+- **axe DevTools** — Extensión de navegador para auditorías automáticas
+- **Lighthouse** — Herramienta integrada en Chrome DevTools
+- **HTML-validate** — Validador integrable en tu flujo de desarrollo
+
+#### Errores comunes a evitar:
+
+```
+<!-- ❌ IDs duplicados -->
+<div id="menu">...</div>
+<div id="menu">...</div>
+
+<!-- ❌ Etiquetas sin cerrar -->
+<div><p>Texto</div></p>
+
+<!-- ❌ Atributos mal formados -->
+<input type=text>  <!-- Sin comillas -->
+
+<!-- ❌ Anidamiento incorrecto -->
+<p>Párrafo <div>dentro</div></p>
+```
+
+### 2. Uso correcto de atributos
+
+Los atributos deben usarse apropiadamente para garantizar la accesibilidad:
+
+#### Atributos esenciales:
+
+ Atributos clave para accesibilidad | Atributo | Uso | Ejemplo |
+| --- | --- | --- |
+| `alt` | Texto alternativo para imágenes | `<img src="logo.png" alt="Logo empresa">` |
+| `for` | Asocia label con input | `<label for="email">` |
+| `lang` | Idioma del contenido | `<html lang="es">` |
+| `title` | Información adicional | `<abbr title="Hypertext Markup Language">HTML</abbr>` |
+| `aria-label` | Etiqueta accesible | `<button aria-label="Cerrar menú">×</button>` |
+| `aria-describedby` | Asocia descripción | `<input aria-describedby="error-email">` |
+| `role` | Define rol ARIA | `<div role="alert">` |
+
+### 3. Estructura del documento
+
+Mantén una estructura HTML coherente y lógica:
+
+#### ✅ Ejemplo de estructura correcta:
+
+```
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Título descriptivo de la página</title>
+</head>
+<body>
+  <header>
+    <nav aria-label="Navegación principal">
+      <!-- menú -->
+    </nav>
+  </header>
+
+  <main>
+    <h1>Título principal</h1>
+    <!-- contenido principal -->
+  </main>
+
+  <aside>
+    <!-- contenido complementario -->
+  </aside>
+
+  <footer>
+    <!-- información del sitio -->
+  </footer>
+</body>
+</html>
+```
+
+### 4. Sincronización del árbol de accesibilidad
+
+El árbol de accesibilidad debe reflejar fielmente la estructura y estado del DOM:
+
+- **Actualiza estados ARIA:** Si un elemento cambia visualmente, actualiza sus atributos ARIA (`aria-expanded`, `aria-checked`, etc.)
+- **Usa `aria-hidden` correctamente:** Si ocultas algo visualmente con CSS, ocúltalo también para lectores de pantalla
+- **Mantén el orden lógico:** El orden del DOM debe coincidir con el orden visual y lógico del contenido
+- **Evita conflictos:** No uses roles ARIA que contradigan la semántica nativa del elemento
+
+#### Ejemplo de sincronización correcta:
+
+```
+<!-- Botón que abre/cierra un menú -->
+<button
+  aria-expanded="false"
+  aria-controls="menu-desplegable"
+  onclick="toggleMenu()"
+>
+  Menú
+</button>
+
+<ul id="menu-desplegable" hidden>
+  <li><a href="#">Opción 1</a></li>
+  <li><a href="#">Opción 2</a></li>
+</ul>
+
+<script>
+function toggleMenu() {
+  const button = document.querySelector('button');
+  const menu = document.getElementById('menu-desplegable');
+  const isOpen = button.getAttribute('aria-expanded') === 'true';
+
+  // Sincroniza estado visual y accesible
+  button.setAttribute('aria-expanded', !isOpen);
+  menu.hidden = isOpen;
+}
+</script>
+```
+
+### 5. Checklist de buenas prácticas
+
+- ✅ HTML válido sin errores sintácticos
+- ✅ Un único `<h1>` por página
+- ✅ Todas las imágenes tienen atributo `alt`
+- ✅ Todos los inputs tienen `<label>` asociado
+- ✅ Atributo `lang` definido en `<html>`
+- ✅ Enlaces tienen texto descriptivo (no "click aquí")
+- ✅ Contraste de color adecuado (mínimo 4.5:1)
+- ✅ Navegación funciona solo con teclado
+- ✅ Estados ARIA actualizados dinámicamente
+- ✅ Probado con lectores de pantalla
+
+### 6. Flujo de trabajo recomendado
+
+1. **Durante desarrollo:** Usa el validador de HTML en tu editor (VS Code, etc.)
+1. **Antes de commit:** Ejecuta validadores automáticos (linters, pre-commit hooks)
+1. **En revisión de código:** Verifica semántica y accesibilidad
+1. **En testing:** Prueba con Lighthouse, axe, y lectores de pantalla
+1. **En producción:** Monitorea errores y feedback de usuarios
+
+**Recuerda:** La validación y las buenas prácticas no son opcionales en accesibilidad. Un HTML mal formado puede hacer que toda tu aplicación sea inaccesible, sin importar cuántos atributos ARIA agregues.

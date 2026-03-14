@@ -1,0 +1,203 @@
+---
+title: Estándares y Pautas de Accesibilidad
+description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
+---
+
+## Estándares y Pautas de Accesibilidad
+
+Los estándares y pautas de accesibilidad proporcionan el **marco técnico y de referencia** para crear contenido digital accesible. El más importante y ampliamente adoptado es WCAG, pero existen otros estándares complementarios que debemos conocer.
+
+### WCAG: Web Content Accessibility Guidelines
+
+Desarrolladas por el W3C (World Wide Web Consortium), las WCAG son el **estándar internacional de facto** para la accesibilidad web.
+
+#### Versiones y evolución
+
+- **WCAG 1.0 (1999):** Primera versión, orientada a tecnologías específicas
+- **WCAG 2.0 (2008):** Reescritura completa, independiente de tecnología, adoptada como ISO/IEC 40500
+- **WCAG 2.1 (2018):** Añade 17 criterios nuevos, enfoque en móviles, baja visión y cognición
+- **WCAG 2.2 (2023):** Añade 9 criterios nuevos, mejoras en cognición y móviles
+- **WCAG 3.0 (en desarrollo):** Cambio fundamental de modelo, actualmente en borrador
+
+#### Estructura de WCAG
+
+WCAG se organiza en **4 principios fundamentales (POUR)**:
+
+##### 1. Perceptible
+
+La información y componentes de la interfaz deben presentarse de forma que los usuarios puedan percibirlos.
+
+- **Alternativas textuales:** Contenido no textual tiene texto alternativo
+- **Medios tempodependientes:** Subtítulos, audiodescripciones para vídeos
+- **Adaptable:** Contenido puede presentarse de diferentes formas sin perder información
+- **Distinguible:** Fácil de ver y oír, separar primer plano de fondo
+
+##### 2. Operable
+
+Los componentes de la interfaz y navegación deben ser operables por todos.
+
+- **Accesible por teclado:** Toda funcionalidad disponible desde teclado
+- **Tiempo suficiente:** Los usuarios tienen tiempo para leer y usar el contenido
+- **Convulsiones y reacciones físicas:** No diseñar contenido que pueda causar convulsiones
+- **Navegable:** Formas de ayudar a navegar, encontrar contenido y ubicarse
+- **Modalidades de entrada:** Más allá del teclado (punteros, voz, gestos)
+
+##### 3. Comprensible
+
+La información y operación de la interfaz deben ser comprensibles.
+
+- **Legible:** Contenido textual comprensible
+- **Predecible:** Las páginas aparecen y operan de manera predecible
+- **Asistencia a la entrada:** Ayudar a evitar y corregir errores
+
+##### 4. Robusto
+
+El contenido debe ser robusto para interpretarse por diversos agentes de usuario, incluidas tecnologías asistivas.
+
+- **Compatible:** Maximizar compatibilidad con herramientas actuales y futuras
+
+#### Niveles de conformidad
+
+WCAG define **3 niveles de conformidad** para cada criterio:
+
+Niveles de conformidad WCAG| Nivel | Descripción | Uso recomendado |
+| --- | --- | --- |
+| **A (mínimo)** | Requisitos básicos. Si no se cumplen, el contenido es inaccesible para algunos usuarios. | Mínimo legal en algunos países, pero insuficiente. |
+| **AA (medio)** | Aborda las barreras más significativas. Incluye criterios de nivel A. | **Estándar requerido** por la mayoría de legislaciones (UE, EE.UU., etc.) |
+| **AAA (máximo)** | Nivel más alto de accesibilidad. Incluye criterios de nivel A y AA. | Aspiracional. Difícil de lograr para todo el contenido. Implementar selectivamente. |
+
+**Recomendación:** Apuntar a **WCAG 2.2 nivel AA** como objetivo realista y legalmente suficiente. Considerar AAA para áreas críticas (formularios importantes, procesos de pago).
+
+#### Novedades en WCAG 2.2 (octubre 2023)
+
+9 nuevos criterios de éxito añadidos:
+
+- **2.4.11 Foco no oculto (mínimo) - AA:** El indicador de foco no debe quedar completamente oculto
+- **2.4.12 Foco no oculto (mejorado) - AAA:** El indicador de foco debe ser completamente visible
+- **2.4.13 Apariencia del foco - AAA:** El indicador de foco debe tener suficiente contraste y tamaño
+- **2.5.7 Movimientos de arrastre - AA:** Funcionalidad de arrastre tiene alternativa de un solo puntero
+- **2.5.8 Tamaño del objetivo (mínimo) - AA:** Objetivos táctiles de al menos 24×24 píxeles CSS
+- **3.2.6 Ayuda consistente - A:** Mecanismos de ayuda en ubicación consistente
+- **3.3.7 Entrada redundante - A:** No pedir la misma información repetidamente
+- **3.3.8 Autenticación accesible (mínimo) - AA:** No requerir tests cognitivos para autenticar
+- **3.3.9 Autenticación accesible (mejorado) - AAA:** No requerir tests cognitivos ni de reconocimiento de objetos
+
+### Otros estándares relacionados
+
+#### EN 301 549 (Europa)
+
+Norma europea que adopta WCAG y añade requisitos adicionales:
+
+- Basada en WCAG 2.1 nivel AA (actualizada a 2.2 en revisión 2024)
+- Incluye requisitos para software, documentos y hardware
+- Obligatoria para compras públicas en la UE
+
+#### Section 508 (EE.UU.)
+
+Estándar del gobierno estadounidense:
+
+- Actualizado en 2018 para adoptar WCAG 2.0 nivel AA
+- Requisitos adicionales para software y hardware
+- Obligatorio para agencias federales y contratistas
+
+#### ISO/IEC 40500:2012
+
+Adopción de WCAG 2.0 como estándar ISO:
+
+- Mismo contenido que WCAG 2.0
+- Permite adopción formal en organizaciones que requieren estándares ISO
+
+#### ARIA: Accessible Rich Internet Applications
+
+Especificación del W3C para mejorar accesibilidad de aplicaciones web dinámicas:
+
+- **Roles:** Definen el tipo de elemento (button, navigation, dialog)
+- **Estados:** Información dinámica (aria-expanded, aria-checked)
+- **Propiedades:** Características del elemento (aria-label, aria-describedby)
+- **ARIA Authoring Practices:** Guía con patrones y ejemplos
+
+**Regla fundamental:** La primera regla de ARIA es **no usar ARIA** si el HTML nativo es suficiente.
+
+#### ATAG: Authoring Tool Accessibility Guidelines
+
+Guías para crear herramientas de autor accesibles (CMS, editores):
+
+- La herramienta misma debe ser accesible
+- La herramienta debe facilitar la creación de contenido accesible
+- Versión actual: ATAG 2.0 (2015)
+
+#### UAAG: User Agent Accessibility Guidelines
+
+Guías para navegadores y reproductores multimedia:
+
+- Cómo hacer navegadores accesibles
+- Cómo facilitar el acceso al contenido
+- Versión actual: UAAG 2.0 (2015)
+
+### Estándares móviles específicos
+
+#### Apple - Human Interface Guidelines (iOS)
+
+- Guías oficiales de accesibilidad para iOS
+- Integración con VoiceOver, Dynamic Type, etc.
+- Requisitos para aprobar apps en App Store
+
+#### Google - Material Design Accessibility
+
+- Guías de accesibilidad para Android
+- Integración con TalkBack y servicios de accesibilidad
+- Componentes accesibles por defecto
+
+### Cómo usar estos estándares
+
+#### Durante el diseño
+
+- Consultar requisitos de contraste (1.4.3, 1.4.6, 1.4.11)
+- Verificar tamaño de objetivos táctiles (2.5.5, 2.5.8)
+- Planificar navegación por teclado (2.1.1, 2.1.2, 2.4.3)
+- Diseñar indicadores de foco visibles (2.4.7, 2.4.11)
+
+#### Durante el desarrollo
+
+- Implementar estructura semántica (1.3.1, 4.1.1)
+- Agregar alternativas textuales (1.1.1)
+- Asegurar accesibilidad por teclado (2.1.1)
+- Usar ARIA apropiadamente (4.1.2, 4.1.3)
+- Manejar formularios correctamente (3.3.1, 3.3.2, 3.3.3)
+
+#### Durante el testing
+
+- Herramientas automáticas (cubren ~30-40% de criterios)
+- Testing manual contra checklist de WCAG
+- Pruebas con tecnologías asistivas
+- Testing con usuarios reales con discapacidades
+
+### Recursos oficiales
+
+- **WCAG 2.2 oficial:**[w3.org/TR/WCAG22](https://www.w3.org/TR/WCAG22/)
+- **Guía rápida WCAG 2.2:**[w3.org/WAI/WCAG22/quickref](https://www.w3.org/WAI/WCAG22/quickref/)
+- **Understanding WCAG 2.2:** Explicaciones detalladas de cada criterio
+- **Techniques for WCAG 2.2:** Ejemplos concretos de implementación
+- **ARIA Authoring Practices:**[w3.org/WAI/ARIA/apg](https://www.w3.org/WAI/ARIA/apg/)
+- **EN 301 549:**[etsi.org/deliver/etsi_en/301549](https://www.etsi.org/deliver/etsi_en/301500_301599/301549/)
+
+### Checklist de conformidad WCAG 2.2 AA
+
+Criterios más críticos a verificar (selección):
+
+- ☑ **1.1.1 Contenido no textual (A):** Todas las imágenes tienen alt text apropiado
+- ☑ **1.3.1 Información y relaciones (A):** Estructura semántica correcta
+- ☑ **1.4.3 Contraste mínimo (AA):** Ratio 4.5:1 para texto normal
+- ☑ **2.1.1 Teclado (A):** Todo operable por teclado
+- ☑ **2.1.2 Sin trampas de teclado (A):** Se puede salir de componentes
+- ☑ **2.4.3 Orden del foco (A):** Secuencia de navegación lógica
+- ☑ **2.4.7 Foco visible (AA):** Indicador de foco claramente visible
+- ☑ **2.5.8 Tamaño del objetivo (AA):** Mínimo 24×24px para táctil
+- ☑ **3.1.1 Idioma de la página (A):** Atributo lang en HTML
+- ☑ **3.2.3 Navegación coherente (AA):** Menús consistentes
+- ☑ **3.3.1 Identificación de errores (A):** Errores descritos en texto
+- ☑ **3.3.2 Etiquetas o instrucciones (A):** Campos de formulario etiquetados
+- ☑ **4.1.1 Procesamiento (A):** HTML válido
+- ☑ **4.1.2 Nombre, función, valor (A):** Elementos interactivos programáticamente determinables
+
+**Conclusión:** WCAG 2.2 nivel AA es el estándar de referencia global para accesibilidad web. Su estructura basada en principios (POUR) y niveles de conformidad proporciona un marco claro y medible. Complementado con ARIA para casos dinámicos y estándares regionales como EN 301 549, constituye la base técnica para crear experiencias digitales verdaderamente accesibles.
