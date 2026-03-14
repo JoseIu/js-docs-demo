@@ -3,12 +3,18 @@ type Props = {
   href: string;
   title: string;
   description: string;
+  isDisabled?: boolean;
 };
 
-const { href, title, description } = Astro.props;
+const { href, title, description, isDisabled } = Astro.props;
 ---
 
-<a href={href} class="card-link">
+<a
+  href={href}
+  class={`card-link ${isDisabled ? "disabled" : ""}`}
+  aria-disabled={isDisabled}
+  tabindex={isDisabled ? -1 : undefined}
+>
   <div class="card-icon" aria-hidden="true">
     <slot />
   </div>
@@ -37,7 +43,10 @@ const { href, title, description } = Astro.props;
       border-color 0.15s ease,
       background-color 0.15s ease;
   }
-
+  .card-link.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
   .card-link:hover,
   .card-link:focus-visible {
     transform: translateY(-2px);
