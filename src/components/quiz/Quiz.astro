@@ -1,5 +1,6 @@
 ---
-import type { Quiz } from "../types/Quiz";
+import type { Quiz } from "src/types/Quiz";
+
 type Props = {
   quiz: Quiz[];
   title?: boolean;
@@ -42,7 +43,6 @@ const { quiz, title } = Astro.props;
                   <span class="exam__option-radio" />
                   <span class="exam__option-title">{option.text}</span>
                 </div>
-                {/* TEXTO DE EXPLICACIÓN (separar a ExamenIntroExplanation) */}
                 <p class="exam__option-explication">{option.explication}</p>
               </label>
             </div>
@@ -156,6 +156,9 @@ const { quiz, title } = Astro.props;
     margin: 0.35rem 0 0;
     line-height: 1.5;
   }
+  .exam__option-input:checked + .exam__option-card .exam__option-title {
+    color: #ffffff;
+  }
 
   .exam__option-input:checked + .exam__option-card {
     border-color: var(--sl-color-yellow);
@@ -170,7 +173,8 @@ const { quiz, title } = Astro.props;
 
   .exam__option-input:checked
     + .exam__option-card.exam__option-card--incorrect {
-    background: #3a0d12;
+    background: #7f1d1d;
+    color: #ffffff;
     border-color: #7a1e28;
     box-shadow: 0 0 0 1px rgba(248, 113, 113, 0.295);
   }
