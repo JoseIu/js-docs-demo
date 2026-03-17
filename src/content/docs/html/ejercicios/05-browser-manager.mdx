@@ -1,0 +1,64 @@
+---
+title: "Resumen del Desafío"
+description: "Instrucciones para completar el desafío de la interfaz de administrador de extensiones del navegador"
+---
+
+<img src="https://res.cloudinary.com/dz209s6jk/image/upload/f_auto,q_auto,w_700/Challenges/hxtjlnh6jlppaxg4uqsf.jpg" alt="Diseño de la interfaz de administrador de extensiones del navegador" />
+
+[Imagen-1](https://res.cloudinary.com/dz209s6jk/image/upload/v1742554447/Challenges/xruetytz56pt2hoxmk0s.jpg)
+
+📝 **Resumen**
+
+Tu desafío es construir esta interfaz de administrador de extensiones del navegador y lograr que se vea lo más parecida posible al diseño.
+
+Puedes usar cualquier herramienta que te guste para completar el desafío. Así que si tienes algo que te gustaría practicar, siéntete libre de intentarlo.
+
+Proporcionamos los datos de las extensiones en un archivo local data.json. Puedes usarlo para agregar los datos dinámicamente si lo deseas.
+
+**Tus usuarios deberían poder:**
+
+- Alternar extensiones entre estados activo e inactivo
+- Filtrar extensiones activas e inactivas
+- Eliminar extensiones de la lista
+- Seleccionar su tema de color
+- Ver el diseño óptimo para la interfaz dependiendo del tamaño de pantalla de su dispositivo
+- Ver los estados de hover y focus para todos los elementos interactivos de la página
+
+
+
+## Colores del Diseño
+
+Basado en el análisis visual de la imagen, estos son los colores fundamentales que componen la paleta del diseño, el cual parece tener una base de modo oscuro ("dark mode") con acentos vibrantes:
+
+### Fondo y Estructura Principal
+- **Fondo General de la Página**: `#0A0C0F` o `#111315` (un negro muy oscuro con un ligero tono grisáceo)
+- **Fondo de las Tarjetas (Extensiones)**: `#1E1F25` o `#1A1C22` (gris oscuro, ligeramente más claro que el fondo general)
+- **Borde de Tarjetas**: `#2A2D36` (gris muy oscuro para delimitar las tarjetas)
+
+### Texto
+- **Texto Principal (Nombres de extensión)**: `#FFFFFF` o `#F0F0F0` (blanco)
+- **Texto Secundario (Descripciones)**: `#8A8F99` o `#9CA3AF` (gris claro)
+- **Texto de Botones**: `#FFFFFF` (blanco)
+
+### Colores de Acento e Interacción
+- **Botón "Remove" / Rojo**: `#E5484D` o `#F87171` (un rojo suave, no demasiado saturado, para la acción de eliminar)
+- **Botón Activo (Toggle)**: `#4CAF50` (verde, probablemente para indicar "Activo")
+- **Botón Inactivo (Toggle)**: `#6B7280` (gris, para el estado "Inactivo")
+- **Checkbox / Elemento de Filtro**: Podría ser del mismo verde `#4CAF50` o un azul `#3B82F6`
+
+### Detalles y Filtros
+- **Área de Filtros (All / Active / Inactive)**: El fondo del filtro activo probablemente usa el mismo tono que las tarjetas (`#1E1F25`) o un color de acento más claro, con texto blanco.
+- **Borde Inferior (Divisores)**: `#2D3748` (un gris oscuro para separar secciones)
+
+### Asumiendo un Tema Claro (Light Mode) Alternativo
+Dado que el desafío original pide un selector de tema, es probable que exista una variante clara. Los colores podrían invertirse aproximadamente a:
+- **Fondo General**: `#F9FAFB` (gris muy claro)
+- **Fondo de Tarjetas**: `#FFFFFF` (blanco)
+- **Texto Principal**: `#111827` (casi negro)
+- **Texto Secundario**: `#4B5563` (gris oscuro)
+- **Bordes**: `#E5E7EB` (gris claro)
+
+## Sugerencias para Implementación
+1.  **Consistencia**: Mantén una paleta de colores limitada para una interfaz limpia y profesional.
+2.  **Contraste**: Asegura que el contraste entre el texto secundario (`#8A8F99`) y el fondo oscuro (`#1E1F25`) sea suficiente para ser legible (verifica con herramientas de accesibilidad WCAG).
+3.  **Estados Hover/Focus**: Para los botones "Remove", podrías oscurecer o aclarar ligeramente el rojo (ej. `#C53030`). Para los toggles, podrías añadir un pequeño brillo o sombra.

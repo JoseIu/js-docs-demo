@@ -2,6 +2,52 @@ import type { StarlightUserConfig } from "@astrojs/starlight/types";
 
 // Sidebar global de tu sitio, tipado igual que en Starlight.
 export const sidebar = [
+  {
+    label: "HTML y CSS",
+    badge: { text: "En Construcción", variant: "caution" },
+    items: [
+      {
+        label: "HTML",
+        items: [
+          {
+            label: "¿Qué es HTML?",
+            slug: "html/01-que-es-html",
+          },
+          {
+            label: "Títulos y párrafos en HTML",
+            slug: "html/02-titulos-parafos",
+          },
+        ],
+      },
+
+      {
+        label: "Proyectos",
+        collapsed: true,
+        items: [
+          {
+            label: "Social Dashboard",
+            slug: "html/ejercicios/01-social-dashboard",
+          },
+          {
+            label: "FAQ Accordion",
+            slug: "html/ejercicios/02-faq-accordion",
+          },
+          {
+            label: "Landing Page",
+            slug: "html/ejercicios/03-lading-page",
+          },
+          {
+            label: "Tech Landing Page",
+            slug: "html/ejercicios/04-tech-landing",
+          },
+          {
+            label: "Browser Manager",
+            slug: "html/ejercicios/05-browser-manager",
+          },
+        ],
+      },
+    ],
+  },
   // "Tab" JavaScript
   {
     label: "JavaScript",
@@ -50,19 +96,6 @@ export const sidebar = [
           { label: "Carrito", slug: "js/proyectos/carrito" },
           { label: "Paises REST", slug: "js/proyectos/paises" },
         ],
-      },
-    ],
-  },
-
-  // "Tab" Zona profesorado
-  {
-    label: "Zona profesorado",
-    collapsed: true,
-    items: [
-      { label: "Acceso profes", slug: "profes/login" },
-      {
-        label: "Respuestas actividades",
-        items: [{ label: "Resumen general", slug: "profes/respuestas" }],
       },
     ],
   },

@@ -1,0 +1,50 @@
+---
+title: "¿Qué es HTML?"
+description: "HTML es el lenguaje de marcado que se utiliza para estructurar y presentar contenido en la web."
+---
+import { Steps } from '@astrojs/starlight/components';
+
+HTML es un lenguaje de marcado de hipertexto `HyperText Markup Language` que se utiliza para crear páginas web. Es el estándar para la creación de contenido en la web y es interpretado por los navegadores para mostrar texto, imágenes, videos y otros elementos multimedia.
+
+
+## Sintaxis de HTML
+HTML utiliza etiquetas para definir la estructura y el contenido de una página web. Las etiquetas se escriben entre corchetes angulares `< >` y generalmente vienen en pares, con una etiqueta de apertura y una etiqueta de cierre. Por ejemplo, `<p>` es la etiqueta de apertura para un párrafo, y `</p>` es la etiqueta de cierre. El contenido entre estas etiquetas se mostrará como un párrafo en la página web. Algunas etiquetas no requieren una etiqueta de cierre, como `<img>` para insertar imágenes.
+
+ejemplo:
+
+```html
+    <h1>Hola, mundo!</h1>
+    <p>Este es mi primer sitio web.</p>
+```
+
+## Estructura básica de un documento HTML
+Un documento HTML típico tiene una estructura básica que incluye las siguientes partes:
+
+
+<Steps>
+
+1. `!DOCTYPE html`: Indica al navegador el estándar del documento  (HTML5).
+
+
+2. `<html>`: Es la etiqueta raíz que envuelve todo el contenido de la página web.
+
+3. `<head>`: Contiene información meta sobre el documento, como el título, la codificación de caracteres y enlaces a hojas de estilo o scripts.
+4. `<body>`: Representa todo el contenido de nuestra página web, como texto, imágenes, videos, enlaces, etc.
+
+</Steps>
+
+
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mi sitio web</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>Bienvenido a mi sitio web</h1>
+    <p>Este es un párrafo de ejemplo.</p>
+</body>
+</html>
+```

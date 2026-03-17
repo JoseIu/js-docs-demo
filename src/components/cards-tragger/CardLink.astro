@@ -1,17 +1,19 @@
 ---
+import { Badge } from '@astrojs/starlight/components';
 type Props = {
   href: string;
   title: string;
   description: string;
   isDisabled?: boolean;
+  isInConstruction?: boolean;
 };
 
-const { href, title, description, isDisabled } = Astro.props;
+const { href, title, description, isDisabled, isInConstruction } = Astro.props;
 ---
 
 <a
   href={href}
-  class={`card-link ${isDisabled ? "disabled" : ""}`}
+  class={`card-link ${isDisabled ? 'disabled' : ''}`}
   aria-disabled={isDisabled}
   tabindex={isDisabled ? -1 : undefined}
 >
@@ -23,10 +25,14 @@ const { href, title, description, isDisabled } = Astro.props;
     <p class="card-description">
       {description}
     </p>
+    {isInConstruction && <Badge text="En construcciñon" variant="caution" />}
   </div>
 </a>
 
 <style>
+  .sl-badge {
+    width: fit-content;
+  }
   .card-link {
     display: flex;
     gap: 1rem;

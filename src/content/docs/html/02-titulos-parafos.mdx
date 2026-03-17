@@ -1,0 +1,54 @@
+---
+title: "Títulos y párrafos en HTML"
+description: "Aprende a usar títulos y párrafos para estructurar el contenido de tu página web con HTML."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Preview from '@components/Preview.astro';
+
+Los elementos de encabezado implementan seis niveles de encabezado del documento, `<h1>` es el más importante, y `<h6>`, el menos importante. Un elemento de encabezado describe brevemente el tema de la sección que presenta. La información de encabezado puede ser usada por los agentes usuarios, por ejemplo, para construir una tabla de contenidos para un documento automáticamente.
+
+<Aside type="caution" title='Cuidado'>
+* No se deben usar niveles inferiores para reducir el tamaño de la fuente: use la propiedad CSS font-size para eso.
+
+* Evite omitir niveles de encabezado: siempre comience con `<h1>`, después use `<h2>`y así sucesivamente.
+
+* Con el elemento `<section>`, debe considerar evitar usar `<h1>` más de una vez en una página; por costumbre, se usa para mostrar el título de la página, con todos los encabezados debajo de éste comenzando con `<h2>`. Cuando se usan secciones, debe usarse un `<h1>` por sección. Véase Definiendo secciones en Secciones y esquema de un documento HTML5 para más información.
+
+</Aside>
+
+El elemento `<h1>` representa el encabezado de nivel 1 de una sección. El elemento `<h2>` representa el encabezado de nivel 2 de una sección, y así sucesivamente hasta el elemento `<h6>`, que representa el encabezado de nivel 6 de una sección.
+
+```html
+<h1>Encabezado de nivel 1</h1>
+<h2>Encabezado de nivel 2</h2>
+<h3>Encabezado de nivel 3</h3>
+<h4>Encabezado de nivel 4</h4>
+<h5>Encabezado de nivel 5</h5>
+<h6>Encabezado de nivel 6</h6
+```
+<Preview>
+
+<h1>Encabezado de nivel 1</h1>
+<h2>Encabezado de nivel 2</h2>
+<h3>Encabezado de nivel 3</h3>
+<h4>Encabezado de nivel 4</h4>
+<h5>Encabezado de nivel 5</h5>
+<h6>Encabezado de nivel 6</h6>
+
+</Preview>
+
+El elemento `<p>` representa un párrafo. Un párrafo es una sección de texto que se separa de otras secciones por un espacio en blanco o una sangría. El elemento `<p>` es un contenedor para el texto y otros elementos en línea, como enlaces o imágenes.
+
+```html
+<p>Este es un párrafo de ejemplo. Puedes escribir cualquier texto aquí, y se mostrará como un párrafo en la página web.</p>
+```
+<Preview>
+<p>Este es un párrafo de ejemplo. Puedes escribir cualquier texto aquí, y se mostrará como un párrafo en la página web.</p>
+</Preview>
+
+
+<Aside type="danger" title='Cuidado'>
+Cuidado, porque solo debe haber un `<h1>` por página, y no debe haber un `<h2>` sin un `<h1>` antes, un `<h3>` sin un `<h2>`, y así sucesivamente. Esto es importante para la accesibilidad y el SEO de tu sitio web.
+</Aside>
+
