@@ -1,0 +1,25 @@
+---
+title: flex-grow
+description: Controla cuánto puede crecer un elemento flexible respecto al espacio disponible.
+---
+
+## flex-grow
+
+Esta propiedad nos permite controlar el factor de crecimiento de un elemento, es decir, del espacio restante disponible, cuanta parte le corresponde a él.
+
+El valor de `flex-grow` tiene que ser un número positivo y ese valor será el factor de creciemiento.
+
+El valor por defecto de `flex-grow` es 0
+
+Veamos un ejemplo:
+
+Si tenemos un contenedor de 1000px con 3 elementos de 250px dentro.
+
+El espacio restante disponible son 1000px menos el espacio que ocupan los elementos en total, 750px.
+
+1000 - 750 = 250px de espacio disponible.
+
+El cálculo que hace el navegador es 250 dividido entre la suma total de los valores de `flex-grow`
+
+Si tenemos un `.item` con un `flex-grow:1` la operación será `250 / 1 = 250`, es decir, el item con `flex-grow:1` crecerá 250px.
+

@@ -1,0 +1,33 @@
+---
+title: Flex-wrap y Flex-flow
+description: Flex-wrap es la propiedad que controla qué pasa con el contenido si se desborda del contenedor. Por defecto, su valor es no-wrap, lo que hará que los elementos se encochen para entrar en el contenedor.
+---
+
+
+## flex-wrap
+
+Con esta propiedad controlaremos qué pasa con el contenido si se desborda del contenedor.
+
+Por defecto su valor es `no-wrap` lo que hará que los elementos se encojan para entrar en el contenedor, pero si queremos evitar esto tenemos 2 valores que podemos usar.
+
+- wrap: Permitirá que el contenido que se desborde salte de línea,
+
+- wrap-reverse: Hace que el contenido salte de línea en la dirección opuesta al main axis, hacer esto cambiará la dirección del eje secundario.
+
+
+## flex-flow
+
+Esto es un shorthand que engloba `flex-direction` y `flex-wrap`.
+
+```css
+    body{
+        flex-direction: column;
+        flex-wrap: wrap
+    }
+
+     // Su equivalente es:
+
+    body{
+        flex-flow: column wrap;
+    }
+```

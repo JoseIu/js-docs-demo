@@ -1,0 +1,20 @@
+---
+title: align-content
+description: Controla la distribución de líneas cuando hay varias filas (con `flex-wrap`).
+---
+
+## align-content
+
+Esta propiedad funciona de una forma similar a `justify-content`, sólo la podremos utilizar junto con `flex-wrap` cuando los elementos generen varias líneas. El valor por defecto es `stretch` al igual que en `align-items` pero tenemos disponibles los mismos valores que en `justify-content`:
+
+- flex-start (start): Los elementos se colocan al final del eje secundario.
+
+- center: Los elementos se colocan en el centro del eje secundario.
+
+- flex-end (end): Los elementos se colocan al final del eje secundario.
+
+- space-between: Los elementos se colocan con el mismo espacio entre ellos, colocando el primer hijo al principio del eje y el último al final del eje
+
+- space-around: Los elementos se colocan con el mismo espacio entre ellos, pero cada elemento tendrá la misma separación por los lados, ésto ocasiona que el primer y último elemento tengan menos separación.
+
+- space-evenly: Los elementos se colocan con el mismo espacio entre ellos, y cada elemento tendrá la misma separación tanto entre ellos como el primero y el último.
