@@ -12,8 +12,6 @@ import TabListItem from './TabListItem.astro';
 import TabPanel from './TabPanel.astro';
 const { sidebar, id } = Astro.locals.starlightRoute;
 
-console.log(sidebar[0].badge);
-
 // Recursively tweaks properties of sidebar entries.
 // - Adds a fallback class to entries in the sidebar that don’t exist in the current language.
 // - Marks pages as “current” if they parents of pages that don’t appear in the sidebar.
