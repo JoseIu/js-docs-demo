@@ -1,0 +1,65 @@
+<div class="tabs">
+  <!-- Lista de pestañas -->
+  <div role="tablist" aria-label="Información de perfil">
+    <button
+      role="tab"
+      aria-selected="true"
+      aria-controls="panel-personal"
+      id="tab-personal"
+      tabindex="0"
+    >
+      Datos personales
+    </button>
+    <button
+      role="tab"
+      aria-selected="false"
+      aria-controls="panel-contacto"
+      id="tab-contacto"
+      tabindex="-1"
+    >
+      Contacto
+    </button>
+    <button
+      role="tab"
+      aria-selected="false"
+      aria-controls="panel-seguridad"
+      id="tab-seguridad"
+      tabindex="-1"
+    >
+      Seguridad
+    </button>
+  </div>
+
+  <!-- Paneles de contenido -->
+  <div
+    role="tabpanel"
+    id="panel-personal"
+    aria-labelledby="tab-personal"
+    tabindex="0"
+  >
+    <h3>Datos personales</h3>
+    <p>Contenido del panel...</p>
+  </div>
+
+  <div
+    role="tabpanel"
+    id="panel-contacto"
+    aria-labelledby="tab-contacto"
+    tabindex="0"
+    hidden
+  >
+    <h3>Contacto</h3>
+    <p>Contenido del panel...</p>
+  </div>
+
+  <div
+    role="tabpanel"
+    id="panel-seguridad"
+    aria-labelledby="tab-seguridad"
+    tabindex="0"
+    hidden
+  >
+    <h3>Seguridad</h3>
+    <p>Contenido del panel...</p>
+  </div>
+</div>

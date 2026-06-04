@@ -1,0 +1,36 @@
+<div role="tablist">
+  <button
+    role="tab"
+    aria-selected="true"
+    aria-controls="panel1"
+    id="tab1"
+  >
+    Tab 1
+  </button>
+  <button
+    role="tab"
+    aria-selected="false"
+    aria-controls="panel2"
+    id="tab2"
+    tabindex="-1"
+  >
+    Tab 2
+  </button>
+</div>
+
+<div
+  role="tabpanel"
+  id="panel1"
+  aria-labelledby="tab1"
+>
+  Contenido del Tab 1
+</div>
+
+<div
+  role="tabpanel"
+  id="panel2"
+  aria-labelledby="tab2"
+  hidden
+>
+  Contenido del Tab 2
+</div>

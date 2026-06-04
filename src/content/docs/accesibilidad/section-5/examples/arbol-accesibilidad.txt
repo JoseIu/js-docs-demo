@@ -1,0 +1,11 @@
+navigation
+├─ list
+   ├─ listitem
+   │  └─ link "Inicio"
+   └─ listitem
+      ├─ button "Productos"
+      │  ├─ expanded: false
+      │  └─ controls: submenu
+      └─ list (hidden)
+         └─ listitem
+            └─ link "Catálogo"

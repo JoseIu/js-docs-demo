@@ -4,43 +4,30 @@ description: "Aprende a iterar sobre arrays en JavaScript usando métodos como f
 ---
 import Quiz from "@components/quiz/Quiz.astro"
 import { Arrays } from "@db/arrays"
+import { Code } from '@astrojs/starlight/components';
+import codeWhileLoop from './examples/while-loop.js?raw';
+import codeForLoop from './examples/for-loop.js?raw';
+import codeForLoopReverse from './examples/for-loop-reverse.js?raw';
+import codeForOfLoop from './examples/for-of-loop.js?raw';
+import codeForEachFunction from './examples/foreach-function.js?raw';
+import codeForEachArrow from './examples/foreach-arrow.js?raw';
 
 ## Bucle while
 El bucle `while` vimos que permitía ejecutar un bloque de código mientras una condición era verdadera. En el caso de la iteración de arrays, la condición generalmente se basa en el índice del elemento.
 
 Podemos, por ejemplo, crear una variable con `let` para guardar un puntero al índice del elemento que estamos iterando. En cada iteración, podemos incrementar el valor de la variable en 1, para que en la siguiente iteración se imprima el siguiente elemento.
 
-```javascript
-let frutas = ['🍎', '🍌', '🍓']
-let i = 0 // lo usaremos como índice
-
-while (i < frutas.length) {
-  console.log(frutas[i]) // imprime el elemento en la posición i
-  i++ // incrementamos el índice en 1 para la siguiente iteración
-}
-```
+<Code code={codeWhileLoop} lang="js" title="while-loop.js" />
 
 
 ## Bucle for
 El bucle `for` nos permitía ejecutar un bloque de código un número determinado de veces. En el caso de la iteración de arrays, podemos usarlo para recorrer cada uno de los elementos del array, usando la longitud del array como condición.
 
 
-```javascript
-let frutas = ['🍎', '🍌', '🍓']
-
-for (let i = 0; i < frutas.length; i++) {
-  console.log(frutas[i]) // imprime el elemento en la posición i
-}
-```
+<Code code={codeForLoop} lang="js" title="for-loop.js" />
 También podrías recorrer el array en orden inverso, empezando desde el último elemento hasta el primero, usando i-- en lugar de i++.
 
-```javascript
-let frutas = ['🍎', '🍌', '🍓']
-
-for (let i = frutas.length - 1; i >= 0; i--) {
-  console.log(frutas[i]) // imprime el elemento en la posición i
-}
-```
+<Code code={codeForLoopReverse} lang="js" title="for-loop-reverse.js" />
 
 ## Bucle for...of
 
@@ -48,13 +35,7 @@ Además de `while` y `for`, existe otra estructura de control que nos permite it
 
 Es mucho más sencilla y fácil de entender:
 
-```javascript
-let frutas = ['🍎', '🍌', '🍓']
-
-for (let fruta of frutas) {
-  console.log(fruta) // imprime el elemento en la posición i
-}
-```
+<Code code={codeForOfLoop} lang="js" title="for-of-loop.js" />
 >Como ves, hay algunas limitaciones en el uso de for...of. Por ejemplo, no podemos usarlo para recorrer un array en orden inverso y tampoco tenemos acceso al índice del elemento que estamos iterando.
 
 ## El método `array.forEach()`
@@ -63,22 +44,10 @@ Ya hemos visto en la clase anterior que los arrays tienen métodos que nos permi
 
 Uno de esos métodos es `array.forEach()`, que nos permite ejecutar una function para cada uno de los elementos del array. Esta función recibe como parámetros el elemento que se está iterando en ese momento, el índice del elemento y el propio array.
 
-```javascript
-let frutas = ['🍎', '🍌', '🍓']
-
-frutas.forEach(function (fruta, index, originalArray) {
-  console.log(fruta) // imprime el elemento en la posición i
-})
-```
+<Code code={codeForEachFunction} lang="js" title="foreach-function.js" />
 
 Usando una `arrow function` e indicando sólo los parámetros que necesitamos de nuestra función podemos simplificarlo aún más:
-```javascript
-let frutas = ['🍎', '🍌', '🍓']
-
-frutas.forEach((fruta) => {
-  console.log(fruta) // imprime el elemento en la posición i
-})
-```
+<Code code={codeForEachArrow} lang="js" title="foreach-arrow.js" />
 
 ## ¿Cuál usar? Depende...
 

@@ -3,6 +3,11 @@ title: Buenas prácticas de marcado y validación
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
 
+import { Code } from '@astrojs/starlight/components';
+import erroresComunes from './examples/errores-comunes.html?raw';
+import estructuraCorrecta from './examples/estructura-correcta.html?raw';
+import sincronizacionAria from './examples/sincronizacion-aria.html?raw';
+
 ## Buenas prácticas de marcado y validación
 
 Un HTML bien estructurado y válido es la base de la accesibilidad web. Los errores de marcado pueden romper la interpretación de las tecnologías asistivas y causar problemas graves de usabilidad.
@@ -21,20 +26,7 @@ Validar tu HTML regularmente ayuda a detectar errores que pueden afectar la acce
 
 #### Errores comunes a evitar:
 
-```
-<!-- ❌ IDs duplicados -->
-<div id="menu">...</div>
-<div id="menu">...</div>
-
-<!-- ❌ Etiquetas sin cerrar -->
-<div><p>Texto</div></p>
-
-<!-- ❌ Atributos mal formados -->
-<input type=text>  <!-- Sin comillas -->
-
-<!-- ❌ Anidamiento incorrecto -->
-<p>Párrafo <div>dentro</div></p>
-```
+<Code code={erroresComunes} lang="html" title="errores-comunes.html" />
 
 ### 2. Uso correcto de atributos
 
@@ -58,36 +50,7 @@ Mantén una estructura HTML coherente y lógica:
 
 #### ✅ Ejemplo de estructura correcta:
 
-```
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Título descriptivo de la página</title>
-</head>
-<body>
-  <header>
-    <nav aria-label="Navegación principal">
-      <!-- menú -->
-    </nav>
-  </header>
-
-  <main>
-    <h1>Título principal</h1>
-    <!-- contenido principal -->
-  </main>
-
-  <aside>
-    <!-- contenido complementario -->
-  </aside>
-
-  <footer>
-    <!-- información del sitio -->
-  </footer>
-</body>
-</html>
-```
+<Code code={estructuraCorrecta} lang="html" title="estructura-correcta.html" />
 
 ### 4. Sincronización del árbol de accesibilidad
 
@@ -100,33 +63,7 @@ El árbol de accesibilidad debe reflejar fielmente la estructura y estado del DO
 
 #### Ejemplo de sincronización correcta:
 
-```
-<!-- Botón que abre/cierra un menú -->
-<button
-  aria-expanded="false"
-  aria-controls="menu-desplegable"
-  onclick="toggleMenu()"
->
-  Menú
-</button>
-
-<ul id="menu-desplegable" hidden>
-  <li><a href="#">Opción 1</a></li>
-  <li><a href="#">Opción 2</a></li>
-</ul>
-
-<script>
-function toggleMenu() {
-  const button = document.querySelector('button');
-  const menu = document.getElementById('menu-desplegable');
-  const isOpen = button.getAttribute('aria-expanded') === 'true';
-
-  // Sincroniza estado visual y accesible
-  button.setAttribute('aria-expanded', !isOpen);
-  menu.hidden = isOpen;
-}
-</script>
-```
+<Code code={sincronizacionAria} lang="html" title="sincronizacion-aria.html" />
 
 ### 5. Checklist de buenas prácticas
 

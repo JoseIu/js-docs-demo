@@ -3,6 +3,12 @@ title: Listas y tablas accesibles
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
 
+import { Code } from '@astrojs/starlight/components';
+import listaOrdenada from './examples/lista-ordenada.html?raw';
+import listaIncorrecta from './examples/lista-incorrecta.html?raw';
+import tablaAccesible from './examples/tabla-accesible.html?raw';
+import encabezadosComplejos from './examples/encabezados-complejos.html?raw';
+
 ## Listas y tablas accesibles
 
 Las listas y tablas son estructuras fundamentales para organizar información. Cuando se marcan correctamente, los lectores de pantalla pueden anunciar el tipo de estructura, el número de elementos y facilitar la navegación.
@@ -19,23 +25,11 @@ Los lectores de pantalla anuncian automáticamente el tipo de lista y el número
 
 #### Ejemplo de lista ordenada:
 
-```
-<ol>
-  <li>Analizar los requisitos de accesibilidad</li>
-  <li>Implementar HTML semántico</li>
-  <li>Probar con lectores de pantalla</li>
-  <li>Corregir problemas encontrados</li>
-</ol>
-```
+<Code code={listaOrdenada} lang="html" title="lista-ordenada.html" />
 
 #### ❌ Error común:
 
-```
-<!-- No hagas esto -->
-<div>• Elemento 1</div>
-<div>• Elemento 2</div>
-<!-- Los lectores de pantalla no detectan esto como lista -->
-```
+<Code code={listaIncorrecta} lang="html" title="lista-incorrecta.html" />
 
 ### Tablas accesibles
 
@@ -58,33 +52,12 @@ Las tablas deben usarse para datos tabulares, nunca para diseño. Una tabla acce
 
 #### Código de la tabla anterior:
 
-```
-<table>
-  <caption>Participantes del proyecto</caption>
-  <thead>
-    <tr>
-      <th scope="col">Nombre</th>
-      <th scope="col">Rol</th>
-      <th scope="col">Asiste</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Alejandra</td>
-      <td>Desarrolladora</td>
-      <td><input type="checkbox" aria-label="Alejandra asiste" /></td>
-    </tr>
-  </tbody>
-</table>
-```
+<Code code={tablaAccesible} lang="html" title="tabla-accesible.html" />
 
 #### Para tablas complejas:
 
 Si tienes encabezados en múltiples niveles o celdas que abarcan varias filas/columnas, usa los atributos `headers` e `id` para asociaciones explícitas:
 
-```
-<th id="nombre">Nombre</th>
-<td headers="nombre">Ana García</td>
-```
+<Code code={encabezadosComplejos} lang="html" title="encabezados-complejos.html" />
 
 **Beneficio clave:** Los lectores de pantalla anuncian los encabezados correspondientes al navegar por cada celda, proporcionando contexto constante al usuario.

@@ -1,0 +1,15 @@
+❌ PROBLEMA
+<button aria-expanded="false" onclick="toggleMenu()">
+  Menú
+</button>
+<ul id="menu" style="display: block;">...</ul>
+
+<!-- El menú está visible pero aria-expanded dice "false" -->
+
+<script>
+function toggleMenu() {
+  const menu = document.getElementById('menu');
+  menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+  // ❌ No actualiza aria-expanded
+}
+</script>

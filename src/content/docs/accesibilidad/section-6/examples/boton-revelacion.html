@@ -1,0 +1,23 @@
+<button
+  aria-expanded="false"
+  aria-controls="content-1"
+  id="toggle-1"
+>
+  Mostrar más información
+</button>
+
+<div id="content-1" hidden>
+  <p>Contenido adicional que se muestra/oculta</p>
+</div>
+
+<script>
+document.getElementById('toggle-1').addEventListener('click', function() {
+  const content = document.getElementById('content-1');
+  const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+  this.setAttribute('aria-expanded', !isExpanded);
+  content.hidden = isExpanded;
+});
+
+// Patrón: Espacio y Enter funcionan automáticamente con <button>
+</script>

@@ -3,6 +3,10 @@ title: Roles nativos de los elementos
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
 
+import { Code } from '@astrojs/starlight/components';
+import botonNativo from './examples/boton-nativo.html?raw';
+import divRolButton from './examples/div-rol-button.html?raw';
+
 ## Roles nativos de los elementos
 
 Cada elemento HTML semántico tiene un **rol implícito** que los navegadores y tecnologías asistivas reconocen automáticamente. Usar elementos nativos es siempre preferible a crear componentes personalizados con `<div>` y ARIA.
@@ -38,9 +42,7 @@ Cada elemento HTML semántico tiene un **rol implícito** que los navegadores y 
 
 Guardar cambios
 
-```
-<button>Guardar cambios</button>
-```
+<Code code={botonNativo} lang="html" title="boton-nativo.html" />
 
  ✓ Navegable por teclado (Tab, Enter, Espacio)
  ✓ Anunciado como "botón" automáticamente
@@ -50,11 +52,7 @@ Guardar cambios
 
 Guardar cambios
 
-```
-<div role="button" tabindex="0" onclick="save()">
-  Guardar cambios
-</div>
-```
+<Code code={divRolButton} lang="html" title="div-rol-button.html" />
 
  ✗ Necesitas agregar tabindex manualmente
  ✗ Debes gestionar eventos de teclado (Enter, Espacio)

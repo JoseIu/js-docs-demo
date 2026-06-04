@@ -1,0 +1,11 @@
+❌ INCORRECTO
+<input tabindex="3">
+<button tabindex="1">Enviar</button>
+<input tabindex="2">
+
+✅ CORRECTO
+<input>  <!-- tabindex natural -->
+<input>
+<button>Enviar</button>
+<div tabindex="0">...</div>  <!-- Para hacerlo enfocable -->
+<div tabindex="-1">...</div>  <!-- Para foco programático -->

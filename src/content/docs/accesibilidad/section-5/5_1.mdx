@@ -3,6 +3,10 @@ title: Qué es y cómo funciona
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
 
+import { Code } from '@astrojs/starlight/components';
+import navEstructura from './examples/nav-estructura.html?raw';
+import arbolAccesibilidad from './examples/arbol-accesibilidad.txt?raw';
+
 ## Qué es y cómo funciona
 
 El **árbol de accesibilidad** (accessibility tree) es una representación paralela al DOM que utilizan los lectores de pantalla y otras tecnologías asistivas para interpretar y navegar por la página web.
@@ -28,44 +32,11 @@ Mientras que el DOM representa toda la estructura HTML de la página, el árbol 
 
 #### 📄 HTML (DOM)
 
-```
-<nav>
-  <ul>
-    <li>
-      <a href="/">Inicio</a>
-    </li>
-    <li>
-      <button
-        aria-expanded="false"
-        aria-controls="submenu"
-      >
-        Productos
-      </button>
-      <ul id="submenu" hidden>
-        <li>
-          <a href="/cat">Catálogo</a>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-```
+<Code code={navEstructura} lang="html" title="nav-estructura.html" />
 
 #### 🌳 Árbol de Accesibilidad
 
-```
-navigation
-├─ list
-   ├─ listitem
-   │  └─ link "Inicio"
-   └─ listitem
-      ├─ button "Productos"
-      │  ├─ expanded: false
-      │  └─ controls: submenu
-      └─ list (hidden)
-         └─ listitem
-            └─ link "Catálogo"
-```
+<Code code={arbolAccesibilidad} lang="plaintext" title="arbol-accesibilidad.txt" />
 
 ### Elementos que se filtran del árbol
 

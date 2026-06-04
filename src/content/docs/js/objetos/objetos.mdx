@@ -4,6 +4,15 @@ description: "Aprende a trabajar con objetos en JavaScript y cómo acceder y mod
 ---
 import Quiz from "@components/quiz/Quiz.astro"
 import { Arrays } from "@db/arrays"
+import { Code } from '@astrojs/starlight/components';
+import objetoDeclaracionPersona from './examples/objeto-declaracion-persona.js?raw';
+import objetoPropiedadesComplejas from './examples/objeto-propiedades-complejas.js?raw';
+import objetoMetodo from './examples/objeto-metodo.js?raw';
+import accesoPunto from './examples/acceso-punto.js?raw';
+import accesoPropiedadIndefinida from './examples/acceso-propiedad-indefinida.js?raw';
+import accesoCorchetesVariable from './examples/acceso-corchetes-variable.js?raw';
+import accesoCorchetesEspeciales from './examples/acceso-corchetes-especiales.js?raw';
+import accesoMetodos from './examples/acceso-metodos.js?raw';
 
 Los objetos en JavaScript son una colección de propiedades y métodos que definen un elemento a través de una clave y un valor.
 
@@ -11,94 +20,36 @@ Los objetos en JavaScript son una colección de propiedades y métodos que defin
 ## Declaración y asignación de objetos
 Para declarar un objeto usamos las llaves `{}` y dentro las propiedades y métodos separados por comas `,`. Cada propiedad o método se define con una clave y un valor separados por dos puntos `:`.
 
-```javascript
-const persona = { 
-  name: 'Dani',
-  age: 30,
-  isWorking: true
-}
-```
+<Code code={objetoDeclaracionPersona} lang="js" title="objeto-declaracion-persona.js" />
 
 Las propiedades y métodos de un objeto pueden ser de cualquier tipo de JavaScript, incluso otros objetos o arrays.
-```javascript
-const persona = {
-  name: 'Dani',
-  age: 30,
-  isWorking: true,
-  family: ['Miguel', 'Maria'], // array
-  address: { // otro objeto
-    street: 'Calle de la piruleta',
-    number: 13,
-    city: 'Barcelona'
-  }
-}
-```
+
+<Code code={objetoPropiedadesComplejas} lang="js" title="objeto-propiedades-complejas.js" />
 
 Y, claro, como hemos comentado antes, también podemos tener funciones. **Cuando una función es parte de un objeto se le llama método.**
 
-```javascript
-const persona = {
-  name: 'Dani',
-  age: 30,
-  isWorking: true,
-  family: ['Miguel', 'Maria'],
-  address: {
-    street: 'Calle de la piruleta',
-    number: 13,
-    city: 'Barcelona'
-  },
-  walk: function () { // <- método
-    console.log('Estoy caminando')
-  }
-}
-```
+<Code code={objetoMetodo} lang="js" title="objeto-metodo.js" />
 
 ## Acceder a propiedades y métodos de un objeto
 
 Para acceder a las propiedades y métodos de un objeto usamos el punto `.` y el nombre de la propiedad o método.
-```javascript
-const persona = { name: 'Dani' }
-console.log(persona.name) // Dani
-```
+
+<Code code={accesoPunto} lang="js" title="acceso-punto.js" />
 
 Si intentamos acceder a una propiedad o método que no existe, nos devolverá `undefined`.
 
-```javascript
-const persona = { name: 'Dani' }
-console.log(persona.fullName) // -> undefined
-```
+<Code code={accesoPropiedadIndefinida} lang="js" title="acceso-propiedad-indefinida.js" />
+
 Puedes usar variables para acceder a las propiedades y métodos de un objeto. Para ello, tienes que usar la notificación por corchetes [].
 
-```javascript
-const persona = { name: 'Dani' }
-let property = 'name'
-
-console.log(persona[property]) // -> Dani
-```
+<Code code={accesoCorchetesVariable} lang="js" title="acceso-corchetes-variable.js" />
 
 También necesitas usar los corchetes si la clave de la propiedad o método tiene espacios o caracteres especiales.
-```javascript
-const persona = { 'full name': 'Dani' }
 
-console.log(persona['full name']) // -> Dani
+<Code code={accesoCorchetesEspeciales} lang="js" title="acceso-corchetes-especiales.js" />
 
-// ❌ no puedes hacer esto
-// persona.full name
-```
 >Siempre que puedas, evita usar espacios o caracteres especiales en las claves de las propiedades y métodos de un objeto. Aunque se puede, es más complicado de leer y de escribir.
 
 Igual que las propiedades, puedes acceder a los métodos de un objeto usando cualquiera de las dos formas anteriormente comentadas
 
-```javascript
-const persona = {
-  name: 'Dani',
-  walk: function () {
-    console.log('Estoy caminando')
-  }
-}
-
-persona.walk() // -> Estoy caminando
-
-let method = 'walk'
-persona[method]() // -> Estoy caminando
-```
+<Code code={accesoMetodos} lang="js" title="acceso-metodos.js" />

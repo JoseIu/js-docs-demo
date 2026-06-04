@@ -1,0 +1,19 @@
+<!-- Aquí ARIA es necesario porque no hay elemento nativo -->
+<div class="accordion">
+  <button
+    aria-expanded="false"
+    aria-controls="panel1"
+    id="accordion1"
+  >
+    ¿Qué es la accesibilidad web?
+  </button>
+
+  <div
+    id="panel1"
+    role="region"
+    aria-labelledby="accordion1"
+    hidden
+  >
+    <p>Contenido del panel...</p>
+  </div>
+</div>

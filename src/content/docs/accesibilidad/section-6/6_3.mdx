@@ -3,6 +3,13 @@ title: Tabs y acordeones
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
 
+import { Code } from '@astrojs/starlight/components';
+import tabsEstructura from './examples/tabs-estructura.html?raw';
+import tabsClase from './examples/tabs-clase.js?raw';
+import acordeonEstructura from './examples/acordeon-estructura.html?raw';
+import acordeonClase from './examples/acordeon-clase.js?raw';
+import detailsSummary from './examples/details-summary.html?raw';
+
 ## Tabs y acordeones
 
 Tabs y acordeones son dos patrones comunes para organizar y mostrar contenido de forma progresiva. Aunque visualmente similares, tienen patrones ARIA y comportamientos diferentes.
@@ -13,73 +20,7 @@ Tabs y acordeones son dos patrones comunes para organizar y mostrar contenido de
 
 #### Estructura HTML/ARIA
 
-```
-<div class="tabs">
-  <!-- Lista de pestañas -->
-  <div role="tablist" aria-label="Información de perfil">
-    <button
-      role="tab"
-      aria-selected="true"
-      aria-controls="panel-personal"
-      id="tab-personal"
-      tabindex="0"
-    >
-      Datos personales
-    </button>
-    <button
-      role="tab"
-      aria-selected="false"
-      aria-controls="panel-contacto"
-      id="tab-contacto"
-      tabindex="-1"
-    >
-      Contacto
-    </button>
-    <button
-      role="tab"
-      aria-selected="false"
-      aria-controls="panel-seguridad"
-      id="tab-seguridad"
-      tabindex="-1"
-    >
-      Seguridad
-    </button>
-  </div>
-
-  <!-- Paneles de contenido -->
-  <div
-    role="tabpanel"
-    id="panel-personal"
-    aria-labelledby="tab-personal"
-    tabindex="0"
-  >
-    <h3>Datos personales</h3>
-    <p>Contenido del panel...</p>
-  </div>
-
-  <div
-    role="tabpanel"
-    id="panel-contacto"
-    aria-labelledby="tab-contacto"
-    tabindex="0"
-    hidden
-  >
-    <h3>Contacto</h3>
-    <p>Contenido del panel...</p>
-  </div>
-
-  <div
-    role="tabpanel"
-    id="panel-seguridad"
-    aria-labelledby="tab-seguridad"
-    tabindex="0"
-    hidden
-  >
-    <h3>Seguridad</h3>
-    <p>Contenido del panel...</p>
-  </div>
-</div>
-```
+<Code code={tabsEstructura} lang="html" title="tabs-estructura.html" />
 
 #### ⌨️ Comportamiento de teclado requerido
 
@@ -93,64 +34,7 @@ Tabs y acordeones son dos patrones comunes para organizar y mostrar contenido de
 
 #### 📝 JavaScript completo
 
-```
-class Tabs {
-  constructor(container) {
-    this.tablist = container.querySelector('[role="tablist"]');
-    this.tabs = [...this.tablist.querySelectorAll('[role="tab"]')];
-    this.panels = [...container.querySelectorAll('[role="tabpanel"]')];
-
-    this.tabs.forEach((tab, index) => {
-      tab.addEventListener('click', () => this.activateTab(index));
-      tab.addEventListener('keydown', (e) => this.handleKeydown(e, index));
-    });
-  }
-
-  activateTab(index) {
-    // Desactivar todos los tabs
-    this.tabs.forEach((tab, i) => {
-      tab.setAttribute('aria-selected', i === index);
-      tab.tabIndex = i === index ? 0 : -1;
-    });
-
-    // Mostrar/ocultar paneles
-    this.panels.forEach((panel, i) => {
-      panel.hidden = i !== index;
-    });
-
-    // Foco en el tab activado
-    this.tabs[index].focus();
-  }
-
-  handleKeydown(e, currentIndex) {
-    let newIndex;
-
-    switch(e.key) {
-      case 'ArrowRight':
-        newIndex = (currentIndex + 1) % this.tabs.length;
-        this.activateTab(newIndex);
-        e.preventDefault();
-        break;
-      case 'ArrowLeft':
-        newIndex = currentIndex === 0 ? this.tabs.length - 1 : currentIndex - 1;
-        this.activateTab(newIndex);
-        e.preventDefault();
-        break;
-      case 'Home':
-        this.activateTab(0);
-        e.preventDefault();
-        break;
-      case 'End':
-        this.activateTab(this.tabs.length - 1);
-        e.preventDefault();
-        break;
-    }
-  }
-}
-
-// Inicializar
-document.querySelectorAll('.tabs').forEach(el => new Tabs(el));
-```
+<Code code={tabsClase} lang="js" title="tabs-clase.js" />
 
 **🔑 Puntos clave:**
 
@@ -164,65 +48,7 @@ document.querySelectorAll('.tabs').forEach(el => new Tabs(el));
 
 #### Estructura HTML/ARIA
 
-```
-<div class="accordion">
-  <!-- Sección 1 -->
-  <h3>
-    <button
-      aria-expanded="false"
-      aria-controls="content-1"
-      id="accordion-header-1"
-    >
-      Pregunta frecuente 1
-    </button>
-  </h3>
-  <div
-    id="content-1"
-    role="region"
-    aria-labelledby="accordion-header-1"
-    hidden
-  >
-    <p>Respuesta a la pregunta 1...</p>
-  </div>
-
-  <!-- Sección 2 -->
-  <h3>
-    <button
-      aria-expanded="false"
-      aria-controls="content-2"
-      id="accordion-header-2"
-    >
-      Pregunta frecuente 2
-    </button>
-  </h3>
-  <div
-    id="content-2"
-    role="region"
-    aria-labelledby="accordion-header-2"
-    hidden
-  >
-    <p>Respuesta a la pregunta 2...</p>
-  </div>
-
-  <!-- Sección 3 -->
-  <h3>
-    <button
-      aria-expanded="true"
-      aria-controls="content-3"
-      id="accordion-header-3"
-    >
-      Pregunta frecuente 3
-    </button>
-  </h3>
-  <div
-    id="content-3"
-    role="region"
-    aria-labelledby="accordion-header-3"
-  >
-    <p>Respuesta a la pregunta 3...</p>
-  </div>
-</div>
-```
+<Code code={acordeonEstructura} lang="html" title="acordeon-estructura.html" />
 
 #### ⌨️ Comportamiento de teclado
 
@@ -237,71 +63,7 @@ document.querySelectorAll('.tabs').forEach(el => new Tabs(el));
 
 #### 📝 JavaScript
 
-```
-class Accordion {
-  constructor(container, allowMultiple = true) {
-    this.container = container;
-    this.allowMultiple = allowMultiple;
-    this.buttons = [...container.querySelectorAll('[aria-expanded]')];
-
-    this.buttons.forEach((button, index) => {
-      button.addEventListener('click', () => this.toggle(index));
-      button.addEventListener('keydown', (e) => this.handleKeydown(e, index));
-    });
-  }
-
-  toggle(index) {
-    const button = this.buttons[index];
-    const content = document.getElementById(button.getAttribute('aria-controls'));
-    const isExpanded = button.getAttribute('aria-expanded') === 'true';
-
-    // Si no permitimos múltiples, cerrar todos los demás
-    if (!this.allowMultiple && !isExpanded) {
-      this.buttons.forEach((btn, i) => {
-        if (i !== index) {
-          btn.setAttribute('aria-expanded', 'false');
-          const otherContent = document.getElementById(btn.getAttribute('aria-controls'));
-          otherContent.hidden = true;
-        }
-      });
-    }
-
-    // Alternar el actual
-    button.setAttribute('aria-expanded', !isExpanded);
-    content.hidden = isExpanded;
-  }
-
-  handleKeydown(e, currentIndex) {
-    let newIndex;
-
-    switch(e.key) {
-      case 'ArrowDown':
-        newIndex = (currentIndex + 1) % this.buttons.length;
-        this.buttons[newIndex].focus();
-        e.preventDefault();
-        break;
-      case 'ArrowUp':
-        newIndex = currentIndex === 0 ? this.buttons.length - 1 : currentIndex - 1;
-        this.buttons[newIndex].focus();
-        e.preventDefault();
-        break;
-      case 'Home':
-        this.buttons[0].focus();
-        e.preventDefault();
-        break;
-      case 'End':
-        this.buttons[this.buttons.length - 1].focus();
-        e.preventDefault();
-        break;
-    }
-  }
-}
-
-// Inicializar (allowMultiple: true permite múltiples secciones abiertas)
-document.querySelectorAll('.accordion').forEach(el => {
-  new Accordion(el, true);
-});
-```
+<Code code={acordeonClase} lang="js" title="acordeon-clase.js" />
 
 **🔑 Puntos clave:**
 
@@ -325,22 +87,7 @@ document.querySelectorAll('.accordion').forEach(el => {
 
 Para acordeones simples, considera usar HTML nativo:
 
-```
-<details>
-  <summary>Pregunta frecuente 1</summary>
-  <p>Respuesta a la pregunta 1...</p>
-</details>
-
-<details>
-  <summary>Pregunta frecuente 2</summary>
-  <p>Respuesta a la pregunta 2...</p>
-</details>
-
-<details open>
-  <summary>Pregunta frecuente 3</summary>
-  <p>Respuesta a la pregunta 3...</p>
-</details>
-```
+<Code code={detailsSummary} lang="html" title="details-summary.html" />
 
 **✅ Ventajas:**
 

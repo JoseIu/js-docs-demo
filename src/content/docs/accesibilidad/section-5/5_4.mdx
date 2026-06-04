@@ -3,6 +3,20 @@ title: Problemas comunes
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
 
+import { Code } from '@astrojs/starlight/components';
+import problema1 from './examples/problema-1-elementos-sin-nombre.html?raw';
+import solucion1 from './examples/solucion-1-elementos-sin-nombre.html?raw';
+import problema2 from './examples/problema-2-roles-contradictorios.html?raw';
+import solucion2 from './examples/solucion-2-roles-contradictorios.html?raw';
+import problema3 from './examples/problema-3-desincronizacion.html?raw';
+import solucion3 from './examples/solucion-3-desincronizacion.html?raw';
+import problema4 from './examples/problema-4-no-enfocables.html?raw';
+import solucion4 from './examples/solucion-4-no-enfocables.html?raw';
+import problema5 from './examples/problema-5-estados-no-actualizados.html?raw';
+import solucion5 from './examples/solucion-5-estados-no-actualizados.html?raw';
+import problema6 from './examples/problema-6-css-sin-alternativa.html?raw';
+import solucion6 from './examples/solucion-6-css-sin-alternativa.html?raw';
+
 ## Problemas comunes
 
 Al trabajar con el árbol de accesibilidad, es frecuente encontrar ciertos errores que afectan la experiencia de usuarios con tecnologías asistivas. Aquí están los problemas más habituales y cómo solucionarlos.
@@ -13,33 +27,11 @@ El lector de pantalla no puede anunciar de qué se trata el elemento
 
 #### Ejemplo incorrecto:
 
-```
-❌ PROBLEMA
-<button><img src="icon-close.png"></button>
-<input type="text">
-<div role="button" tabindex="0" onclick="save()"><i class="icon"></i></div>
-
-Árbol de accesibilidad:
-→ button "" (nombre vacío)
-→ textbox "" (sin etiqueta)
-→ button "" (sin texto)
-```
+<Code code={problema1} lang="html" title="problema-1-elementos-sin-nombre.html" />
 
 #### ✅ Solución:
 
-```
-<button aria-label="Cerrar">
-  <img src="icon-close.png" alt="">
-</button>
-
-<label for="username">Nombre de usuario</label>
-<input type="text" id="username">
-
-<div role="button" tabindex="0" onclick="save()">
-  <i class="icon" aria-hidden="true"></i>
-  Guardar
-</div>
-```
+<Code code={solucion1} lang="html" title="solucion-1-elementos-sin-nombre.html" />
 
 ### ❌ Problema 2: Roles que contradicen la semántica HTML
 
@@ -47,27 +39,11 @@ Cambiar el rol de elementos nativos confunde a las tecnologías asistivas
 
 #### Ejemplo incorrecto:
 
-```
-❌ PROBLEMA
-<h2 role="button">Haz clic aquí</h2>
-<button role="heading" aria-level="1">Título principal</button>
-<ul role="navigation">...</ul>
-
-Árbol de accesibilidad:
-→ button "Haz clic aquí" (pierde estructura de encabezado)
-→ heading "Título principal" (no es interactivo como button)
-→ navigation (ul pierde semántica de lista)
-```
+<Code code={problema2} lang="html" title="problema-2-roles-contradictorios.html" />
 
 #### ✅ Solución:
 
-```
-<button>Haz clic aquí</button>
-<h1>Título principal</h1>
-<nav>
-  <ul>...</ul>
-</nav>
-```
+<Code code={solucion2} lang="html" title="solucion-2-roles-contradictorios.html" />
 
 💡 **Regla:** Nunca uses `role` para contradecir la semántica nativa de un elemento HTML.
 
@@ -77,49 +53,11 @@ El contenido oculto visualmente aparece en el árbol, o viceversa
 
 #### Ejemplo incorrecto:
 
-```
-❌ PROBLEMA 1: Visible pero oculto en el árbol
-<div aria-hidden="true">
-  <button>Comprar ahora</button>
-</div>
-→ El botón es visible y enfocable, pero invisible para lectores
-
-❌ PROBLEMA 2: Oculto visualmente pero presente en el árbol
-<div style="opacity: 0; position: absolute;">
-  Contenido que debería estar oculto
-</div>
-→ No es visible pero el lector lo anuncia
-```
+<Code code={problema3} lang="html" title="problema-3-desincronizacion.html" />
 
 #### ✅ Solución:
 
-```
-<!-- Para ocultar completamente (visual Y árbol) -->
-<div hidden>
-  <button>Comprar ahora</button>
-</div>
-
-<!-- O con CSS -->
-<div style="display: none;">
-  Contenido oculto
-</div>
-
-<!-- Para ocultar solo visualmente (accesible para lectores) -->
-<span class="sr-only">Contenido solo para lectores</span>
-
-<style>
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0,0,0,0);
-  border: 0;
-}
-</style>
-```
+<Code code={solucion3} lang="html" title="solucion-3-desincronizacion.html" />
 
 ### ❌ Problema 4: Elementos interactivos no enfocables
 
@@ -127,32 +65,11 @@ El elemento tiene rol interactivo pero no puede recibir foco por teclado
 
 #### Ejemplo incorrecto:
 
-```
-❌ PROBLEMA
-<div role="button" onclick="doSomething()">Clic</div>
-<span role="link" onclick="navigate()">Ir a página</span>
-
-Árbol de accesibilidad:
-→ button "Clic" (pero no es enfocable con Tab)
-→ link "Ir a página" (no navegable por teclado)
-```
+<Code code={problema4} lang="html" title="problema-4-no-enfocables.html" />
 
 #### ✅ Solución:
 
-```
-<div
-  role="button"
-  tabindex="0"
-  onclick="doSomething()"
-  onkeydown="if(event.key==='Enter'||event.key===' ')doSomething()"
->
-  Clic
-</div>
-
-<!-- Mejor aún: usa elementos nativos -->
-<button onclick="doSomething()">Clic</button>
-<a href="/page">Ir a página</a>
-```
+<Code code={solucion4} lang="html" title="solucion-4-no-enfocables.html" />
 
 ### ❌ Problema 5: Estados ARIA no actualizados dinámicamente
 
@@ -160,49 +77,11 @@ El atributo ARIA no refleja el estado visual actual
 
 #### Ejemplo incorrecto:
 
-```
-❌ PROBLEMA
-<button aria-expanded="false" onclick="toggleMenu()">
-  Menú
-</button>
-<ul id="menu" style="display: block;">...</ul>
-
-<!-- El menú está visible pero aria-expanded dice "false" -->
-
-<script>
-function toggleMenu() {
-  const menu = document.getElementById('menu');
-  menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
-  // ❌ No actualiza aria-expanded
-}
-</script>
-```
+<Code code={problema5} lang="html" title="problema-5-estados-no-actualizados.html" />
 
 #### ✅ Solución:
 
-```
-<button
-  id="menu-btn"
-  aria-expanded="false"
-  aria-controls="menu"
-  onclick="toggleMenu()"
->
-  Menú
-</button>
-<ul id="menu" hidden>...</ul>
-
-<script>
-function toggleMenu() {
-  const button = document.getElementById('menu-btn');
-  const menu = document.getElementById('menu');
-  const isExpanded = button.getAttribute('aria-expanded') === 'true';
-
-  // Actualiza ARIA y visual simultáneamente
-  button.setAttribute('aria-expanded', !isExpanded);
-  menu.hidden = isExpanded;
-}
-</script>
-```
+<Code code={solucion5} lang="html" title="solucion-5-estados-no-actualizados.html" />
 
 ### ❌ Problema 6: Contenido generado por CSS sin alternativa
 
@@ -210,35 +89,11 @@ Iconos o texto generado con ::before/::after que aporta significado
 
 #### Ejemplo incorrecto:
 
-```
-❌ PROBLEMA
-<style>
-.error::before {
-  content: "⚠️ Error: ";
-}
-</style>
-
-<p class="error">Usuario no encontrado</p>
-
-→ Visual: "⚠️ Error: Usuario no encontrado"
-→ Lector: "Advertencia Error: Usuario no encontrado" (emoji se lee como palabra)
-```
+<Code code={problema6} lang="html" title="problema-6-css-sin-alternativa.html" />
 
 #### ✅ Solución:
 
-```
-<!-- Opción 1: Usar aria-label -->
-<p class="error" role="alert" aria-label="Error: Usuario no encontrado">
-  Usuario no encontrado
-</p>
-
-<!-- Opción 2: Incluir el texto en HTML -->
-<p class="error" role="alert">
-  <span aria-hidden="true">⚠️</span>
-  <span class="sr-only">Error:</span>
-  Usuario no encontrado
-</p>
-```
+<Code code={solucion6} lang="html" title="solucion-6-css-sin-alternativa.html" />
 
 ### Checklist de validación del árbol
 

@@ -1,0 +1,11 @@
+❌ PROBLEMA 1: Visible pero oculto en el árbol
+<div aria-hidden="true">
+  <button>Comprar ahora</button>
+</div>
+→ El botón es visible y enfocable, pero invisible para lectores
+
+❌ PROBLEMA 2: Oculto visualmente pero presente en el árbol
+<div style="opacity: 0; position: absolute;">
+  Contenido que debería estar oculto
+</div>
+→ No es visible pero el lector lo anuncia

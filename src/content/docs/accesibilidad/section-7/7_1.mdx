@@ -3,6 +3,10 @@ title: Qué son y cómo funcionan
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
 
+import { Code } from '@astrojs/starlight/components';
+import flujoInformacion from './examples/flujo-informacion.txt?raw';
+import botonAria from './examples/boton-aria.html?raw';
+
 ## Qué son y cómo funcionan
 
 Los **lectores de pantalla (screen readers)** son tecnologías asistivas que convierten el contenido digital en voz sintética o salida braille, permitiendo a personas ciegas o con baja visión navegar e interactuar con sitios web y aplicaciones.
@@ -17,21 +21,7 @@ Los **lectores de pantalla (screen readers)** son tecnologías asistivas que con
 
 ### Flujo de información
 
-```
-HTML/CSS/JavaScript
-       ↓
-    Navegador
-       ↓
-Árbol de Accesibilidad
-       ↓
-API de Accesibilidad del SO
-       ↓
-Lector de Pantalla
-       ↓
-Voz sintética o Braille
-       ↓
-   👤 Usuario
-```
+<Code code={flujoInformacion} lang="plaintext" title="flujo-informacion.txt" />
 
 ### Qué "ve" un lector de pantalla
 
@@ -50,15 +40,7 @@ Los lectores no ven colores, diseño o posición visual. Solo perciben:
 
 #### 📄 HTML
 
-```
-<button
-  aria-expanded="false"
-  aria-controls="menu"
-  disabled
->
-  Abrir menú
-</button>
-```
+<Code code={botonAria} lang="html" title="boton-aria.html" />
 
 #### 🔊 Anuncio del lector
 

@@ -1,0 +1,10 @@
+    body{
+        flex-direction: column;
+        flex-wrap: wrap
+    }
+
+     // Su equivalente es:
+
+    body{
+        flex-flow: column wrap;
+    }

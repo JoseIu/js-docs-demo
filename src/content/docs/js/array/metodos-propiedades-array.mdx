@@ -4,6 +4,16 @@ description: "Una guía sobre arrays en JavaScript."
 ---
 import Quiz from "@components/quiz/Quiz.astro"
 import { Arrays } from "@db/arrays"
+import { Code } from '@astrojs/starlight/components';
+import codeLengthPropiedad from './examples/length-propiedad.js?raw';
+import codeLengthTruncar from './examples/length-truncar.js?raw';
+import codePushMetodo from './examples/push-metodo.js?raw';
+import codePushRetorno from './examples/push-retorno.js?raw';
+import codePopMetodo from './examples/pop-metodo.js?raw';
+import codeShiftMetodo from './examples/shift-metodo.js?raw';
+import codeUnshiftMetodo from './examples/unshift-metodo.js?raw';
+import codeConcatMetodo from './examples/concat-metodo.js?raw';
+import codeSpreadOperator from './examples/spread-operator.js?raw';
 
 Los arrays de JavaScript tienen una serie de métodos y propiedades que nos permiten trabajar con ellos de forma sencilla.
 
@@ -12,89 +22,37 @@ Los arrays de JavaScript tienen una serie de métodos y propiedades que nos perm
 ## La longitud de un array
 Puedes conocer la longitud de una colección de elementos usando la propiedad `.length`:
 
-```js
-const frutas = ["manzana", "pera", "plátano", "fresa"]
-console.log(frutas.length) // 4
-```
+<Code code={codeLengthPropiedad} lang="js" title="length-propiedad.js" />
 También puedes cortar su longitud asignando un nuevo valor a la propiedad .length:
-```js
-const frutas = ["manzana", "pera", "plátano", "fresa"]
-frutas.length = 2
-
-console.log(frutas) // ["manzana", "pera"]
-console.log(frutas.length) // 2
-```
+<Code code={codeLengthTruncar} lang="js" title="length-truncar.js" />
 
 ## Métodos de arrays
 El método `.push()` nos permite añadir un elemento al final de un array:
 
-```js
-const frutas = ["plátano", "fresa"]
-frutas.push("naranja")
-console.log(frutas) // ["plátano", "fresa", "naranja"]
-```
+<Code code={codePushMetodo} lang="js" title="push-metodo.js" />
 Además, el método `.push()` devuelve la nueva longitud del array:
-```js
-const frutas = ["plátano", "fresa"]
-console.log(frutas.length) // 2
-
-const newLength = frutas.push("naranja")
-console.log(newLength) // 3
-console.log(frutas) // ["plátano", "fresa", "naranja"]
-```
+<Code code={codePushRetorno} lang="js" title="push-retorno.js" />
 
 ## .pop()
 El método `.pop()` elimina y devuelve el último elemento de un array:
-```js
-const frutas = ["plátano", "fresa", "naranja"]
-const ultimaFruta = frutas.pop()
-
-console.log(frutas) // ["plátano", "fresa"]
-console.log(ultimaFruta) // "naranja
-```
+<Code code={codePopMetodo} lang="js" title="pop-metodo.js" />
 
 ## .shift()
 El método `.shift()` elimina y devuelve el primer elemento de un array. Es lo mismo que `.pop()`, pero con el primer elemento en lugar del último:
-```js
-const frutas = ["plátano", "fresa", "naranja"]
-const primeraFruta = frutas.shift()
-
-console.log(frutas) // ["fresa", "naranja"]
-console.log(primeraFruta) // "plátano"
-```
+<Code code={codeShiftMetodo} lang="js" title="shift-metodo.js" />
 
 ## .unshift()
 
 El método `.unshift()` añade un elemento al principio de un array. Es lo mismo que `.push()`, pero con el primer elemento en lugar del último:
-```js
-const frutas = ["plátano", "fresa", "naranja"]
-frutas.unshift("manzana")
-
-console.log(frutas) // ["manzana", "plátano", "fresa", "naranja"]
-```
+<Code code={codeUnshiftMetodo} lang="js" title="unshift-metodo.js" />
 
 ## Concatenar arrays
 
 Podemos concatenar dos arrays usando el método `concat().`
-```js
-const numbers = [1, 2, 3]
-const numbers2 = [4, 5]
-
-const allNumbers = numbers.concat(numbers2)
-
-console.log(allNumbers) // [1, 2, 3, 4, 5]
-```
+<Code code={codeConcatMetodo} lang="js" title="concat-metodo.js" />
 
 Otra forma de concatenar arrays es usando el operador `...` (spread operator). Este operador propaga los elementos de un array. Así que podríamos hacer lo siguiente:
 
-```js
-const numbers = [1, 2, 3]
-const numbers2 = [4, 5]
-
-//                    1, 2, 3        4, 5                     
-const allNumbers = [...numbers, ...numbers2]
-
-console.log(allNumbers) // [1, 2, 3, 4, 5]
-```
+<Code code={codeSpreadOperator} lang="js" title="spread-operator.js" />
 
 Más adelante hablaremos más de este operador y sus diferentes utilidades.

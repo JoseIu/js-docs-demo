@@ -1,0 +1,11 @@
+<!-- Opción 1: Usar aria-label -->
+<p class="error" role="alert" aria-label="Error: Usuario no encontrado">
+  Usuario no encontrado
+</p>
+
+<!-- Opción 2: Incluir el texto en HTML -->
+<p class="error" role="alert">
+  <span aria-hidden="true">⚠️</span>
+  <span class="sr-only">Error:</span>
+  Usuario no encontrado
+</p>

@@ -1,0 +1,13 @@
+HTML/CSS/JavaScript
+       ↓
+    Navegador
+       ↓
+Árbol de Accesibilidad
+       ↓
+API de Accesibilidad del SO
+       ↓
+Lector de Pantalla
+       ↓
+Voz sintética o Braille
+       ↓
+   👤 Usuario

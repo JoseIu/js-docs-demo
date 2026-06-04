@@ -5,6 +5,11 @@ description: A guide in my new Starlight docs site.
 
 import Quiz from "@components/quiz/Quiz.astro";
 import { dataTypes } from "@db/introductionExam";
+import { Code } from '@astrojs/starlight/components';
+import numerosLiterales from './examples/numeros-literales.js?raw';
+import aritmeticaOperadores from './examples/aritmetica-operadores.js?raw';
+import aritmeticaPrecedencia from './examples/aritmetica-precedencia.js?raw';
+import stringsDeclaracion from './examples/strings-declaracion.js?raw';
 
 En JavaScript, como cualquier otro lenguaje de programación, vamos a querer trasladar la información del mundo real a nuestro código. Para ello, necesitamos entender qué tipos de datos existen en el lenguaje para poder representar la información que necesitamos.
 
@@ -26,12 +31,7 @@ Los números (tipo `number`) son los datos más básicos que podemos representar
 ## Números
 Los números (tipo `number`) son los datos más básicos...
 
-```js
-7
-3.14
-19.95
-2.998e8 - 1
-```
+<Code code={numerosLiterales} lang="js" title="numeros-literales.js" />
 
 ## Operadores aritméticos
 Con los números, puedes usar los operadores aritméticos para realizar operaciones matemáticas. En JavaScript tenemos los siguientes operadores aritméticos:
@@ -44,14 +44,7 @@ Con los números, puedes usar los operadores aritméticos para realizar operacio
 **: exponente
 
 Al usar los operadores aritméticos, el resultado siempre será un número. Por ejemplo:
-```js
-2 + 2 // 4
-4 - 2 // 2
-3 * 2 // 6
-2 / 2 // 1
-2 % 2 // 0
-3 ** 3 // 27
-```
+<Code code={aritmeticaOperadores} lang="js" title="aritmetica-operadores.js" />
 > ¿Qué significa el `//` que ves en los ejemplos? Es un comentario.
 > En JavaScript, los comentarios se escriben con `//` y todo lo que
 > escribas después de `//` será ignorado por el navegador. Los
@@ -61,19 +54,14 @@ Al igual que las matemáticas, las operaciones siguen un orden de precedencia. P
 
 También puedes usar paréntesis para cambiar el orden de las operaciones.
 
-```js
-2 + 2 * 3 // 8
-;(2 + 2) * 3 // 12
-```
+<Code code={aritmeticaPrecedencia} lang="js" title="aritmetica-precedencia.js" />
 
 > Más adelante le dedicaremos una clase entera a los BigInt, un tipo de dato similar a Number pero pensado para trabajar con números grandes.
 
 ## Cadenas de texto
 La cadena de texto (tipo string) es otro tipo de dato muy común. En JavaScript, las cadenas de texto se representan entre comillas simples, dobles o acentos graves:
 
-```js
-'Estás aprendiendo JavaScript'
-```
+<Code code={stringsDeclaracion} lang="js" title="strings-declaracion.js" />
 ## Booleanos
 
 Los booleanos representa sólo dos valores: true (verdadero) o false (falso). Por ejemplo:

@@ -3,6 +3,18 @@ title: Roles ARIA más utilizados
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
 
+import { Code } from '@astrojs/starlight/components';
+import roleButton from './examples/role-button.html?raw';
+import roleDialog from './examples/role-dialog.html?raw';
+import roleAlert from './examples/role-alert.html?raw';
+import roleNavigation from './examples/role-navigation.html?raw';
+import tabPattern from './examples/tab-pattern.html?raw';
+import menuMenubar from './examples/menu-menubar.html?raw';
+import roleSearch from './examples/role-search.html?raw';
+import roleStatus from './examples/role-status.html?raw';
+import roleProgressbar from './examples/role-progressbar.html?raw';
+import roleSlider from './examples/role-slider.html?raw';
+
 ## Roles ARIA más utilizados
 
 Los roles ARIA definen qué tipo de elemento es para las tecnologías asistivas. Hay más de 80 roles en la especificación completa, pero aquí veremos los más comunes y útiles en el desarrollo web.
@@ -22,12 +34,7 @@ Los roles ARIA definen qué tipo de elemento es para las tecnologías asistivas.
 
 **Cuándo usar:** Solo si no puedes usar `<button>` nativo
 
-```
-<div role="button" tabindex="0" onclick="save()">
-  Guardar
-</div>
-<!-- Mejor: <button onclick="save()">Guardar</button> -->
-```
+<Code code={roleButton} lang="html" title="role-button.html" />
 
 #### 2. dialog
 
@@ -35,18 +42,7 @@ Los roles ARIA definen qué tipo de elemento es para las tecnologías asistivas.
 
 **Cuándo usar:** Modales, popups que interrumpen el flujo
 
-```
-<div
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="dialog-title"
->
-  <h2 id="dialog-title">Confirmar acción</h2>
-  <p>¿Estás seguro de que deseas continuar?</p>
-  <button>Aceptar</button>
-  <button>Cancelar</button>
-</div>
-```
+<Code code={roleDialog} lang="html" title="role-dialog.html" />
 
 #### 3. alert
 
@@ -54,12 +50,7 @@ Los roles ARIA definen qué tipo de elemento es para las tecnologías asistivas.
 
 **Cuándo usar:** Errores críticos, confirmaciones, avisos urgentes
 
-```
-<div role="alert">
-  Error: El formulario no pudo ser enviado
-</div>
-<!-- Se anuncia automáticamente al usuario -->
-```
+<Code code={roleAlert} lang="html" title="role-alert.html" />
 
 #### 4. navigation
 
@@ -67,14 +58,7 @@ Los roles ARIA definen qué tipo de elemento es para las tecnologías asistivas.
 
 **Cuándo usar:** Ya incluido en `<nav>`, úsalo si necesitas un contenedor no-semántico
 
-```
-<nav aria-label="Navegación principal">
-  <ul>
-    <li><a href="/">Inicio</a></li>
-    <li><a href="/productos">Productos</a></li>
-  </ul>
-</nav>
-```
+<Code code={roleNavigation} lang="html" title="role-navigation.html" />
 
 #### 5. tab, tablist, tabpanel
 
@@ -82,23 +66,7 @@ Los roles ARIA definen qué tipo de elemento es para las tecnologías asistivas.
 
 **Cuándo usar:** Interfaces con pestañas, no hay elemento HTML nativo
 
-```
-<div role="tablist" aria-label="Configuración">
-  <button role="tab" aria-selected="true" aria-controls="panel1">
-    General
-  </button>
-  <button role="tab" aria-selected="false" aria-controls="panel2">
-    Avanzado
-  </button>
-</div>
-
-<div role="tabpanel" id="panel1">
-  Contenido general...
-</div>
-<div role="tabpanel" id="panel2" hidden>
-  Contenido avanzado...
-</div>
-```
+<Code code={tabPattern} lang="html" title="tab-pattern.html" />
 
 #### 6. menu, menubar, menuitem
 
@@ -106,18 +74,7 @@ Los roles ARIA definen qué tipo de elemento es para las tecnologías asistivas.
 
 **Cuándo usar:** Menús tipo aplicación de escritorio (Archivo, Editar, etc.)
 
-```
-<div role="menubar">
-  <button aria-haspopup="true" aria-expanded="false">
-    Archivo
-  </button>
-  <ul role="menu" hidden>
-    <li role="menuitem">Nuevo</li>
-    <li role="menuitem">Abrir</li>
-    <li role="menuitem">Guardar</li>
-  </ul>
-</div>
-```
+<Code code={menuMenubar} lang="html" title="menu-menubar.html" />
 
 ⚠️ **Cuidado:** No uses `role="menu"` para navegación web común. Usa `<nav>` en su lugar.
 
@@ -127,13 +84,7 @@ Los roles ARIA definen qué tipo de elemento es para las tecnologías asistivas.
 
 **Cuándo usar:** Formularios o áreas de búsqueda
 
-```
-<div role="search">
-  <label for="site-search">Buscar en el sitio</label>
-  <input type="search" id="site-search" />
-  <button>Buscar</button>
-</div>
-```
+<Code code={roleSearch} lang="html" title="role-search.html" />
 
 #### 8. status
 
@@ -141,11 +92,7 @@ Los roles ARIA definen qué tipo de elemento es para las tecnologías asistivas.
 
 **Cuándo usar:** Contadores, progreso, información no crítica
 
-```
-<div role="status" aria-live="polite">
-  3 elementos en el carrito
-</div>
-```
+<Code code={roleStatus} lang="html" title="role-status.html" />
 
 #### 9. progressbar
 
@@ -153,17 +100,7 @@ Los roles ARIA definen qué tipo de elemento es para las tecnologías asistivas.
 
 **Cuándo usar:** Barras de carga, progreso de formularios
 
-```
-<div
-  role="progressbar"
-  aria-valuenow="65"
-  aria-valuemin="0"
-  aria-valuemax="100"
-  aria-label="Progreso de carga"
->
-  <div style="width: 65%;"></div>
-</div>
-```
+<Code code={roleProgressbar} lang="html" title="role-progressbar.html" />
 
 #### 10. slider
 
@@ -171,17 +108,7 @@ Los roles ARIA definen qué tipo de elemento es para las tecnologías asistivas.
 
 **Cuándo usar:** Solo si no puedes usar `<input type="range">`
 
-```
-<div
-  role="slider"
-  aria-valuenow="50"
-  aria-valuemin="0"
-  aria-valuemax="100"
-  aria-label="Volumen"
-  tabindex="0"
->
-</div>
-```
+<Code code={roleSlider} lang="html" title="role-slider.html" />
 
 ### Tabla resumen de roles
 

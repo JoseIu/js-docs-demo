@@ -1,0 +1,25 @@
+<dialog id="my-dialog">
+  <h2>Título del diálogo</h2>
+  <p>Contenido del diálogo...</p>
+  <form method="dialog">
+    <button value="cancel">Cancelar</button>
+    <button value="confirm">Confirmar</button>
+  </form>
+</dialog>
+
+<script>
+const dialog = document.getElementById('my-dialog');
+
+// Abrir como modal
+document.getElementById('open').addEventListener('click', () => {
+  dialog.showModal(); // Foco automático, focus trap, Esc integrado
+});
+
+// Abrir como no-modal
+// dialog.show();
+
+// Cerrar
+dialog.addEventListener('close', () => {
+  console.log('Valor retornado:', dialog.returnValue);
+});
+</script>

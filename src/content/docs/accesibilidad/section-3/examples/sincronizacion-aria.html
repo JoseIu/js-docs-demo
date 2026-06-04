@@ -1,0 +1,25 @@
+<!-- Botón que abre/cierra un menú -->
+<button
+  aria-expanded="false"
+  aria-controls="menu-desplegable"
+  onclick="toggleMenu()"
+>
+  Menú
+</button>
+
+<ul id="menu-desplegable" hidden>
+  <li><a href="#">Opción 1</a></li>
+  <li><a href="#">Opción 2</a></li>
+</ul>
+
+<script>
+function toggleMenu() {
+  const button = document.querySelector('button');
+  const menu = document.getElementById('menu-desplegable');
+  const isOpen = button.getAttribute('aria-expanded') === 'true';
+
+  // Sincroniza estado visual y accesible
+  button.setAttribute('aria-expanded', !isOpen);
+  menu.hidden = isOpen;
+}
+</script>

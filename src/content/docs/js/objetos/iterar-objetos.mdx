@@ -4,6 +4,12 @@ description: "Aprende a desestructurar objetos en JavaScript para extraer valore
 ---
 import Quiz from "@components/quiz/Quiz.astro"
 import { Arrays } from "@db/arrays"
+import { Code } from '@astrojs/starlight/components';
+import iterarForin from './examples/iterar-forin.js?raw';
+import iterarObjectKeys from './examples/iterar-object-keys.js?raw';
+import iterarObjectValues from './examples/iterar-object-values.js?raw';
+import iterarObjectEntries from './examples/iterar-object-entries.js?raw';
+import iterarObjectEntriesDestructuring from './examples/iterar-object-entries-destructuring.js?raw';
 
 El manejo de objetos es uno de los pilares en JavaScript y es crucial conocer cómo podemos iterar o recorrer los mismos. Existen varias formas de hacerlo y en esta clase vamos a revisar algunas de las más comunes: el bucle `for...in` y los métodos `Object.keys()`, `Object.values()` y `Object.entries()`.
 
@@ -11,55 +17,19 @@ El manejo de objetos es uno de los pilares en JavaScript y es crucial conocer c�
 
 La estructura de control `for...in` nos permite crear un bucle que itera sobre todas las propiedades enumerables de un objeto, en un orden arbitrario.
 
-```javascript
-const spiderman = {
-  name: 'Spidey',
-  universe: 42,
-  powers: ['web', 'invisibility', 'spider-sense']
-}
-
-for (const property in spiderman) {
-  console.log(`${property}: ${spiderman[property]}`);
-}
-
-// -> name: Spidey
-// -> universe: 42
-// -> powers: web,invisibility,spider-sense
-```
+<Code code={iterarForin} lang="js" title="iterar-forin.js" />
 
 ## Transformar un objeto en un array
 
 El método `Object.keys()` retorna un array con las propiedades enumerables de un objeto.
 
-```javascript
-const spiderman = {
-  name: 'Spidey',
-  universe: 42,
-  powers: ['web', 'invisibility', 'spider-sense']
-}
-const properties = Object.keys(spiderman)
-console.log(properties) // ['name', 'universe', 'powers']
-```
+<Code code={iterarObjectKeys} lang="js" title="iterar-object-keys.js" />
 
 ## Iterando con Object.values()
 
 El método `Object.values()` retorna un array con los valores correspondientes a las propiedades enumerables de un objeto.
 
-```javascript
-const spiderman = {
-  name: 'Spidey',
-  universe: 42,
-  powers: ['web', 'invisibility', 'spider-sense']
-}
-const values = Object.values(spiderman)
-values.forEach(value => {
-  console.log(value)
-})
-
-// -> Spidey
-// -> 42
-// -> [ 'web', 'invisibility', 'spider-sense' ]
-```
+<Code code={iterarObjectValues} lang="js" title="iterar-object-values.js" />
 
 La diferencia con Object.values() es que este método retorna los valores y Object.keys() retorna las propiedades.
 
@@ -67,27 +37,8 @@ La diferencia con Object.values() es que este método retorna los valores y Obje
 
 El método `Object.entries()` retorna un array de arrays, donde cada subarray es un par `[propiedad, valor]` correspondiente a las propiedades enumerables de un objeto.
 
-```javascript
-const entries = Object.entries(spiderman)
-
-entries.forEach(entry => {
-  console.log(entry)
-})
-
-// -> [ 'name', 'Spidey' ]
-// -> [ 'universe', 42 ]
-// -> [ 'powers', [ 'web', 'invisibility', 'spider-sense' ] ]
-```
+<Code code={iterarObjectEntries} lang="js" title="iterar-object-entries.js" />
 
 Lo interesante es que este método nos da acceso tanto a las propiedades como a los valores. Lo puedes ver más claro en el siguiente ejemplo:
 
-```javascript
-const entries = Object.entries(spiderman)
-
-entries.forEach(entry => {
-  const property = entry[0]
-  const value = entry[1]
-
-  console.log(`${property}: ${value}`)
-})
-```
+<Code code={iterarObjectEntriesDestructuring} lang="js" title="iterar-object-entries-destructuring.js" />

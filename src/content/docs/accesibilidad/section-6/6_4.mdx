@@ -3,6 +3,15 @@ title: Diálogos/modales accesibles
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
 
+import { Code } from '@astrojs/starlight/components';
+import modalEstructura from './examples/modal-estructura.html?raw';
+import focusTrapComentario from './examples/focus-trap-comentario.js?raw';
+import focusRestauracion from './examples/focus-restauracion.js?raw';
+import teclaEscape from './examples/tecla-escape.js?raw';
+import modalAccesibleClase from './examples/modal-accesible-clase.js?raw';
+import dialogNativo from './examples/dialog-nativo.html?raw';
+import updateFocusable from './examples/update-focusable.js?raw';
+
 ## Diálogos/modales accesibles
 
 Los diálogos modales son uno de los patrones más complejos de implementar correctamente. Requieren gestión cuidadosa del foco, atributos ARIA específicos y captura del teclado para ser completamente accesibles.
@@ -25,47 +34,7 @@ Diálogo que requiere atención inmediata
 
 #### HTML/ARIA
 
-```
-<!-- Botón que abre el modal -->
-<button id="open-modal">Abrir diálogo</button>
-
-<!-- Overlay de fondo (opcional pero recomendado) -->
-<div
-  class="modal-overlay"
-  hidden
-  aria-hidden="true"
-></div>
-
-<!-- Modal -->
-<div
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="dialog-title"
-  aria-describedby="dialog-desc"
-  class="modal"
-  hidden
->
-  <h2 id="dialog-title">Confirmar acción</h2>
-
-  <p id="dialog-desc">
-    ¿Estás seguro de que quieres eliminar este elemento?
-    Esta acción no se puede deshacer.
-  </p>
-
-  <div class="modal-actions">
-    <button id="confirm-btn">Confirmar</button>
-    <button id="cancel-btn">Cancelar</button>
-  </div>
-
-  <!-- Botón de cierre (opcional) -->
-  <button
-    class="modal-close"
-    aria-label="Cerrar diálogo"
-  >
-    ×
-  </button>
-</div>
-```
+<Code code={modalEstructura} lang="html" title="modal-estructura.html" />
 
 ### 🔑 Requisitos críticos de accesibilidad
 
@@ -84,37 +53,19 @@ El foco debe moverse al modal al abrirse
 
 El foco debe permanecer dentro del modal mientras esté abierto
 
-```
-// El Tab debe ciclar entre elementos del modal
-// No debe salir al contenido de fondo
-
-Elementos enfocables:
-[Botón Cerrar] → [Confirmar] → [Cancelar] → [Botón Cerrar] → ...
-```
+<Code code={focusTrapComentario} lang="javascript" title="focus-trap-comentario.js" />
 
 #### 3. Restauración del foco
 
 Al cerrar, el foco debe volver al elemento que lo abrió
 
-```
-// Guardar referencia al elemento que abrió el modal
-const triggerElement = document.activeElement;
-
-// Al cerrar, devolver el foco
-triggerElement.focus();
-```
+<Code code={focusRestauracion} lang="javascript" title="focus-restauracion.js" />
 
 #### 4. Teclado: Cerrar con Escape
 
 La tecla Esc debe cerrar el modal
 
-```
-dialog.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    closeModal();
-  }
-});
-```
+<Code code={teclaEscape} lang="javascript" title="tecla-escape.js" />
 
 #### 5. Ocultar contenido de fondo
 
@@ -124,133 +75,7 @@ El contenido detrás del modal debe ser inaccesible para tecnologías asistivas
 
 ### JavaScript completo para modal accesible
 
-```
-class AccessibleModal {
-  constructor(modalElement) {
-    this.modal = modalElement;
-    this.overlay = document.querySelector('.modal-overlay');
-    this.triggerElement = null;
-    this.focusableElements = null;
-    this.firstFocusable = null;
-    this.lastFocusable = null;
-
-    // Elementos enfocables
-    this.focusableSelectors = [
-      'a[href]',
-      'button:not([disabled])',
-      'textarea:not([disabled])',
-      'input:not([disabled])',
-      'select:not([disabled])',
-      '[tabindex]:not([tabindex="-1"])'
-    ].join(',');
-  }
-
-  open(triggerElement) {
-    // Guardar referencia al elemento que abrió el modal
-    this.triggerElement = triggerElement || document.activeElement;
-
-    // Mostrar modal y overlay
-    this.modal.hidden = false;
-    if (this.overlay) this.overlay.hidden = false;
-
-    // Ocultar contenido de fondo (respaldo para navegadores antiguos)
-    document.body.setAttribute('aria-hidden', 'true');
-    this.modal.removeAttribute('aria-hidden');
-
-    // Prevenir scroll del body
-    document.body.style.overflow = 'hidden';
-
-    // Obtener elementos enfocables
-    this.updateFocusableElements();
-
-    // Foco inicial (primer elemento o el modal mismo)
-    if (this.firstFocusable) {
-      this.firstFocusable.focus();
-    } else {
-      this.modal.tabIndex = -1;
-      this.modal.focus();
-    }
-
-    // Event listeners
-    this.modal.addEventListener('keydown', this.handleKeydown);
-    if (this.overlay) {
-      this.overlay.addEventListener('click', this.close);
-    }
-  }
-
-  close = () => {
-    // Ocultar modal
-    this.modal.hidden = true;
-    if (this.overlay) this.overlay.hidden = true;
-
-    // Restaurar contenido de fondo
-    document.body.removeAttribute('aria-hidden');
-    document.body.style.overflow = '';
-
-    // Devolver foco al elemento que abrió el modal
-    if (this.triggerElement) {
-      this.triggerElement.focus();
-    }
-
-    // Limpiar event listeners
-    this.modal.removeEventListener('keydown', this.handleKeydown);
-    if (this.overlay) {
-      this.overlay.removeEventListener('click', this.close);
-    }
-  }
-
-  handleKeydown = (e) => {
-    // Cerrar con Escape
-    if (e.key === 'Escape') {
-      this.close();
-      return;
-    }
-
-    // Focus trap con Tab
-    if (e.key === 'Tab') {
-      if (e.shiftKey) {
-        // Shift + Tab (hacia atrás)
-        if (document.activeElement === this.firstFocusable) {
-          e.preventDefault();
-          this.lastFocusable.focus();
-        }
-      } else {
-        // Tab (hacia adelante)
-        if (document.activeElement === this.lastFocusable) {
-          e.preventDefault();
-          this.firstFocusable.focus();
-        }
-      }
-    }
-  }
-
-  updateFocusableElements() {
-    this.focusableElements = [
-      ...this.modal.querySelectorAll(this.focusableSelectors)
-    ];
-    this.firstFocusable = this.focusableElements[0];
-    this.lastFocusable = this.focusableElements[this.focusableElements.length - 1];
-  }
-}
-
-// Uso
-const modal = new AccessibleModal(document.querySelector('[role="dialog"]'));
-
-document.getElementById('open-modal').addEventListener('click', function() {
-  modal.open(this);
-});
-
-// Botones de cerrar
-document.querySelectorAll('.modal-close, #cancel-btn').forEach(btn => {
-  btn.addEventListener('click', () => modal.close());
-});
-
-document.getElementById('confirm-btn').addEventListener('click', () => {
-  // Realizar acción
-  console.log('Acción confirmada');
-  modal.close();
-});
-```
+<Code code={modalAccesibleClase} lang="js" title="modal-accesible-clase.js" />
 
 ### Diferencia: dialog vs alertdialog
 
@@ -266,33 +91,7 @@ document.getElementById('confirm-btn').addEventListener('click', () => {
 
 HTML5 incluye el elemento `<dialog>` con accesibilidad integrada:
 
-```
-<dialog id="my-dialog">
-  <h2>Título del diálogo</h2>
-  <p>Contenido del diálogo...</p>
-  <form method="dialog">
-    <button value="cancel">Cancelar</button>
-    <button value="confirm">Confirmar</button>
-  </form>
-</dialog>
-
-<script>
-const dialog = document.getElementById('my-dialog');
-
-// Abrir como modal
-document.getElementById('open').addEventListener('click', () => {
-  dialog.showModal(); // Foco automático, focus trap, Esc integrado
-});
-
-// Abrir como no-modal
-// dialog.show();
-
-// Cerrar
-dialog.addEventListener('close', () => {
-  console.log('Valor retornado:', dialog.returnValue);
-});
-</script>
-```
+<Code code={dialogNativo} lang="html" title="dialog-nativo.html" />
 
 **✅ Ventajas del &lt;dialog&gt; nativo:**
 
@@ -313,9 +112,7 @@ dialog.addEventListener('close', () => {
 
 Si el contenido del modal cambia después de abrirse, actualiza los elementos enfocables:
 
-```
-modal.updateFocusableElements();
-```
+<Code code={updateFocusable} lang="javascript" title="update-focusable.js" />
 
 #### Modal con scroll interno
 

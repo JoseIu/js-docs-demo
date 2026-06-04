@@ -3,6 +3,23 @@ title: "Ejercicios con Arrays de Objetos"
 descripción: "Aprende a trabajar con arrays de objetos en JavaScript y cómo acceder a sus propiedades y métodos."
 ---
 
+import { Code } from '@astrojs/starlight/components';
+import numerosArray from './examples/numeros-array.js?raw';
+import ordenarArray from './examples/ordenar-array.js?raw';
+import primerMayor10 from './examples/primer-mayor-10.js?raw';
+import existeNegativo from './examples/existe-negativo.js?raw';
+import todosPositivos from './examples/todos-positivos.js?raw';
+import mayusculas from './examples/mayusculas.js?raw';
+import sumaNumeros from './examples/suma-numeros.js?raw';
+import contarPares from './examples/contar-pares.js?raw';
+import eliminarDuplicados from './examples/eliminar-duplicados.js?raw';
+import arrayAString from './examples/array-a-string.js?raw';
+import tresMasGrandes from './examples/tres-mas-grandes.js?raw';
+import cuadrados from './examples/cuadrados.js?raw';
+import indice30 from './examples/indice-30.js?raw';
+import combinarArrays from './examples/combinar-arrays.js?raw';
+import invertirArray from './examples/invertir-array.js?raw';
+
 # Ejercicios JS  Roadmap
 
 ## Arrays (20 ejercicios)
@@ -11,9 +28,7 @@ descripción: "Aprende a trabajar con arrays de objetos en JavaScript y cómo ac
 
 Dado:
 
-``` js
-const numeros = [4, 10, 2, 8, 15, 1];
-```
+<Code code={numerosArray} lang="js" title="numeros-array.js" />
 
 Filtra los números mayores que 5.
 
@@ -26,9 +41,7 @@ multiplique por 3.
 
 Ordena el siguiente array de menor a mayor:
 
-``` js
-[9,3,7,1,6]
-```
+<Code code={ordenarArray} lang="js" title="ordenar-array.js" />
 
 ### 4
 
@@ -38,65 +51,49 @@ Ordena el mismo array de mayor a menor.
 
 Encuentra el primer número mayor que 10.
 
-``` js
-[3,7,12,5,20]
-```
+<Code code={primerMayor10} lang="js" title="primer-mayor-10.js" />
 
 ### 6
 
 Comprueba si existe algún número negativo.
 
-``` js
-[5,7,-2,9]
-```
+<Code code={existeNegativo} lang="js" title="existe-negativo.js" />
 
 ### 7
 
 Comprueba si todos los números son positivos.
 
-``` js
-[3,8,11,2]
-```
+<Code code={todosPositivos} lang="js" title="todos-positivos.js" />
 
 ### 8
 
 Convierte este array de strings a mayúsculas:
 
-``` js
-["hola","mundo","javascript"]
-```
+<Code code={mayusculas} lang="js" title="mayusculas.js" />
 
 ### 9
 
 Suma todos los números del array:
 
-``` js
-[5,10,15]
-```
+<Code code={sumaNumeros} lang="js" title="suma-numeros.js" />
 
 ### 10
 
 Cuenta cuántos números son pares:
 
-``` js
-[1,2,3,4,5,6,7,8]
-```
+<Code code={contarPares} lang="js" title="contar-pares.js" />
 
 ### 11
 
 Elimina los duplicados:
 
-``` js
-[1,2,2,3,4,4,5]
-```
+<Code code={eliminarDuplicados} lang="js" title="eliminar-duplicados.js" />
 
 ### 12
 
 Convierte este array en un string separado por comas:
 
-``` js
-["manzana","pera","uva"]
-```
+<Code code={arrayAString} lang="js" title="array-a-string.js" />
 
 ### 13
 
@@ -110,9 +107,7 @@ Ordena palabras por longitud.
 
 Obtén los 3 números más grandes de:
 
-``` js
-[5,99,34,12,76,2,88]
-```
+<Code code={tresMasGrandes} lang="js" title="tres-mas-grandes.js" />
 
 ### 16
 
@@ -122,34 +117,25 @@ Suma solo números pares.
 
 Crea un array de cuadrados de:
 
-``` js
-[1,2,3,4,5]
-```
+<Code code={cuadrados} lang="js" title="cuadrados.js" />
 
 ### 18
 
 Encuentra el índice del número 30:
 
-``` js
-[10,20,30,40]
-```
+<Code code={indice30} lang="js" title="indice-30.js" />
 
 ### 19
 
 Combina dos arrays:
 
-``` js
-[1,2,3]
-[4,5,6]
-```
+<Code code={combinarArrays} lang="js" title="combinar-arrays.js" />
 
 ### 20
 
 Invierte el array:
 
-``` js
-[1,2,3,4,5]
-```
+<Code code={invertirArray} lang="js" title="invertir-array.js" />
 
 ------------------------------------------------------------------------
 

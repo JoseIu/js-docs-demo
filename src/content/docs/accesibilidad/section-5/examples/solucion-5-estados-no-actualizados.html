@@ -1,0 +1,21 @@
+<button
+  id="menu-btn"
+  aria-expanded="false"
+  aria-controls="menu"
+  onclick="toggleMenu()"
+>
+  Menú
+</button>
+<ul id="menu" hidden>...</ul>
+
+<script>
+function toggleMenu() {
+  const button = document.getElementById('menu-btn');
+  const menu = document.getElementById('menu');
+  const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+  // Actualiza ARIA y visual simultáneamente
+  button.setAttribute('aria-expanded', !isExpanded);
+  menu.hidden = isExpanded;
+}
+</script>

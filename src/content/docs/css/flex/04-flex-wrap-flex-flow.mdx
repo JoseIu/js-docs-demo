@@ -4,6 +4,9 @@ description: Flex-wrap es la propiedad que controla qué pasa con el contenido s
 ---
 
 
+import { Code } from '@astrojs/starlight/components';
+import flexFlowShorthand from './examples/flex-flow-shorthand.css?raw';
+
 ## flex-wrap
 
 Con esta propiedad controlaremos qué pasa con el contenido si se desborda del contenedor.
@@ -19,15 +22,4 @@ Por defecto su valor es `no-wrap` lo que hará que los elementos se encojan para
 
 Esto es un shorthand que engloba `flex-direction` y `flex-wrap`.
 
-```css
-    body{
-        flex-direction: column;
-        flex-wrap: wrap
-    }
-
-     // Su equivalente es:
-
-    body{
-        flex-flow: column wrap;
-    }
-```
+<Code code={flexFlowShorthand} lang="css" title="flex-flow-shorthand.css" />

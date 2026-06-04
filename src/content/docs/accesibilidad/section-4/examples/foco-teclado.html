@@ -1,0 +1,14 @@
+✅ CORRECTO
+<div
+  role="button"
+  tabindex="0"
+  onclick="save()"
+  onkeydown="if(event.key==='Enter'||event.key===' ')save()"
+>
+  Guardar
+</div>
+
+❌ INCORRECTO
+<div role="button" onclick="save()">
+  Guardar  <!-- No accesible por teclado -->
+</div>

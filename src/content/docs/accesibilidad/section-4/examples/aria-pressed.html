@@ -1,0 +1,11 @@
+<button aria-pressed="false">
+  Negrita
+</button>
+
+<script>
+button.addEventListener('click', () => {
+  const isPressed = button.getAttribute('aria-pressed') === 'true';
+  button.setAttribute('aria-pressed', !isPressed);
+  // Aplicar estilo de negrita...
+});
+</script>

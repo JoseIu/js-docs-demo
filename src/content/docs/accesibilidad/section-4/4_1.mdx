@@ -3,6 +3,12 @@ title: Qué es ARIA y cuándo usarlo
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
 
+import { Code } from '@astrojs/starlight/components';
+import acordeonAria from './examples/acordeon-aria.html?raw';
+import alertaDinamica from './examples/alerta-dinamica.html?raw';
+import divAriaIncorrecto from './examples/div-aria-incorrecto.html?raw';
+import botonNativo from './examples/boton-nativo.html?raw';
+
 ## Qué es ARIA y cuándo usarlo
 
 **ARIA (Accessible Rich Internet Applications)** es una especificación del W3C que proporciona atributos adicionales para mejorar la accesibilidad de contenido dinámico y componentes de interfaz avanzados que HTML no puede describir de forma nativa.
@@ -60,45 +66,11 @@ Usa `aria-label`, `aria-labelledby`, o contenido de texto visible
 
 #### Ejemplo 2: Acordeón (uso apropiado de ARIA)
 
-```
-<!-- Aquí ARIA es necesario porque no hay elemento nativo -->
-<div class="accordion">
-  <button
-    aria-expanded="false"
-    aria-controls="panel1"
-    id="accordion1"
-  >
-    ¿Qué es la accesibilidad web?
-  </button>
-
-  <div
-    id="panel1"
-    role="region"
-    aria-labelledby="accordion1"
-    hidden
-  >
-    <p>Contenido del panel...</p>
-  </div>
-</div>
-```
+<Code code={acordeonAria} lang="html" title="acordeon-aria.html" />
 
 #### Ejemplo 3: Alerta dinámica (uso apropiado de ARIA)
 
-```
-<!-- Las alertas dinámicas necesitan ARIA para anunciarse -->
-<div
-  role="alert"
-  aria-live="assertive"
-  id="notification"
->
-  <!-- El contenido insertado aquí se anuncia inmediatamente -->
-</div>
-
-<script>
-document.getElementById('notification').textContent =
-  'Cambios guardados correctamente';
-</script>
-```
+<Code code={alertaDinamica} lang="html" title="alerta-dinamica.html" />
 
 ### Ejemplo visual interactivo
 
@@ -108,21 +80,13 @@ Compara estos dos botones personalizados:
 
 Botón personalizado
 
-```
-<div role="button" tabindex="0" onclick="..." onkeydown="...">
-  Botón personalizado
-</div>
-<!-- + JavaScript para manejar Enter y Espacio -->
-```
+<Code code={divAriaIncorrecto} lang="html" title="div-aria-incorrecto.html" />
 
 ✅ Button nativo (simple y accesible):
 
 Botón nativo
 
-```
-<button>Botón nativo</button>
-<!-- Teclado, foco y accesibilidad incluidos -->
-```
+<Code code={botonNativo} lang="html" title="boton-nativo.html" />
 
 ### Categorías principales de ARIA
 

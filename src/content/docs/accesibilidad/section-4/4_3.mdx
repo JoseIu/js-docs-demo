@@ -3,6 +3,22 @@ title: Estados y propiedades más comunes
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
 
+import { Code } from '@astrojs/starlight/components';
+import ariaExpanded from './examples/aria-expanded.html?raw';
+import ariaChecked from './examples/aria-checked.html?raw';
+import ariaSelected from './examples/aria-selected.html?raw';
+import ariaPressed from './examples/aria-pressed.html?raw';
+import ariaDisabled from './examples/aria-disabled.html?raw';
+import ariaHidden from './examples/aria-hidden.html?raw';
+import ariaLabel from './examples/aria-label.html?raw';
+import ariaLabelledby from './examples/aria-labelledby.html?raw';
+import ariaDescribedby from './examples/aria-describedby.html?raw';
+import ariaRequired from './examples/aria-required.html?raw';
+import ariaInvalid from './examples/aria-invalid.html?raw';
+import ariaLive from './examples/aria-live.html?raw';
+import ariaControls from './examples/aria-controls.html?raw';
+import ariaHaspopup from './examples/aria-haspopup.html?raw';
+
 ## Estados y propiedades más comunes
 
 Los atributos ARIA se dividen en dos categorías principales: **estados** (cambian dinámicamente) y **propiedades** (suelen ser estáticas). Ambos proporcionan información crucial a las tecnologías asistivas sobre el comportamiento y características de los elementos.
@@ -20,23 +36,7 @@ Los atributos ARIA se dividen en dos categorías principales: **estados** (cambi
 
 **Uso:** Indica si un elemento desplegable (acordeón, menú, tooltip) está expandido o colapsado
 
-```
-<button aria-expanded="false" aria-controls="menu">
-  Menú
-</button>
-<ul id="menu" hidden>
-  <li>Opción 1</li>
-  <li>Opción 2</li>
-</ul>
-
-<script>
-button.addEventListener('click', () => {
-  const isExpanded = button.getAttribute('aria-expanded') === 'true';
-  button.setAttribute('aria-expanded', !isExpanded);
-  menu.hidden = isExpanded;
-});
-</script>
-```
+<Code code={ariaExpanded} lang="html" title="aria-expanded.html" />
 
 #### aria-checked
 
@@ -44,15 +44,7 @@ button.addEventListener('click', () => {
 
 **Uso:** Estado de checkboxes y radios personalizados
 
-```
-<div role="checkbox" aria-checked="false" tabindex="0">
-  Acepto términos y condiciones
-</div>
-
-<!-- Mejor: usar checkbox nativo -->
-<input type="checkbox" id="terms">
-<label for="terms">Acepto términos y condiciones</label>
-```
+<Code code={ariaChecked} lang="html" title="aria-checked.html" />
 
 💡 `mixed` se usa cuando un checkbox padre controla múltiples opciones y solo algunas están marcadas
 
@@ -62,13 +54,7 @@ button.addEventListener('click', () => {
 
 **Uso:** Indica qué elemento está seleccionado en tabs, listas, grids
 
-```
-<div role="tablist">
-  <button role="tab" aria-selected="true">Tab 1</button>
-  <button role="tab" aria-selected="false">Tab 2</button>
-  <button role="tab" aria-selected="false">Tab 3</button>
-</div>
-```
+<Code code={ariaSelected} lang="html" title="aria-selected.html" />
 
 #### aria-pressed
 
@@ -76,19 +62,7 @@ button.addEventListener('click', () => {
 
 **Uso:** Botones de alternancia (toggle buttons)
 
-```
-<button aria-pressed="false">
-  Negrita
-</button>
-
-<script>
-button.addEventListener('click', () => {
-  const isPressed = button.getAttribute('aria-pressed') === 'true';
-  button.setAttribute('aria-pressed', !isPressed);
-  // Aplicar estilo de negrita...
-});
-</script>
-```
+<Code code={ariaPressed} lang="html" title="aria-pressed.html" />
 
 #### aria-disabled
 
@@ -96,14 +70,7 @@ button.addEventListener('click', () => {
 
 **Uso:** Indica que un elemento está deshabilitado pero visible
 
-```
-<button aria-disabled="true" style="opacity: 0.5;">
-  Enviar
-</button>
-
-<!-- Mejor: usar disabled nativo -->
-<button disabled>Enviar</button>
-```
+<Code code={ariaDisabled} lang="html" title="aria-disabled.html" />
 
 ⚠️ `aria-disabled` no previene la interacción, debes hacerlo con JavaScript. Usa `disabled` nativo cuando sea posible.
 
@@ -113,18 +80,7 @@ button.addEventListener('click', () => {
 
 **Uso:** Oculta elementos del árbol de accesibilidad
 
-```
-<!-- Iconos decorativos -->
-<button>
-  <span aria-hidden="true">🔍</span>
-  Buscar
-</button>
-
-<!-- Contenido duplicado -->
-<div aria-hidden="true" class="decorative-background">
-  Patrón decorativo
-</div>
-```
+<Code code={ariaHidden} lang="html" title="aria-hidden.html" />
 
 ⚠️ **Peligro:** No uses `aria-hidden="true"` en elementos enfocables o con contenido importante. El usuario podría enfocar algo que no puede "ver".
 
@@ -136,17 +92,7 @@ button.addEventListener('click', () => {
 
 **Uso:** Proporciona una etiqueta accesible cuando no hay texto visible
 
-```
-<button aria-label="Cerrar ventana">
-  ×
-</button>
-
-<nav aria-label="Navegación principal">
-  <!-- enlaces -->
-</nav>
-
-<input type="search" aria-label="Buscar productos" />
-```
+<Code code={ariaLabel} lang="html" title="aria-label.html" />
 
 #### aria-labelledby
 
@@ -154,18 +100,7 @@ button.addEventListener('click', () => {
 
 **Uso:** Asocia un elemento con su etiqueta usando IDs
 
-```
-<div role="dialog" aria-labelledby="dialog-title">
-  <h2 id="dialog-title">Confirmar eliminación</h2>
-  <p>¿Estás seguro?</p>
-</div>
-
-<!-- Múltiples IDs para etiqueta compuesta -->
-<div aria-labelledby="section-title section-subtitle">
-  <h2 id="section-title">Productos</h2>
-  <span id="section-subtitle">Destacados del mes</span>
-</div>
-```
+<Code code={ariaLabelledby} lang="html" title="aria-labelledby.html" />
 
 💡 `aria-labelledby` tiene prioridad sobre `aria-label` y sobre el contenido del elemento
 
@@ -175,16 +110,7 @@ button.addEventListener('click', () => {
 
 **Uso:** Asocia descripción o ayuda adicional
 
-```
-<input
-  type="password"
-  aria-describedby="pwd-hint pwd-error"
-/>
-<div id="pwd-hint">Mínimo 8 caracteres</div>
-<div id="pwd-error" class="error" hidden>
-  La contraseña es muy corta
-</div>
-```
+<Code code={ariaDescribedby} lang="html" title="aria-describedby.html" />
 
 #### aria-required
 
@@ -192,15 +118,7 @@ button.addEventListener('click', () => {
 
 **Uso:** Indica que un campo es obligatorio
 
-```
-<label for="email">Email *</label>
-<input
-  type="email"
-  id="email"
-  required
-  aria-required="true"
-/>
-```
+<Code code={ariaRequired} lang="html" title="aria-required.html" />
 
 💡 Usa tanto `required` (HTML5) como `aria-required` para máxima compatibilidad
 
@@ -210,16 +128,7 @@ button.addEventListener('click', () => {
 
 **Uso:** Indica que un campo contiene un error
 
-```
-<input
-  type="email"
-  aria-invalid="true"
-  aria-describedby="email-error"
-/>
-<span id="email-error" role="alert">
-  El formato del email es incorrecto
-</span>
-```
+<Code code={ariaInvalid} lang="html" title="aria-invalid.html" />
 
 #### aria-live
 
@@ -227,17 +136,7 @@ button.addEventListener('click', () => {
 
 **Uso:** Define cómo se anuncian cambios dinámicos
 
-```
-<!-- Notificación no urgente -->
-<div aria-live="polite">
-  Producto añadido al carrito
-</div>
-
-<!-- Alerta urgente -->
-<div role="alert" aria-live="assertive">
-  Error: No se pudo procesar el pago
-</div>
-```
+<Code code={ariaLive} lang="html" title="aria-live.html" />
 
 💡 `polite` = espera a que el usuario termine de leer | `assertive` = interrumpe y anuncia inmediatamente
 
@@ -247,18 +146,7 @@ button.addEventListener('click', () => {
 
 **Uso:** Indica qué elemento(s) controla este elemento
 
-```
-<button
-  aria-expanded="false"
-  aria-controls="submenu"
->
-  Más opciones
-</button>
-<ul id="submenu" hidden>
-  <li>Opción 1</li>
-  <li>Opción 2</li>
-</ul>
-```
+<Code code={ariaControls} lang="html" title="aria-controls.html" />
 
 #### aria-haspopup
 
@@ -266,15 +154,7 @@ button.addEventListener('click', () => {
 
 **Uso:** Indica que el elemento activa un popup
 
-```
-<button aria-haspopup="menu" aria-expanded="false">
-  Opciones
-</button>
-
-<button aria-haspopup="dialog">
-  Ayuda
-</button>
-```
+<Code code={ariaHaspopup} lang="html" title="aria-haspopup.html" />
 
 ### Tabla resumen
 

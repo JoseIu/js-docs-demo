@@ -4,41 +4,27 @@ description: "Aprende a desestructurar objetos en JavaScript para extraer valore
 ---
 import Quiz from "@components/quiz/Quiz.astro"
 import { Arrays } from "@db/arrays"
+import { Code } from '@astrojs/starlight/components';
+import destructuringBasico from './examples/destructuring-basico.js?raw';
+import destructuringRenombrar from './examples/destructuring-renombrar.js?raw';
+import destructuringValoresDefecto from './examples/destructuring-valores-defecto.js?raw';
 
 A la hora de acceder a las propiedades existe un atajo llamado **desestructuración** (o destructuring en inglés) muy interesante que nos permite recuperar el valor de una propiedad y guardarlo en una variable de una.
 
 Lo importante es que tengamos en cuenta que **la variable que se creará tendrá el mismo nombre que la propiedad que estamos recuperando**
 
-```javascript
-const spiderman = {
-  name: 'Spidey',
-  universe: 42,
-  powers: ['web', 'invisibility', 'spider-sense']
-}
-
-const { name, universe, powers } = spiderman
-console.log(name) // Spidey
-console.log(universe) // 42
-console.log(powers) // ['web', 'invisibility', 'spider-sense']
-```
+<Code code={destructuringBasico} lang="js" title="destructuring-basico.js" />
 
 ## Renombrar variables y valores por defecto
 Si quieres que la variable que se crea tenga un nombre diferente al de la propiedad, puedes hacerlo así:
 
-```javascript
-const { universe: universeNumber } = spiderman
-console.log(universeNumber) // 42
-```
+<Code code={destructuringRenombrar} lang="js" title="destructuring-renombrar.js" />
 
 Lo que estamos haciendo es recuperar la propiedad `universe` pero crear la constante con el nombre `universeNumber`.`
 
 **Si la propiedad no existe, podemos asignarle un valor por defecto:**
 
-```javascript
-const { name, isAvenger = false } = spiderman
-console.log(name) // 'Spidey'
-console.log(isAvenger) // false
-```
+<Code code={destructuringValoresDefecto} lang="js" title="destructuring-valores-defecto.js" />
 
 El objeto que hemos creado antes no tenía la propiedad `isAvenger`, pero al recuperarla le hemos asignado un valor por defecto de `false`. Si no le hubiéramos asignado un valor por defecto, la variable `isAvenger` sería `undefined`.
 

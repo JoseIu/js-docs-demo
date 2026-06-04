@@ -1,0 +1,13 @@
+<!-- Las alertas dinámicas necesitan ARIA para anunciarse -->
+<div
+  role="alert"
+  aria-live="assertive"
+  id="notification"
+>
+  <!-- El contenido insertado aquí se anuncia inmediatamente -->
+</div>
+
+<script>
+document.getElementById('notification').textContent =
+  'Cambios guardados correctamente';
+</script>

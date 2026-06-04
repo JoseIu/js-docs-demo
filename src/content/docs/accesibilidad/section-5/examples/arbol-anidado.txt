@@ -1,0 +1,6 @@
+banner
+└─ heading level 1 "Mi sitio"
+
+main
+└─ article
+   └─ heading level 2 "Artículo 1"

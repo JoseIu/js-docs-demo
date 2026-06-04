@@ -3,6 +3,17 @@ title: Relación entre DOM y árbol
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
 
+import { Code } from '@astrojs/starlight/components';
+import domSnippet from './examples/dom-snippet.html?raw';
+import arbolTransformacion from './examples/arbol-transformacion.txt?raw';
+import ariaEffects from './examples/aria-effects.html?raw';
+import hiddenAtributo from './examples/hidden-atributo.html?raw';
+import documentoCompleto from './examples/documento-completo.html?raw';
+import arbolResultante from './examples/arbol-resultante.txt?raw';
+import elementosAnidados from './examples/elementos-anidados.html?raw';
+import arbolAnidado from './examples/arbol-anidado.txt?raw';
+import cssGeneratedContent from './examples/css-generated-content.html?raw';
+
 ## Relación entre DOM y árbol
 
 El árbol de accesibilidad se genera a partir del DOM, pero **no es una copia exacta**. Es una versión filtrada y enriquecida que solo incluye información relevante para las tecnologías asistivas.
@@ -16,25 +27,13 @@ El árbol de accesibilidad se genera a partir del DOM, pero **no es una copia ex
 
 #### 📄 DOM (HTML completo)
 
-```
-<div class="container">
-  <span class="icon">🏠</span>
-  <button>Inicio</button>
-  <div style="display:none">
-    Oculto
-  </div>
-</div>
-```
+<Code code={domSnippet} lang="html" title="dom-snippet.html" />
 
 →
 
 #### 🌳 Árbol de Accesibilidad
 
-```
-button "Inicio"
-  └─ pressed: false
-  └─ focusable: true
-```
+<Code code={arbolTransformacion} lang="plaintext" title="arbol-transformacion.txt" />
 
  ❌ div.container → sin rol semántico
  ❌ span.icon → decorativo
@@ -58,19 +57,7 @@ Los elementos semánticos se incluyen automáticamente
 
 ARIA puede añadir, modificar u ocultar nodos
 
-```
-<!-- Añade al árbol un div sin semántica -->
-<div role="button" tabindex="0">Clic</div>
-→ Aparece como: button "Clic"
-
-<!-- Oculta un elemento del árbol -->
-<span aria-hidden="true">Decorativo</span>
-→ No aparece en el árbol
-
-<!-- Cambia el nombre accesible -->
-<button aria-label="Cerrar ventana">×</button>
-→ Aparece como: button "Cerrar ventana"
-```
+<Code code={ariaEffects} lang="html" title="aria-effects.html" />
 
 #### 3. Estilos CSS
 
@@ -87,61 +74,17 @@ Ciertos estilos excluyen elementos del árbol
 
 El atributo HTML hidden excluye del árbol
 
-```
-<div hidden>Contenido oculto</div>
-→ No aparece en el árbol de accesibilidad
-```
+<Code code={hiddenAtributo} lang="html" title="hidden-atributo.html" />
 
 ### Ejemplo visual completo: transformación paso a paso
 
 #### HTML Original
 
-```
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Título descriptivo de la página</title>
-</head>
-<body>
-  <header>
-    <nav aria-label="Navegación principal">
-      <!-- menú -->
-    </nav>
-  </header>
-
-  <main>
-    <h1>Título principal</h1>
-    <!-- contenido principal -->
-  </main>
-
-  <aside>
-    <!-- contenido complementario -->
-  </aside>
-
-  <footer>
-    <!-- información del sitio -->
-  </footer>
-</body>
-</html>
-```
+<Code code={documentoCompleto} lang="html" title="documento-completo.html" />
 
 #### Árbol de accesibilidad resultante
 
-```
-banner
-├─ navigation "Navegación principal"
-
-main
-├─ heading level 1 "Título principal"
-
-complementary
-└─ group "Contenido complementario"
-
-contentinfo
-└─ group "Información del sitio"
-```
+<Code code={arbolResultante} lang="plaintext" title="arbol-resultante.txt" />
 
 Elementos excluidos:
 
@@ -155,44 +98,17 @@ Mantener una estructura HTML lógica asegura que el árbol de accesibilidad sea 
 
 #### DOM con elementos anidados
 
-```
-<div>
-  <header>
-    <h1>Mi sitio</h1>
-  </header>
-  <main>
-    <article>
-      <h2>Artículo 1</h2>
-      <p>Contenido...</p>
-    </article>
-  </main>
-</div>
-```
+<Code code={elementosAnidados} lang="html" title="elementos-anidados.html" />
 
 #### Árbol de accesibilidad
 
-```
-banner
-└─ heading level 1 "Mi sitio"
-
-main
-└─ article
-   └─ heading level 2 "Artículo 1"
-```
+<Code code={arbolAnidado} lang="plaintext" title="arbol-anidado.txt" />
 
 ### Caso especial: Contenido generado por CSS
 
 **⚠️ Importante:** El contenido generado con `::before` y `::after` NO está en el DOM, pero SÍ puede aparecer en el árbol de accesibilidad:
 
-```
-.required::after {
-  content: " *";
-  color: red;
-}
-
-<label class="required">Nombre</label>
-→ El lector dirá: "Nombre asterisco"
-```
+<Code code={cssGeneratedContent} lang="html" title="css-generated-content.html" />
 
 💡 Para excluirlo: `aria-hidden="true"` en el pseudo-elemento no funciona. Usa `content: "";` y añade el asterisco en el HTML.
 

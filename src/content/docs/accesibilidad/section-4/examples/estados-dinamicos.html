@@ -1,0 +1,11 @@
+✅ CORRECTO
+const button = document.querySelector('[aria-expanded]');
+button.addEventListener('click', () => {
+  const isExpanded = button.getAttribute('aria-expanded') === 'true';
+  button.setAttribute('aria-expanded', !isExpanded);
+  menu.hidden = isExpanded;
+});
+
+❌ INCORRECTO
+<!-- aria-expanded no se actualiza con JavaScript -->
+<button aria-expanded="false" onclick="toggleMenu()">Menú</button>

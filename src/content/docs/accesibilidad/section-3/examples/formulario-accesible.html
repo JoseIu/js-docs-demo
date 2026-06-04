@@ -1,0 +1,51 @@
+<form novalidate>
+  <fieldset>
+    <legend>Datos de contacto</legend>
+
+    <div>
+      <label for="nombre">
+        Nombre completo <span aria-label="obligatorio">*</span>
+      </label>
+      <input
+        type="text"
+        id="nombre"
+        required
+        aria-required="true"
+      />
+    </div>
+
+    <div>
+      <label for="email">
+        Correo electrónico <span aria-label="obligatorio">*</span>
+      </label>
+      <input
+        type="email"
+        id="email"
+        required
+        aria-required="true"
+        aria-describedby="ayuda-email"
+      />
+      <span id="ayuda-email">
+        Te enviaremos una confirmación
+      </span>
+    </div>
+
+    <fieldset>
+      <legend>Método de contacto preferido</legend>
+      <label>
+        <input type="radio" name="contacto" value="email" checked />
+        Email
+      </label>
+      <label>
+        <input type="radio" name="contacto" value="telefono" />
+        Teléfono
+      </label>
+    </fieldset>
+
+    <div role="alert" aria-live="assertive">
+      <!-- Errores dinámicos -->
+    </div>
+
+    <button type="submit">Enviar formulario</button>
+  </fieldset>
+</form>

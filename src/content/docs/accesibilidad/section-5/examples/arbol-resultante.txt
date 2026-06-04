@@ -1,0 +1,11 @@
+banner
+├─ navigation "Navegación principal"
+
+main
+├─ heading level 1 "Título principal"
+
+complementary
+└─ group "Contenido complementario"
+
+contentinfo
+└─ group "Información del sitio"
