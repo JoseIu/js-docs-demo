@@ -3,6 +3,7 @@ title: Tabs y acordeones
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
 
+import { Aside } from '@astrojs/starlight/components';
 import { Code } from '@astrojs/starlight/components';
 import tabsEstructura from './examples/tabs-estructura.html?raw';
 import tabsClase from './examples/tabs-clase.js?raw';
@@ -36,7 +37,7 @@ Tabs y acordeones son dos patrones comunes para organizar y mostrar contenido de
 
 <Code code={tabsClase} lang="js" title="tabs-clase.js" />
 
-**🔑 Puntos clave:**
+#### Puntos clave
 
 - Solo el tab activo tiene `tabindex="0"`
 - Las flechas cambian de tab automáticamente (activación automática)
@@ -65,7 +66,7 @@ Tabs y acordeones son dos patrones comunes para organizar y mostrar contenido de
 
 <Code code={acordeonClase} lang="js" title="acordeon-clase.js" />
 
-**🔑 Puntos clave:**
+#### Puntos clave
 
 - Puedes permitir múltiples secciones abiertas o solo una a la vez
 - Usa encabezados (`<h3>`) para estructura semántica
@@ -95,11 +96,11 @@ Para acordeones simples, considera usar HTML nativo:
 - Accesibilidad integrada automáticamente
 - Funciona sin CSS
 
-**⚠️ Limitaciones:**
-
-- Estilado más limitado (aunque mejorado en navegadores modernos)
-- No soporta "solo uno abierto a la vez" sin JavaScript
-- Animaciones más complejas de implementar
+<Aside type="caution" title="Limitaciones">
+  - Estilado más limitado (aunque mejorado en navegadores modernos)
+  - No soporta "solo uno abierto a la vez" sin JavaScript
+  - Animaciones más complejas de implementar
+</Aside>
 
 ### Checklist de implementación
 
@@ -125,4 +126,6 @@ Para acordeones simples, considera usar HTML nativo:
 - ☑️ Estados se actualizan correctamente
 - ☑️ Decide si permite múltiples abiertos
 
-**💡 Consejo:** Para acordeones simples, considera usar `<details>` nativo. Para tabs o acordeones complejos con animaciones y comportamiento personalizado, implementa el patrón ARIA completo o usa una librería accesible.
+<Aside type="tip" title="Consejo">
+  Para acordeones simples, considera usar `<details>` nativo. Para tabs o acordeones complejos con animaciones y comportamiento personalizado, implementa el patrón ARIA completo o usa una librería accesible.
+</Aside>

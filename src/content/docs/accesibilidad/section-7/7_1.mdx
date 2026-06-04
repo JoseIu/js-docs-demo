@@ -2,7 +2,7 @@
 title: Qué son y cómo funcionan
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
-
+import { Aside } from '@astrojs/starlight/components';
 import { Code } from '@astrojs/starlight/components';
 import flujoInformacion from './examples/flujo-informacion.txt?raw';
 import botonAria from './examples/boton-aria.html?raw';
@@ -92,7 +92,9 @@ Para interactuar con controles
 | Lista de elementos | `NVDA + F7` | Muestra lista de enlaces, encabezados, etc. |
 | Cambiar modo | `NVDA + Espacio` | Alterna entre modo lectura/formularios |
 
-**Nota:** Cada lector tiene sus propios comandos. NVDA usa la tecla `Insert` o `Bloq Mayús` como modificador principal.
+<Aside type="note" title="Nota">
+  Cada lector tiene sus propios comandos. NVDA usa la tecla `Insert` o `Bloq Mayús` como modificador principal.
+</Aside>
 
 ### Por qué es crucial probar con lectores reales
 
@@ -115,4 +117,6 @@ Para interactuar con controles
 1. **Identifica puntos confusos**: ¿Te perdiste? ¿Faltó información? ¿Fue frustrante?
 1. **Itera y mejora** basándote en la experiencia
 
-**💡 Consejo:** No necesitas ser un experto en lectores de pantalla para detectar problemas básicos. Incluso 10 minutos de prueba con NVDA o VoiceOver revelarán problemas que las herramientas automáticas nunca detectarán.
+<Aside type="tip" title="Consejo">
+  No necesitas ser un experto en lectores de pantalla para detectar problemas básicos. Incluso 10 minutos de prueba con NVDA o VoiceOver revelarán problemas que las herramientas automáticas nunca detectarán.
+</Aside>

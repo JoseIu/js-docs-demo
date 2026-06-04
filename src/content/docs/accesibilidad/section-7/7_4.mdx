@@ -2,6 +2,7 @@
 title: TalkBack (Android)
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
+import { Aside } from '@astrojs/starlight/components';
 
 ## TalkBack (Android)
 
@@ -25,7 +26,9 @@ Atajo de volumen:
 
 Mantén presionados **ambos botones de volumen** durante 3 segundos
 
-💡 Activa esta opción en: **Ajustes → Accesibilidad → TalkBack → Atajo de TalkBack**
+<Aside type="tip" title="Configuración">
+  Activa esta opción en: **Ajustes → Accesibilidad → TalkBack → Atajo de TalkBack**
+</Aside>
 
 #### ⚙️ Método 2: Desde ajustes
 
@@ -38,7 +41,7 @@ Mantén presionados **ambos botones de volumen** durante 3 segundos
 
 TalkBack utiliza un **sistema de gestos táctiles** para la navegación. Es importante dominar estos gestos básicos:
 
- Navegación básica | Gesto | Acción |
+| Gesto | Acción |
 | --- | --- |
 | **Tocar una vez** | Explorar al tacto (escuchar elemento) |
 | **Doble toque (en cualquier lugar)** | Activar el último elemento seleccionado |
@@ -53,7 +56,7 @@ TalkBack utiliza un **sistema de gestos táctiles** para la navegación. Es impo
 
 ### ⚙️ Controles de lectura
 
- Control de TalkBack | Gesto | Acción |
+| Gesto | Acción |
 | --- | --- |
 | **Tocar con 2 dedos** | Pausar/reanudar TalkBack |
 | **Deslizar 2 dedos arriba** | Desplazar hacia arriba (scroll up) |
@@ -100,7 +103,7 @@ Opciones del menú:
 
 ### 🌐 Navegación web con TalkBack
 
- Navegación por tipo de elemento | Configuración de granularidad | Navegar con |
+| Configuración de granularidad | Navegar con |
 | --- | --- |
 | Cambiar a "Encabezados" | Deslizar izquierda/derecha salta entre headings |
 | Cambiar a "Enlaces" | Deslizar izquierda/derecha salta entre links |
@@ -195,4 +198,6 @@ Si conectas un teclado físico Bluetooth a tu dispositivo Android, TalkBack tamb
 - 🎥 **Google Accessibility YouTube**: Videos oficiales y guías
 - 🛠️ **Android Accessibility Scanner**: App complementaria para detectar problemas
 
-**💡 Consejo crítico:** TalkBack es imprescindible para testing móvil. Con más del 70% del tráfico web mundial desde móviles, ignorar TalkBack significa ignorar a la mayoría de usuarios con discapacidad visual. Instala un emulador Android con TalkBack o prueba en un dispositivo físico regularmente.
+<Aside type="tip" title="Consejo crítico">
+  TalkBack es imprescindible para testing móvil. Con más del 70% del tráfico web mundial desde móviles, ignorar TalkBack significa ignorar a la mayoría de usuarios con discapacidad visual. Instala un emulador Android con TalkBack o prueba en un dispositivo físico regularmente.
+</Aside>

@@ -3,6 +3,7 @@ title: Problemas comunes
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
 
+import { Aside } from '@astrojs/starlight/components';
 import { Code } from '@astrojs/starlight/components';
 import problema1 from './examples/problema-1-elementos-sin-nombre.html?raw';
 import solucion1 from './examples/solucion-1-elementos-sin-nombre.html?raw';
@@ -45,7 +46,9 @@ Cambiar el rol de elementos nativos confunde a las tecnologías asistivas
 
 <Code code={solucion2} lang="html" title="solucion-2-roles-contradictorios.html" />
 
-💡 **Regla:** Nunca uses `role` para contradecir la semántica nativa de un elemento HTML.
+<Aside type="caution" title="Regla">
+  Nunca uses `role` para contradecir la semántica nativa de un elemento HTML.
+</Aside>
 
 ### ❌ Problema 3: Desincronización entre visual y árbol de accesibilidad
 
@@ -104,4 +107,6 @@ Iconos o texto generado con ::before/::after que aporta significado
 - ☑️ ¿Los estados ARIA se actualizan cuando cambia el estado visual?
 - ☑️ ¿El contenido decorativo está correctamente excluido del árbol?
 
-**💡 Herramienta clave:** Usa el panel Accessibility de Chrome DevTools para verificar cómo se expone cada elemento en el árbol. Si algo no aparece como esperas, revisa estos problemas comunes.
+<Aside type="tip" title="Herramienta clave">
+  Usa el panel Accessibility de Chrome DevTools para verificar cómo se expone cada elemento en el árbol. Si algo no aparece como esperas, revisa estos problemas comunes.
+</Aside>

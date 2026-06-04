@@ -2,6 +2,7 @@
 title: Estándares y Pautas de Accesibilidad
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
+import { Aside } from '@astrojs/starlight/components';
 
 ## Estándares y Pautas de Accesibilidad
 
@@ -60,13 +61,15 @@ El contenido debe ser robusto para interpretarse por diversos agentes de usuario
 
 WCAG define **3 niveles de conformidad** para cada criterio:
 
-Niveles de conformidad WCAG| Nivel | Descripción | Uso recomendado |
+| Nivel | Descripción | Uso recomendado |
 | --- | --- | --- |
 | **A (mínimo)** | Requisitos básicos. Si no se cumplen, el contenido es inaccesible para algunos usuarios. | Mínimo legal en algunos países, pero insuficiente. |
 | **AA (medio)** | Aborda las barreras más significativas. Incluye criterios de nivel A. | **Estándar requerido** por la mayoría de legislaciones (UE, EE.UU., etc.) |
 | **AAA (máximo)** | Nivel más alto de accesibilidad. Incluye criterios de nivel A y AA. | Aspiracional. Difícil de lograr para todo el contenido. Implementar selectivamente. |
 
-**Recomendación:** Apuntar a **WCAG 2.2 nivel AA** como objetivo realista y legalmente suficiente. Considerar AAA para áreas críticas (formularios importantes, procesos de pago).
+<Aside type="tip" title="Recomendación">
+  Apuntar a **WCAG 2.2 nivel AA** como objetivo realista y legalmente suficiente. Considerar AAA para áreas críticas (formularios importantes, procesos de pago).
+</Aside>
 
 #### Novedades en WCAG 2.2 (octubre 2023)
 

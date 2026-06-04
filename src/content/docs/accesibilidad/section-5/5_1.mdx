@@ -3,6 +3,7 @@ title: Qué es y cómo funciona
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
 
+import { Aside } from '@astrojs/starlight/components';
 import { Code } from '@astrojs/starlight/components';
 import navEstructura from './examples/nav-estructura.html?raw';
 import arbolAccesibilidad from './examples/arbol-accesibilidad.txt?raw';
@@ -77,4 +78,6 @@ Mientras que el DOM representa toda la estructura HTML de la página, el árbol 
 | **Estados** | Atributos HTML y CSS | Roles, estados y propiedades ARIA |
 | **Actualización** | Cada cambio en el HTML | Cuando cambian atributos de accesibilidad |
 
-**💡 Tip:** Usa la pestaña "Accessibility" en las DevTools de Chrome, Firefox o Edge para ver el árbol de accesibilidad en tiempo real mientras desarrollas. Es la mejor forma de entender qué "ven" realmente los lectores de pantalla.
+<Aside type="tip" title="Tip">
+  Usa la pestaña "Accessibility" en las DevTools de Chrome, Firefox o Edge para ver el árbol de accesibilidad en tiempo real mientras desarrollas. Es la mejor forma de entender qué "ven" realmente los lectores de pantalla.
+</Aside>

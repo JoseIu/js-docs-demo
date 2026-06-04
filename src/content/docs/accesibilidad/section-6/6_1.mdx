@@ -3,6 +3,7 @@ title: Qué son los patrones ARIA
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
 
+import { Aside } from '@astrojs/starlight/components';
 import { Code } from '@astrojs/starlight/components';
 import patronTabs from './examples/patron-tabs-estructura.html?raw';
 import botonRevelacion from './examples/boton-revelacion.html?raw';
@@ -87,4 +88,6 @@ Implementación siguiendo el patrón APG:
 
 **✨ Beneficio:** Los usuarios con lectores de pantalla escucharán "Mostrar más información, botón, colapsado" y sabrán exactamente qué hace y su estado actual.
 
-**💡 Regla de oro:** No necesitas memorizar todos los patrones. Consulta la APG cuando implementes un componente complejo. Seguir estos patrones garantiza que tu interfaz funcione consistentemente con tecnologías asistivas.
+<Aside type="tip" title="Regla de oro">
+  No necesitas memorizar todos los patrones. Consulta la APG cuando implementes un componente complejo. Seguir estos patrones garantiza que tu interfaz funcione consistentemente con tecnologías asistivas.
+</Aside>

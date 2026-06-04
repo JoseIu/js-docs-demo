@@ -3,6 +3,8 @@ title: Herramientas para inspección
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
 
+import { Aside } from '@astrojs/starlight/components';
+
 ## Herramientas para inspección
 
 Para desarrollar sitios web accesibles, es fundamental poder inspeccionar y validar el árbol de accesibilidad. Aquí encontrarás las mejores herramientas y cómo usarlas.
@@ -37,7 +39,9 @@ La herramienta más completa para inspeccionar el árbol de accesibilidad
 - **Contrast checker**: Verificar ratios de contraste de color
 - **Emulate vision deficiencies**: Simular daltonismo y otros problemas visuales
 
-💡 **Tip:** Usa `Cmd+Shift+P` (Mac) o `Ctrl+Shift+P` (Windows) y busca "Show Accessibility" para acceder rápidamente.
+<Aside type="tip" title="Tip">
+  Usa `Cmd+Shift+P` (Mac) o `Ctrl+Shift+P` (Windows) y busca "Show Accessibility" para acceder rápidamente.
+</Aside>
 
 #### 🦊 Firefox Developer Tools - Accessibility Inspector
 
@@ -58,7 +62,9 @@ Herramienta especializada con vista de árbol interactiva
 - **Inspección de orden de teclado**: Visualiza el orden de tabulación
 - **Detección de problemas**: Marca automáticamente elementos con issues de accesibilidad
 
-💡 **Ventaja:** Firefox muestra warnings visuales directamente en el árbol cuando detecta problemas comunes.
+<Aside type="tip" title="Ventaja">
+  Firefox muestra warnings visuales directamente en el árbol cuando detecta problemas comunes.
+</Aside>
 
 #### 🔵 Edge DevTools - Accessibility Panel
 
@@ -81,7 +87,9 @@ Herramienta integrada en Safari (macOS/iOS)
 1. Ve a la pestaña **Node**
 1. En el panel lateral derecho, selecciona **Accessibility**
 
-💡 **Importante:** Safari es crucial para probar compatibilidad con VoiceOver en macOS e iOS.
+<Aside type="note" title="Importante">
+  Safari es crucial para probar compatibilidad con VoiceOver en macOS e iOS.
+</Aside>
 
 ### 🔌 Extensiones del navegador
 
@@ -173,7 +181,7 @@ Muestra la representación textual de la página
 
 ### 📋 Comparativa de herramientas
 
- Cuándo usar cada herramienta | Herramienta | Mejor para | Tipo | Plataforma |
+| Herramienta | Mejor para | Tipo | Plataforma |
 | --- | --- | --- | --- |
 | Chrome DevTools | Inspección detallada del árbol | Integrada | Chrome, Edge |
 | Firefox Inspector | Vista jerárquica completa | Integrada | Firefox |
@@ -192,4 +200,6 @@ Muestra la representación textual de la página
 1. **Testing con lector de pantalla:** NVDA (Windows) o VoiceOver (Mac)
 1. **Validación final:** Testing en múltiples navegadores y dispositivos
 
-**💡 Consejo profesional:** Ninguna herramienta automatizada detecta el 100% de los problemas. Las auditorías automáticas cubren aproximadamente 30-50% de los problemas de accesibilidad. El testing manual con lectores de pantalla y teclado es imprescindible para una validación completa.
+<Aside type="tip" title="Consejo profesional">
+  Ninguna herramienta automatizada detecta el 100% de los problemas. Las auditorías automáticas cubren aproximadamente 30-50% de los problemas de accesibilidad. El testing manual con lectores de pantalla y teclado es imprescindible para una validación completa.
+</Aside>

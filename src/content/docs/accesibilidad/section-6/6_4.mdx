@@ -3,6 +3,7 @@ title: Diálogos/modales accesibles
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
 
+import { Aside } from '@astrojs/starlight/components';
 import { Code } from '@astrojs/starlight/components';
 import modalEstructura from './examples/modal-estructura.html?raw';
 import focusTrapComentario from './examples/focus-trap-comentario.js?raw';
@@ -100,11 +101,11 @@ HTML5 incluye el elemento `<dialog>` con accesibilidad integrada:
 - Backdrop (::backdrop) con CSS
 - Menos JavaScript necesario
 
-**⚠️ Consideraciones:**
-
-- No soportado en IE11 (pero sí en todos los navegadores modernos)
-- Requiere polyfill para navegadores antiguos
-- Animaciones requieren trabajo adicional
+<Aside type="caution" title="Consideraciones">
+  - No soportado en IE11 (pero sí en todos los navegadores modernos)
+  - Requiere polyfill para navegadores antiguos
+  - Animaciones requieren trabajo adicional
+</Aside>
 
 ### Casos especiales
 
@@ -120,7 +121,9 @@ Si el contenido es largo, asegúrate de que el foco del teclado hace scroll auto
 
 #### Modales anidados
 
-**⚠️ Evitar:** Los modales anidados (un modal que abre otro modal) son muy difíciles de manejar correctamente. Considera alternativas como steps dentro del mismo modal o cerrar el primer modal antes de abrir el segundo.
+<Aside type="danger" title="Evitar">
+  Los modales anidados (un modal que abre otro modal) son muy difíciles de manejar correctamente. Considera alternativas como steps dentro del mismo modal o cerrar el primer modal antes de abrir el segundo.
+</Aside>
 
 ### Checklist de implementación
 
@@ -136,4 +139,6 @@ Si el contenido es largo, asegúrate de que el foco del teclado hace scroll auto
 - ☑️ Botones de acción claramente etiquetados
 - ☑️ Probado con lector de pantalla
 
-**💡 Recomendación:** Para proyectos nuevos, considera usar el elemento `<dialog>` nativo o librerías especializadas como Radix UI Dialog, Headless UI Dialog o React ARIA Dialog, que manejan toda la complejidad de accesibilidad por ti.
+<Aside type="tip" title="Recomendación">
+  Para proyectos nuevos, considera usar el elemento `<dialog>` nativo o librerías especializadas como Radix UI Dialog, Headless UI Dialog o React ARIA Dialog, que manejan toda la complejidad de accesibilidad por ti.
+</Aside>

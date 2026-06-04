@@ -2,7 +2,7 @@
 title: Formularios accesibles
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
-
+import { Aside } from '@astrojs/starlight/components';
 import { Code } from '@astrojs/starlight/components';
 import etiquetaCorrecta from './examples/etiqueta-correcta.html?raw';
 import etiquetaIncorrecta from './examples/etiqueta-incorrecta.html?raw';
@@ -74,4 +74,6 @@ Datos de contacto Nombre completo * Correo electrónico * Te enviaremos una conf
 
 <Code code={formularioAccesible} lang="html" title="formulario-accesible.html" />
 
-**Consejo:** Prueba el formulario anterior navegando solo con teclado (Tab, Shift+Tab, Enter, Espacio) y con un lector de pantalla para experimentar cómo se anuncia cada elemento.
+<Aside type="tip" title="Consejo">
+  Prueba el formulario anterior navegando solo con teclado (Tab, Shift+Tab, Enter, Espacio) y con un lector de pantalla para experimentar cómo se anuncia cada elemento.
+</Aside>

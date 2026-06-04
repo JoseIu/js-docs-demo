@@ -2,6 +2,7 @@
 title: VoiceOver (macOS/iOS)
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
+import { Aside } from '@astrojs/starlight/components';
 
 ## VoiceOver (macOS/iOS)
 
@@ -45,7 +46,9 @@ Triple clic en el **botón lateral** (o botón Home en dispositivos antiguos)
 
 O desde: **Ajustes → Accesibilidad → VoiceOver**
 
-💡 Configura el triple clic en: **Ajustes → Accesibilidad → Atajos de accesibilidad**
+<Aside type="tip" title="Configuración">
+  Configura el triple clic en: **Ajustes → Accesibilidad → Atajos de accesibilidad**
+</Aside>
 
 ### ⌨️ Tecla modificadora: VO
 
@@ -59,14 +62,14 @@ En esta guía, **VO** se referirá a `Control + Option`.
 
 ### Comandos esenciales (macOS)
 
- Control básico | Comando | Acción |
+| Comando | Acción |
 | --- | --- |
 | `Cmd + F5` | Activar/Desactivar VoiceOver |
 | `VO + H` | Abrir menú de ayuda de VoiceOver |
 | `VO + Cmd + F8` | Abrir utilidad de VoiceOver (configuración) |
 | `Control` | Detener lectura |
 
- Navegación básica | Comando | Acción |
+| Comando | Acción |
 | --- | --- |
 | `VO + →` / `←` | Siguiente/Anterior elemento |
 | `VO + A` | Leer desde la posición actual |
@@ -75,7 +78,7 @@ En esta guía, **VO** se referirá a `Control + Option`.
 | `VO + Espacio` | Activar/hacer clic en elemento |
 | `Tab` / `Shift + Tab` | Siguiente/Anterior elemento enfocable |
 
- Navegación web con el Rotor | Comando | Acción |
+| Comando | Acción |
 | --- | --- |
 | `VO + U` | Abrir el Rotor (lista de elementos) |
 | `←` / `→` (en Rotor) | Cambiar entre categorías (encabezados, enlaces, etc.) |
@@ -110,7 +113,7 @@ Cómo usar el Rotor:
 
 ### Gestos en iOS (VoiceOver móvil)
 
- Gestos esenciales | Gesto | Acción |
+| Gesto | Acción |
 | --- | --- |
 | **Tocar una vez** | Seleccionar y escuchar elemento |
 | **Doble toque** | Activar elemento seleccionado |
@@ -189,4 +192,6 @@ Una vez seleccionada la opción, **desliza arriba o abajo con un dedo** para nav
 | **Atajos** | VO + Cmd + letra | Tecla única (H, K, F, etc.) |
 | **Móvil** | Líder en iOS | No disponible en móvil |
 
-**💡 Consejo:** Si desarrollas para Mac/iOS o tienes usuarios de Apple, VoiceOver es imprescindible. Si tienes un Mac, aprovecha que viene preinstalado y dedica tiempo a dominarlo. En iOS, los gestos táctiles pueden revelar problemas que no se ven en desktop.
+<Aside type="tip" title="Consejo">
+  Si desarrollas para Mac/iOS o tienes usuarios de Apple, VoiceOver es imprescindible. Si tienes un Mac, aprovecha que viene preinstalado y dedica tiempo a dominarlo. En iOS, los gestos táctiles pueden revelar problemas que no se ven en desktop.
+</Aside>

@@ -3,6 +3,7 @@ title: Buenas y malas prácticas de ARIA
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
 
+import { Aside } from '@astrojs/starlight/components';
 import { Code } from '@astrojs/starlight/components';
 import nativoVsAria from './examples/nativo-vs-aria.html?raw';
 import nombreAccesible from './examples/nombre-accesible.html?raw';
@@ -83,7 +84,9 @@ role="menu" es para menús de aplicación, no navegación
 
 <Code code={menuNavegacion} lang="html" title="menu-navegacion.html" />
 
-💡 role="menu" requiere navegación con flechas y comportamiento específico de aplicación de escritorio
+<Aside type="tip">
+  `role="menu"` requiere navegación con flechas y comportamiento específico de aplicación de escritorio.
+</Aside>
 
 #### 4. No proporcionar alternativas de texto
 
@@ -117,12 +120,12 @@ ARIA no compensa mala semántica HTML
 
 ### Comparación visual de casos comunes
 
- Comparación de implementaciones correctas vs incorrectas | ❌ Incorrecto | ✅ Correcto |
+| ❌ Incorrecto | ✅ Correcto |
 | --- | --- |
-| ``` <div role="button"> Clic </div> ``` | ``` <button> Clic </button> ``` |
-| ``` <span aria-label="X"> Texto visible </span> ``` | ``` <span> Texto visible </span> ``` |
-| ``` <button aria-hidden="true"> Enviar </button> ``` | ``` <button hidden> Enviar </button> ``` |
-| ``` <h2 role="button"> Título </h2> ``` | ``` <button> Título </button> ``` |
+| `<div role="button"> Clic </div>` | `<button> Clic </button>` |
+| `<span aria-label="X"> Texto visible </span>` | `<span> Texto visible </span>` |
+| `<button aria-hidden="true"> Enviar </button>` | `<button hidden> Enviar </button>` |
+| `<h2 role="button"> Título </h2>` | `<button> Título </button>` |
 
 ### Checklist de validación ARIA
 

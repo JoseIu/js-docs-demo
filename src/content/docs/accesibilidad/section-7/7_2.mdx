@@ -2,6 +2,7 @@
 title: NVDA (Windows)
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
+import { Aside } from '@astrojs/starlight/components';
 
 ## NVDA (Windows)
 
@@ -54,7 +55,7 @@ En esta guía, `NVDA` se referirá a cualquiera de estas dos teclas.
 
 ### Comandos esenciales
 
- Control básico | Comando | Acción |
+| Comando | Acción |
 | --- | --- |
 | `NVDA + Q` | Salir de NVDA |
 | `NVDA + S` | Alternar modo voz (silenciar temporalmente) |
@@ -62,7 +63,7 @@ En esta guía, `NVDA` se referirá a cualquiera de estas dos teclas.
 | `NVDA + Ctrl + C` | Guardar configuración |
 | `NVDA + Espacio` | Alternar entre modo lectura y modo formularios |
 
- Lectura de contenido | Comando | Acción |
+| Comando | Acción |
 | --- | --- |
 | `NVDA + ↓` | Iniciar/continuar lectura continua |
 | `Ctrl` | Detener lectura |
@@ -70,7 +71,7 @@ En esta guía, `NVDA` se referirá a cualquiera de estas dos teclas.
 | `Ctrl + →` / `←` | Leer palabra siguiente/anterior |
 | `NVDA + T` | Leer título de la ventana |
 
- Navegación web (modo lectura) | Comando | Acción |
+| Comando | Acción |
 | --- | --- |
 | `H` / `Shift + H` | Siguiente/Anterior encabezado |
 | `1` a `6` | Siguiente encabezado de nivel específico |
@@ -83,7 +84,7 @@ En esta guía, `NVDA` se referirá a cualquiera de estas dos teclas.
 | `I` / `Shift + I` | Siguiente/Anterior elemento de lista |
 | `G` / `Shift + G` | Siguiente/Anterior gráfico (imagen) |
 
- Herramientas útiles | Comando | Acción |
+| Comando | Acción |
 | --- | --- |
 | `NVDA + F7` | Lista de elementos (enlaces, encabezados, landmarks, etc.) |
 | `NVDA + Ctrl + F` | Buscar texto en la página |
@@ -143,4 +144,6 @@ Activar Speech Viewer:
 | Encabezados mal estructurados | Saltos ilógicos (h1 → h4 → h2) |
 | Contenido oculto incorrectamente | Texto que no debería leerse pero se lee |
 
-**💡 Consejo:** Dedica 15-30 minutos semanales a probar tu sitio con NVDA. Con la práctica, aprenderás a detectar problemas rápidamente y entenderás mejor la experiencia de tus usuarios con discapacidad visual.
+<Aside type="tip" title="Consejo">
+  Dedica 15-30 minutos semanales a probar tu sitio con NVDA. Con la práctica, aprenderás a detectar problemas rápidamente y entenderás mejor la experiencia de tus usuarios con discapacidad visual.
+</Aside>

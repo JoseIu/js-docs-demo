@@ -3,6 +3,7 @@ title: Menús y menús desplegables
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
 
+import { Aside } from '@astrojs/starlight/components';
 import { Code } from '@astrojs/starlight/components';
 import menuAplicacion from './examples/menu-aplicacion-estructura.html?raw';
 import menuTeclado from './examples/menu-teclado.js?raw';
@@ -38,7 +39,9 @@ Para navegar entre páginas del sitio
 - Breadcrumbs
 - Menú hamburguesa con links
 
-**⚠️ Error común:** Usar `role="menu"` para la navegación de un sitio web es incorrecto. Los menús de aplicación requieren navegación con flechas y comportamiento específico que los usuarios no esperan en navegación web.
+<Aside type="caution" title="Error común">
+  Usar `role="menu"` para la navegación de un sitio web es incorrecto. Los menús de aplicación requieren navegación con flechas y comportamiento específico que los usuarios no esperan en navegación web.
+</Aside>
 
 ### Patrón 1: Menú de aplicación (role="menu")
 
@@ -85,7 +88,7 @@ Para navegar entre páginas del sitio
 
 ### Comparación visual de casos de uso
 
- ¿Qué patrón usar? | Caso de uso | Patrón | Razón |
+| Caso de uso | Patrón | Razón |
 | --- | --- | --- |
 | Menú de navegación del sitio | Navegación desplegable | Son enlaces a páginas |
 | Menú contextual (clic derecho) | role="menu" | Acciones, no navegación |
@@ -100,7 +103,9 @@ Para menús con múltiples niveles:
 
 <Code code={submenusAnidados} lang="html" title="submenus-anidados.html" />
 
-**⚠️ Complejidad:** Los submenús anidados requieren gestión adicional de foco y navegación con flechas → y ←. Considera usar librerías como Radix UI o Reach UI para casos complejos.
+<Aside type="caution" title="Complejidad">
+  Los submenús anidados requieren gestión adicional de foco y navegación con flechas → y ←. Considera usar librerías como Radix UI o Reach UI para casos complejos.
+</Aside>
 
 ### Checklist de implementación
 
@@ -112,4 +117,6 @@ Para menús con múltiples niveles:
 - ☑️ ¿El menú se cierra con Esc y clic fuera?
 - ☑️ ¿He probado con un lector de pantalla?
 
-**💡 Regla práctica:** Si tu "menú" contiene enlaces (&lt;a href&gt;), probablemente NO deberías usar `role="menu"`. Usa navegación estándar con `<nav>` y listas.
+<Aside type="tip" title="Regla práctica">
+  Si tu "menú" contiene enlaces (&lt;a href&gt;), probablemente NO deberías usar `role="menu"`. Usa navegación estándar con `<nav>` y listas.
+</Aside>

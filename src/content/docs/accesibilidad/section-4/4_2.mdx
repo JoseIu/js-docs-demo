@@ -3,6 +3,7 @@ title: Roles ARIA más utilizados
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
 
+import { Aside } from '@astrojs/starlight/components';
 import { Code } from '@astrojs/starlight/components';
 import roleButton from './examples/role-button.html?raw';
 import roleDialog from './examples/role-dialog.html?raw';
@@ -76,7 +77,9 @@ Los roles ARIA definen qué tipo de elemento es para las tecnologías asistivas.
 
 <Code code={menuMenubar} lang="html" title="menu-menubar.html" />
 
-⚠️ **Cuidado:** No uses `role="menu"` para navegación web común. Usa `<nav>` en su lugar.
+<Aside type="caution" title="Cuidado">
+  No uses `role="menu"` para navegación web común. Usa `<nav>` en su lugar.
+</Aside>
 
 #### 7. search
 
@@ -112,7 +115,7 @@ Los roles ARIA definen qué tipo de elemento es para las tecnologías asistivas.
 
 ### Tabla resumen de roles
 
- Roles ARIA más comunes y su equivalente HTML | Role ARIA | Equivalente HTML | Descripción |
+| Role ARIA | Equivalente HTML | Descripción |
 | --- | --- | --- |
 | `button` | `<button>` | Elemento interactivo que ejecuta acción |
 | `link` | `<a href>` | Navegación a otro recurso |

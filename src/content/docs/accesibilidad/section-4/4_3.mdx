@@ -3,6 +3,7 @@ title: Estados y propiedades más comunes
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
 
+import { Aside } from '@astrojs/starlight/components';
 import { Code } from '@astrojs/starlight/components';
 import ariaExpanded from './examples/aria-expanded.html?raw';
 import ariaChecked from './examples/aria-checked.html?raw';
@@ -46,7 +47,9 @@ Los atributos ARIA se dividen en dos categorías principales: **estados** (cambi
 
 <Code code={ariaChecked} lang="html" title="aria-checked.html" />
 
-💡 `mixed` se usa cuando un checkbox padre controla múltiples opciones y solo algunas están marcadas
+<Aside type="tip">
+  `mixed` se usa cuando un checkbox padre controla múltiples opciones y solo algunas están marcadas.
+</Aside>
 
 #### aria-selected
 
@@ -72,7 +75,9 @@ Los atributos ARIA se dividen en dos categorías principales: **estados** (cambi
 
 <Code code={ariaDisabled} lang="html" title="aria-disabled.html" />
 
-⚠️ `aria-disabled` no previene la interacción, debes hacerlo con JavaScript. Usa `disabled` nativo cuando sea posible.
+<Aside type="caution">
+  `aria-disabled` no previene la interacción, debes hacerlo con JavaScript. Usa `disabled` nativo cuando sea posible.
+</Aside>
 
 #### aria-hidden
 
@@ -82,7 +87,9 @@ Los atributos ARIA se dividen en dos categorías principales: **estados** (cambi
 
 <Code code={ariaHidden} lang="html" title="aria-hidden.html" />
 
-⚠️ **Peligro:** No uses `aria-hidden="true"` en elementos enfocables o con contenido importante. El usuario podría enfocar algo que no puede "ver".
+<Aside type="danger" title="Peligro">
+  No uses `aria-hidden="true"` en elementos enfocables o con contenido importante. El usuario podría enfocar algo que no puede "ver".
+</Aside>
 
 ### Propiedades ARIA más utilizadas
 
@@ -102,7 +109,9 @@ Los atributos ARIA se dividen en dos categorías principales: **estados** (cambi
 
 <Code code={ariaLabelledby} lang="html" title="aria-labelledby.html" />
 
-💡 `aria-labelledby` tiene prioridad sobre `aria-label` y sobre el contenido del elemento
+<Aside type="tip">
+  `aria-labelledby` tiene prioridad sobre `aria-label` y sobre el contenido del elemento.
+</Aside>
 
 #### aria-describedby
 
@@ -120,7 +129,9 @@ Los atributos ARIA se dividen en dos categorías principales: **estados** (cambi
 
 <Code code={ariaRequired} lang="html" title="aria-required.html" />
 
-💡 Usa tanto `required` (HTML5) como `aria-required` para máxima compatibilidad
+<Aside type="tip">
+  Usa tanto `required` (HTML5) como `aria-required` para máxima compatibilidad.
+</Aside>
 
 #### aria-invalid
 
@@ -138,7 +149,9 @@ Los atributos ARIA se dividen en dos categorías principales: **estados** (cambi
 
 <Code code={ariaLive} lang="html" title="aria-live.html" />
 
-💡 `polite` = espera a que el usuario termine de leer | `assertive` = interrumpe y anuncia inmediatamente
+<Aside type="tip">
+  `polite` = espera a que el usuario termine de leer | `assertive` = interrumpe y anuncia inmediatamente.
+</Aside>
 
 #### aria-controls
 
@@ -158,7 +171,7 @@ Los atributos ARIA se dividen en dos categorías principales: **estados** (cambi
 
 ### Tabla resumen
 
- Estados y propiedades ARIA más comunes | Atributo | Tipo | Uso principal |
+| Atributo | Tipo | Uso principal |
 | --- | --- | --- |
 | `aria-expanded` | Estado | Elemento expandido/colapsado |
 | `aria-checked` | Estado | Checkbox/radio marcado |

@@ -3,6 +3,7 @@ title: Relación entre DOM y árbol
 description: Existen numerosos mitos sobre la accesibilidad digital que llevan a muchas organizaciones a postergar o ignorar su implementación. Desmontemos los más comunes con datos y realidades.
 ---
 
+import { Aside } from '@astrojs/starlight/components';
 import { Code } from '@astrojs/starlight/components';
 import domSnippet from './examples/dom-snippet.html?raw';
 import arbolTransformacion from './examples/arbol-transformacion.txt?raw';
@@ -35,9 +36,9 @@ El árbol de accesibilidad se genera a partir del DOM, pero **no es una copia ex
 
 <Code code={arbolTransformacion} lang="plaintext" title="arbol-transformacion.txt" />
 
- ❌ div.container → sin rol semántico
- ❌ span.icon → decorativo
- ❌ div oculto → display:none
+- ❌ div.container → sin rol semántico
+- ❌ span.icon → decorativo
+- ❌ div oculto → display:none
 
 ### Factores que influyen en la exposición
 
@@ -106,11 +107,15 @@ Mantener una estructura HTML lógica asegura que el árbol de accesibilidad sea 
 
 ### Caso especial: Contenido generado por CSS
 
-**⚠️ Importante:** El contenido generado con `::before` y `::after` NO está en el DOM, pero SÍ puede aparecer en el árbol de accesibilidad:
+<Aside type="caution" title="Importante">
+  El contenido generado con `::before` y `::after` NO está en el DOM, pero SÍ puede aparecer en el árbol de accesibilidad:
+</Aside>
 
 <Code code={cssGeneratedContent} lang="html" title="css-generated-content.html" />
 
-💡 Para excluirlo: `aria-hidden="true"` en el pseudo-elemento no funciona. Usa `content: "";` y añade el asterisco en el HTML.
+<Aside type="tip">
+  Para excluirlo: `aria-hidden="true"` en el pseudo-elemento no funciona. Usa `content: "";` y añade el asterisco en el HTML.
+</Aside>
 
 ### Reglas clave de transformación
 
@@ -122,4 +127,6 @@ Mantener una estructura HTML lógica asegura que el árbol de accesibilidad sea 
 - ✅ La jerarquía se mantiene, pero se colapsan elementos sin rol
 - ⚠️ Los nombres accesibles pueden venir del DOM o ARIA (aria-label, aria-labelledby)
 
-**💡 Regla práctica:** Si un elemento no tiene significado semántico (div, span vacíos), no tiene rol ARIA, o está oculto visualmente con CSS específico, no aparecerá en el árbol de accesibilidad.
+<Aside type="tip" title="Regla práctica">
+  Si un elemento no tiene significado semántico (div, span vacíos), no tiene rol ARIA, o está oculto visualmente con CSS específico, no aparecerá en el árbol de accesibilidad.
+</Aside>
