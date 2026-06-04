@@ -18,12 +18,12 @@
   --overlay-blurple: hsla(var(--purple-hsl), 0.2);
 
   /* CARD COLORS */
-  --border-card: rgba(255, 255, 255, 0.08);
-  --border-card-hover: rgba(255, 255, 255, 0.16);
-  --bg-card: rgba(255, 255, 255, 0.02);
-  --bg-card-hover: rgba(255, 255, 255, 0.04);
-  --hover-card: rgba(255, 255, 255, 0.16);
-  --box-shadow-card: rgba(102, 102, 102, 0.45);
+  --border-card: #0b66cc;
+  --border-card-hover: #0b66cc;
+  --bg-card: #0b111a;
+  --bg-card-hover: #0b111a;
+  --hover-card: #2ebdfd;
+  --box-shadow-card: rgba(123, 204, 236, 0.45);
   --icon-card: rgba(255, 255, 255, 0.08);
 
   --sl-hue-orange: 41;
