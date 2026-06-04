@@ -1,73 +1,83 @@
 ---
 import { Icon } from '@astrojs/starlight/components';
 import CardLink from './CardLink.astro';
+
+const cards = [
+  {
+    href: 'html/01-que-es-html/',
+    title: 'HTML',
+    description: 'Aprende sobre HTML, el lenguaje de marcado que estructura el contenido de la web.',
+    icon: 'open-book',
+    isInConstruction: true,
+    isDisabled: false
+  },
+  {
+    href: 'css/flex/01-que-es-flex/',
+    title: 'CSS',
+    description:
+      'CSS es el lenguaje de estilos que da vida a tus páginas web con colores, fuentes y diseños.',
+    icon: 'seti:css',
+    isInConstruction: false,
+    isDisabled: false
+  },
+  {
+    href: '/js/que-es-javascript/ ',
+    title: 'JavaScript',
+    description:
+      'JavaScript es un lenguaje de programación que permite crear interacciones dinámicas en las páginas web.',
+    icon: 'seti:javascript',
+    isInConstruction: false,
+    isDisabled: false
+  },
+  {
+    href: '#react',
+    title: 'React',
+    description:
+      'React es una biblioteca de JavaScript para construir interfaces de usuario interactivas y reutilizables.',
+    icon: 'seti:react',
+    isInConstruction: false,
+    isDisabled: true
+  },
+  {
+    href: '#angular',
+    title: 'Angular',
+    description:
+      'Angular es un framework de JavaScript para construir aplicaciones web robustas y escalables.',
+    icon: 'rocket',
+    isInConstruction: false,
+
+    isDisabled: true
+  },
+  {
+    href: '/accesibilidad/section-1/1/',
+    title: 'Accesibilidad',
+    description:
+      'La accesibilidad web es el diseño y desarrollo de sitios web que pueden ser utilizados por personas con discapacidades, garantizando que todos tengan acceso a la información y funcionalidades.',
+    icon: 'rocket',
+    isInConstruction: false,
+    isDisabled: false
+  }
+] as const;
 ---
 
 <section aria-labelledby="quick-links-heading" class="cards-section">
   <h2 id="quick-links-heading" class="">Accesos directos</h2>
-
-  <ul class="card-grid" role="list">
-    <li class="card-item">
-      <CardLink
-        href="html/01-que-es-html/"
-        title="HTML"
-        isInConstruction
-        description="Aprende sobre HTML, el lenguaje de marcado que estructura el contenido de la web."
-      >
-        <Icon name="open-book" />
-      </CardLink>
-    </li>
-
-    <li class="card-item">
-      <CardLink
-        href="css/flex/01-que-es-flex/"
-        title="CSS"
-        description="CSS es el lenguaje de estilos que da vida a tus páginas web con colores, fuentes y diseños."
-      >
-        <Icon name="seti:css" />
-      </CardLink>
-    </li>
-
-    <li class="card-item">
-      <CardLink
-        href="/js/que-es-javascript/ "
-        title="JavaScript"
-        description="JavaScript es un lenguaje de programación que permite crear interacciones dinámicas en las páginas web."
-      >
-        <Icon name="seti:javascript" />
-      </CardLink>
-    </li>
-
-    <li class="card-item">
-      <CardLink
-        href="#react"
-        title="React"
-        isDisabled
-        description="React es una biblioteca de JavaScript para construir interfaces de usuario interactivas y reutilizables."
-      >
-        <Icon name="seti:react" />
-      </CardLink>
-    </li>
-
-    <li class="card-item">
-      <CardLink
-        href="#angular"
-        title="Angular"
-        isDisabled
-        description="Angular es un framework de JavaScript para construir aplicaciones web robustas y escalables."
-      >
-        <Icon name="rocket" />
-      </CardLink>
-    </li>
-    <li class="card-item">
-      <CardLink
-        href="/accesibilidad/section-1/1/"
-        title="Accesibilidad"
-        description="La accesibilidad web es el diseño y desarrollo de sitios web que pueden ser utilizados por personas con discapacidades, garantizando que todos tengan acceso a la información y funcionalidades."
-      >
-        <Icon name="rocket" />
-      </CardLink>
-    </li>
+  <ul class="card-grid">
+    {
+      cards.map(card => (
+        <li class="card-item">
+          <CardLink
+            href={card.href}
+            title={card.title}
+            description={card.description}
+            isInConstruction={card.isInConstruction}
+            isDisabled={card.isDisabled}
+          >
+            <Icon name={card.icon} />
+          </CardLink>
+        </li>
+      ))
+    }
   </ul>
 </section>
 
