@@ -16,6 +16,18 @@ export const sidebar = [
           {
             label: 'Títulos y párrafos en HTML',
             slug: 'html/02-titulos-parafos'
+          },
+          {
+            label: 'Enlaces en HTML',
+            slug: 'html/03-enlaces'
+          },
+          {
+            label: 'Imágenes en HTML',
+            slug: 'html/04-imagenes'
+          },
+          {
+            label: 'Listas en HTML',
+            slug: 'html/05-listas'
           }
         ]
       },

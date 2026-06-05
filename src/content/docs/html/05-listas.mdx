@@ -1,0 +1,265 @@
+---
+title: "Listas en HTML"
+description: "Aprende a crear listas ordenadas, no ordenadas y de descripción para estructurar contenido en tus páginas web."
+---
+
+import { Code, Aside } from '@astrojs/starlight/components';
+import Preview from '@components/Preview.astro';
+import listasBasicas from './examples/listas-basicas.html?raw';
+import listasDescripcion from './examples/listas-descripcion.html?raw';
+
+## ¿Qué aprenderás?
+
+- La diferencia entre listas ordenadas (`<ol>`) y no ordenadas (`<ul>`)
+- Cómo anidar listas para crear jerarquías
+- Los atributos `type`, `start` y `reversed` en listas ordenadas
+- Las listas de descripción (`<dl>`, `<dt>`, `<dd>`) y cuándo usarlas
+- Por qué las listas son importantes para la accesibilidad
+- Qué NO debes hacer con listas
+- Buenas prácticas y errores comunes
+
+## Introducción
+
+Las listas organizan información en elementos discretos. Son uno de los patrones de contenido más antiguos y ubicuos de la web: menús de navegación, ingredientes de una receta, pasos de un tutorial, términos de un glosario, resultados de búsqueda, comentarios de un artículo.
+
+HTML proporciona tres tipos de listas, cada una con un propósito semántico distinto:
+
+- **Listas no ordenadas** (`<ul>`) — para elementos sin un orden secuencial
+- **Listas ordenadas** (`<ol>`) — para elementos donde el orden importa
+- **Listas de descripción** (`<dl>`) — para pares término-definición
+
+## Listas no ordenadas `<ul>`
+
+Se usan cuando el orden de los elementos no es relevante. Por defecto, los navegadores las muestran con viñetas (discos).
+
+```html
+<ul>
+  <li>Leche</li>
+  <li>Pan integral</li>
+  <li>Huevos</li>
+</ul>
+```
+
+<Preview>
+  <ul>
+    <li>Leche</li>
+    <li>Pan integral</li>
+    <li>Huevos</li>
+    <li>Tomates</li>
+    <li>Aguacate</li>
+  </ul>
+</Preview>
+
+Usa `<ul>` para:
+- Listas de características o especificaciones
+- Menús de navegación
+- Colecciones de enlaces
+- Elementos sin jerarquía numérica
+
+## Listas ordenadas `<ol>`
+
+Se usan cuando el orden de los elementos es importante. Por defecto se muestran con números.
+
+```html
+<ol>
+  <li>HTML</li>
+  <li>CSS</li>
+  <li>JavaScript</li>
+</ol>
+```
+
+<Preview>
+  <ol>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>JavaScript</li>
+  </ol>
+</Preview>
+
+### Atributos de `<ol>`
+
+| Atributo | Función | Ejemplo | Resultado |
+|---|---|---|---|
+| `type` | Estilo de numeración | `type="A"` | A, B, C |
+| `start` | Número inicial | `start="10"` | 10, 11, 12 |
+| `reversed` | Numeración inversa | `reversed` | 3, 2, 1 |
+
+Valores del atributo `type`:
+
+| Valor | Estilo | Ejemplo |
+|---|---|---|
+| `1` (default) | Números | 1, 2, 3 |
+| `a` | Letras minúsculas | a, b, c |
+| `A` | Letras mayúsculas | A, B, C |
+| `i` | Números romanos minúsculas | i, ii, iii |
+| `I` | Números romanos mayúsculas | I, II, III |
+
+<Preview>
+  <ol type="A">
+    <li>Primer paso</li>
+    <li>Segundo paso</li>
+    <li>Tercer paso</li>
+  </ol>
+  <ol start="10">
+    <li>Instalar editor de código</li>
+    <li>Crear primer archivo HTML</li>
+    <li>Escribir estructura básica</li>
+  </ol>
+  <ol reversed>
+    <li>Publicar el sitio</li>
+    <li>Diseñar la interfaz</li>
+    <li>Escribir el HTML</li>
+    <li>Planificar el contenido</li>
+  </ol>
+</Preview>
+
+<Aside type="caution" title="Los estilos de lista son semánticos">
+  Usa `type="A"` o `type="i"` solo cuando el significado lo requiera (por ejemplo, un examen con opciones A, B, C). No los uses por razones estéticas — para eso está CSS.
+</Aside>
+
+Usa `<ol>` para:
+- Recetas paso a paso
+- Instrucciones y tutoriales
+- Clasificaciones (top 10)
+- Resultados ordenados por relevancia
+
+## Listas anidadas
+
+Puedes anidar listas dentro de listas para crear jerarquías. El navegador cambia automáticamente el estilo de viñeta en cada nivel.
+
+<Preview>
+  <ul>
+    <li>
+      Postres
+      <ul>
+        <li>Tarta de chocolate</li>
+        <li>Helado de vainilla</li>
+      </ul>
+    </li>
+    <li>
+      Bebidas
+      <ul>
+        <li>Café</li>
+        <li>Té</li>
+      </ul>
+    </li>
+  </ul>
+</Preview>
+
+```html
+<ul>
+  <li>
+    Postres
+    <ul>
+      <li>Tarta de chocolate</li>
+      <li>Helado de vainilla</li>
+    </ul>
+  </li>
+  <li>
+    Bebidas
+    <ul>
+      <li>Café</li>
+      <li>Té</li>
+    </ul>
+  </li>
+</ul>
+```
+
+<Aside type="tip">
+  Las listas anidadas son ideales para menús multinivel, esquemas de contenido y árboles de categorías. El HTML refleja la jerarquía visual, lo que ayuda a la accesibilidad.
+</Aside>
+
+## Listas de descripción `<dl>`
+
+Las listas de descripción asocian términos con sus definiciones o descripciones. Están formadas por tres elementos:
+
+- `<dl>` — _description list_, contenedor de la lista
+- `<dt>` — _description term_, el término a definir
+- `<dd>` — _description details_, la definición o descripción
+
+<Code code={listasDescripcion} lang="html" title="listas-descripcion.html" />
+
+<Preview>
+  <dl>
+    <dt>HTML</dt>
+    <dd>Lenguaje de marcado de hipertexto. Define la estructura del contenido web.</dd>
+    <dt>CSS</dt>
+    <dd>Lenguaje de hojas de estilo en cascada. Controla la apariencia visual.</dd>
+    <dt>JavaScript</dt>
+    <dd>Lenguaje de programación que añade interactividad a las páginas web.</dd>
+  </dl>
+</Preview>
+
+Usa `<dl>` para:
+- Glosarios de términos
+- Metadatos (autor, fecha, categoría)
+- Preguntas frecuentes (FAQ)
+- Cualquier par clave-valor
+
+<Aside type="tip" title="Varios dt para un mismo dd">
+  Puedes tener múltiples `<dt>` para un único `<dd>` (sinónimos) y múltiples `<dd>` para un único `<dt>` (múltiples definiciones):
+  ```html
+  <dl>
+    <dt>HTML</dt>
+    <dt>HyperText Markup Language</dt>
+    <dd>Lenguaje de marcado para la web</dd>
+    <dd>Estándar definido por el W3C</dd>
+  </dl>
+  ```
+</Aside>
+
+## Accesibilidad en listas
+
+Las listas son uno de los elementos más beneficiosos para la accesibilidad cuando se usan correctamente.
+
+### Por qué importan las listas
+
+Los lectores de pantalla anuncian:
+- **Cantidad de elementos**: "Lista de 5 elementos"
+- **Posición**: "Elemento 3 de 5"
+- **Estructura**: "Lista anidada, 3 elementos"
+
+Esto permite a los usuarios con discapacidad visual entender la estructura del contenido sin verla.
+
+### Errores frecuentes de accesibilidad
+
+| Error | Impacto |
+|---|---|
+| Usar `<br>` o `<div>` para simular listas | El lector de pantalla no reconoce la estructura |
+| Omitir `<li>` dentro de `<ul>` | HTML inválido, comportamiento impredecible |
+| Anidar incorrectamente | Jerarquía semántica rota |
+| Usar listas para layout | Confunde a lectores de pantalla (escucha "lista de 20 elementos" para un menú visual) |
+
+## Errores comunes
+
+| Error | Incorrecto | Correcto |
+|---|---|---|
+| Usar `<ul>` para todo | Menú del sitio con `<ul>` (correcto) | — |
+| Usar `<ol>` donde no importa el orden | `<ol>` para lista de ingredientes | `<ul>` para lista de ingredientes |
+| Poner contenido directamente dentro de `<ul>` | `<ul>Texto suelto<li>...</li></ul>` | `<ul><li>...</li></ul>` |
+| No cerrar `<li>` | `<ul><li>Elemento<ul>` | `<ul><li>Elemento</li></ul>` |
+| Usar listas para maquetar | Poner todo un layout con `<ul>` | Usar CSS Grid o Flexbox |
+
+## Buenas prácticas
+
+1. **Elige el tipo de lista correcto** — `<ol>` cuando el orden importa, `<ul>` cuando no, `<dl>` para pares término-valor
+2. **No uses listas para layout** — las listas son para contenido semánticamente agrupado. El layout se hace con CSS
+3. **Aprovecha el anidamiento** — las listas anidadas comunican jerarquía tanto visual como semánticamente
+4. **Mantenlas planas cuando sea posible** — demasiados niveles de anidamiento dificultan la lectura
+5. **Usa `<dl>` para metadatos** — es semánticamente más correcto que una tabla o párrafos sueltos
+6. **No abuses de los atributos de estilo de `<ol>`** — la presentación visual se controla con CSS
+
+## Resumen
+
+- `<ul>` (no ordenada): viñetas, el orden no importa
+- `<ol>` (ordenada): números, el orden importa, con `type`, `start` y `reversed`
+- `<dl>` (descripción): pares término-definición con `<dt>` y `<dd>`
+- Las listas se anidan colocando un `<ul>`, `<ol>` o `<dl>` dentro de un `<li>`
+- Las listas son críticas para la accesibilidad: los lectores de pantalla anuncian su estructura y cantidad de elementos
+- No uses listas para layout
+
+## Próximo paso
+
+Las listas te dan estructura. Ahora toca afinar el texto dentro de los párrafos. Aprenderás a usar elementos de formato como `<strong>`, `<em>`, `<br>`, `<span>` y otros para dar significado y énfasis al contenido textual.
+
+Continúa con **Formato de texto en HTML →** `/html/06-formato-texto`

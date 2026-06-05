@@ -1,0 +1,221 @@
+---
+title: "Imágenes en HTML"
+description: "Aprende a insertar imágenes en tus páginas web con el elemento img, optimizarlas y hacerlas accesibles para todos los usuarios."
+---
+
+import { Code, Aside } from '@astrojs/starlight/components';
+import Preview from '@components/Preview.astro';
+import imagenesBasicas from './examples/imagenes-basicas.html?raw';
+
+## ¿Qué aprenderás?
+
+- Cómo insertar imágenes con el elemento `<img>`
+- El atributo `alt`: cómo escribir texto alternativo descriptivo y cuándo dejarlo vacío
+- Los atributos `width` y `height`
+- La pareja `<figure>` y `<figcaption>` para imágenes con pie de foto
+- Qué hacer cuando una imagen no se carga
+- Conceptos básicos de formatos de imagen web
+- Introducción a imágenes responsive
+- Buenas prácticas, accesibilidad y errores comunes
+
+## Introducción
+
+Las imágenes son el segundo tipo de contenido más importante en la web después del texto. Una buena imagen puede comunicar en segundos lo que un párrafo tarda minutos en explicar: gráficos, diagramas, capturas de pantalla, fotografías de producto, iconos, ilustraciones.
+
+HTML proporciona el elemento `<img>` para insertar imágenes. Es un **elemento vacío** (no tiene etiqueta de cierre) y su comportamiento es _inline_ (se coloca dentro del flujo del texto).
+
+## El elemento `<img>`
+
+<Code code={imagenesBasicas} lang="html" title="imagenes-basicas.html" />
+
+<Preview>
+  <h2>Imagen con texto alternativo descriptivo</h2>
+  <img
+    src="https://placehold.co/600x200/0b66cc/ffffff?text=HTML+Banner"
+    alt="Gráfico que muestra la evolución del uso de HTML5 entre 2010 y 2025"
+    width="600"
+    height="200"
+  />
+</Preview>
+
+### Atributos obligatorios
+
+| Atributo | Función |
+|---|---|
+| `src` | Ruta del archivo de imagen (obligatorio) |
+| `alt` | Texto alternativo descriptivo (obligatorio semánticamente) |
+
+<Aside type="danger" title="El alt es obligatorio">
+  El atributo `alt` no es opcional. Siempre debe estar presente. Su valor puede ser una descripción o una cadena vacía (`alt=""`), pero omitir el atributo es un error de accesibilidad.
+</Aside>
+
+### Atributos recomendados
+
+| Atributo | Función |
+|---|---|
+| `width` | Ancho de la imagen en píxeles (sin unidad) |
+| `height` | Alto de la imagen en píxeles (sin unidad) |
+
+Especificar `width` y `height` permite al navegador **reservar el espacio** de la imagen antes de que se descargue, evitando molestos saltos de layout (CLS — _Cumulative Layout Shift_).
+
+## El atributo `alt` en profundidad
+
+El texto alternativo es probablemente el atributo más importante y peor entendido de HTML. No es un tooltip. No es un pie de foto. Es el **sustituto textual** de la imagen.
+
+### Imagen informativa
+
+Describe el contenido visual de forma concisa pero completa:
+
+```html
+<img
+  src="grafico-ventas-2025.png"
+  alt="Gráfico de barras que muestra ventas trimestrales: Q1 10K, Q2 15K, Q3 22K, Q4 28K"
+/>
+```
+
+### Imagen decorativa
+
+Si la imagen no aporta información (un borde decorativo, un icono repetitivo, un separador visual), usa `alt=""`:
+
+```html
+<img src="separador-decorativo.svg" alt="" />
+```
+
+<Preview>
+  <p>
+    <img src="https://placehold.co/24x24/eeb11a/1a1a1a?text=★" alt="" />
+    Elemento favorito del mes: el encabezado <code>&lt;h1&gt;</code>
+  </p>
+</Preview>
+
+El `alt` vacío le dice al lector de pantalla: "ignora esta imagen, no es relevante". Sin él, el lector de pantalla anunciaría el nombre del archivo (`separador-decorativo.svg`), lo cual es ruido.
+
+### Imagen con texto
+
+Si la imagen contiene texto, ese texto debe estar en el `alt`:
+
+```html
+<img src="banner-oferta.jpg" alt="Oferta especial: 30% de descuento en todos los cursos hasta el 31 de marzo" />
+```
+
+<Aside type="caution" title="No pongas texto solo en imágenes">
+  Usar imágenes que contienen texto es una mala práctica. El texto no se puede traducir, no se puede copiar, no se puede buscar y no escala bien. Siempre que sea posible, usa HTML y CSS para el texto.
+</Aside>
+
+## Figure y Figcaption
+
+Para imágenes que necesitan un pie de foto asociado, usa la pareja `<figure>` y `<figcaption>`:
+
+<Preview>
+  <figure>
+    <img
+      src="https://placehold.co/500x250/1a3a5c/2ebdfd?text=Estructura+HTML"
+      alt="Diagrama con la jerarquía html, head y body de un documento HTML5"
+      width="500"
+      height="250"
+    />
+    <figcaption>
+      Estructura básica de un documento HTML5.
+      Observa que <code>&lt;head&gt;</code> y <code>&lt;body&gt;</code>
+      son hermanos dentro de <code>&lt;html&gt;</code>.
+    </figcaption>
+  </figure>
+</Preview>
+
+```html
+<figure>
+  <img
+    src="estructura-html5.png"
+    alt="Diagrama con html como raíz, head y body como hijos directos"
+    width="500"
+    height="250"
+  />
+  <figcaption>Estructura básica de un documento HTML5</figcaption>
+</figure>
+```
+
+`<figure>` es un contenedor semántico para contenido autónomo (imágenes, ilustraciones, diagramas, fragmentos de código). `<figcaption>` es su pie de foto o leyenda.
+
+<Aside type="tip">
+  `<figure>` no es exclusivo de imágenes. Puedes usarlo para fragmentos de código, tablas, citas largas o cualquier contenido que se pueda extraer del flujo principal sin perder significado.
+</Aside>
+
+## Imagen rota: el alt al rescate
+
+Cuando una imagen no puede cargarse (archivo borrado, ruta incorrecta, servidor caído), el navegador muestra el texto del atributo `alt` en lugar de la imagen:
+
+<Preview>
+  <img
+    src="#"
+    alt="Gráfico comparativo de etiquetas HTML semánticas versus no semánticas"
+    width="400"
+    height="200"
+  />
+  <p>Cuando la imagen no puede cargarse, el navegador muestra el texto alternativo.</p>
+</Preview>
+
+Un buen `alt` convierte una experiencia frustrante (imagen rota) en una experiencia informativa (sé lo que debería haber allí).
+
+## Formatos de imagen web
+
+| Formato | Transparencia | Animación | Compresión | Recomendado para |
+|---|---|---|---|---|
+| **WebP** | ✅ | ✅ | Excelente | Formato moderno universal |
+| **AVIF** | ✅ | ✅ | Superior | Máxima compresión, soporte creciente |
+| **JPEG** | ❌ | ❌ | Buena | Fotografías y gradientes |
+| **PNG** | ✅ | ❌ | Sin pérdida | Iconos, logos, capturas de pantalla |
+| **GIF** | ✅ | ✅ | Baja | Animaciones simples (mejor usar video) |
+| **SVG** | ✅ | ✅ | Vectorial | Iconos, logos, ilustraciones escalables |
+
+<Aside type="tip" title="Usa WebP o AVIF">
+  WebP y AVIF ofrecen mejor compresión que JPEG y PNG con la misma calidad. La mayoría de navegadores modernos los soportan. Puedes usar el elemento `<picture>` para servir formatos modernos con fallback a JPEG/PNG.
+</Aside>
+
+## Imágenes responsive (introducción)
+
+El elemento `<picture>` permite servir diferentes versiones de una imagen según el dispositivo:
+
+```html
+<picture>
+  <source srcset="imagen.avif" type="image/avif" />
+  <source srcset="imagen.webp" type="image/webp" />
+  <img src="imagen.jpg" alt="Descripción de la imagen" />
+</picture>
+```
+
+El navegador elige el primer formato que soporte, en orden de preferencia.
+
+## Errores comunes
+
+| Error | Incorrecto | Correcto |
+|---|---|---|
+| Olvidar `alt` | `<img src="foto.jpg">` | `<img src="foto.jpg" alt="...">` |
+| `alt` como descripción de la imagen | `alt="imagen de un perro"` | `alt="Perro labrador dorado jugando con una pelota roja en el parque"` |
+| Usar `alt` como tooltip | `alt="Haz clic aquí"` | Usar `title` para tooltips, `alt` para descripción |
+| Imagen con texto | Texto importante solo en imagen | Texto en HTML, imagen decorativa |
+| No poner width/height | La imagen causa saltos de layout | `width` y `height` reservan espacio |
+| Formato incorrecto | Logos en JPEG (pérdida de calidad en bordes) | PNG o SVG para logos |
+
+## Buenas prácticas
+
+1. **Siempre incluye `alt`** — descriptivo para imágenes informativas, vacío para decorativas
+2. **Especifica `width` y `height`** — previene saltos de layout
+3. **Usa formatos modernos** — WebP o AVIF con fallback mediante `<picture>`
+4. **Optimiza el peso** — las imágenes son el recurso más pesado de la mayoría de sitios web
+5. **No uses imágenes para texto** — salvo que sea estrictamente necesario (tipografía especial)
+6. **Añade `loading="lazy"`** para imágenes que están fuera de la viewport inicial
+7. **Asocia imágenes a su contexto** con `<figure>` y `<figcaption>` cuando tengan pie de foto
+
+## Resumen
+
+- `<img>` es un elemento vacío con `src` y `alt` obligatorios
+- El `alt` descriptivo reemplaza la imagen cuando no se ve; el `alt` vacío la oculta para lectores de pantalla
+- `<figure>` + `<figcaption>` crean una unidad semántica de imagen con pie
+- `width` y `height` previenen saltos de layout
+- Los formatos modernos (WebP, AVIF) ofrecen mejor compresión que JPEG y PNG
+
+## Próximo paso
+
+Ahora que sabes insertar imágenes, el siguiente paso natural es organizar contenido en listas. Las listas estructuran información secuencial o jerárquica y son fundamentales para menús, pasos, glosarios y agrupaciones.
+
+Continúa con **Listas en HTML →** `/html/05-listas`

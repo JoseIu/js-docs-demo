@@ -1,0 +1,193 @@
+---
+title: "Enlaces en HTML"
+description: "Aprende a crear enlaces para conectar páginas web, navegar entre documentos del sitio y mejorar la experiencia de navegación."
+---
+
+import { Code, Aside } from '@astrojs/starlight/components';
+import Preview from '@components/Preview.astro';
+import enlacesBasicos from './examples/enlaces-basicos.html?raw';
+import enlacesAtributos from './examples/enlaces-atributos.html?raw';
+
+## ¿Qué aprenderás?
+
+- Qué son los enlaces y por qué son la esencia de la web
+- Cómo crear enlaces con el elemento `<a>`
+- La diferencia entre rutas absolutas y relativas
+- Atributos clave: `href`, `target`, `rel`, `title`, `download`
+- Enlaces a correo electrónico y teléfono
+- Cómo hacer enlaces accesibles
+- Errores comunes y buenas prácticas
+
+## Introducción
+
+Los enlaces son la característica que hace que la web sea _web_. Sin enlaces, cada página sería un documento aislado. El concepto de _hipertexto_ es tan fundamental que da nombre al propio lenguaje: **HyperText** Markup Language.
+
+Un enlace permite al usuario navegar de un recurso a otro con un solo clic. Puede apuntar a otra página, a una sección dentro de la misma página, a un archivo descargable, o incluso a un correo electrónico.
+
+## El elemento `<a>`
+
+Para crear un enlace utilizamos el elemento `<a>` (anchor). Su atributo más importante es `href` (_hypertext reference_), que indica la URL de destino.
+
+<Code code={enlacesBasicos} lang="html" title="enlaces-basicos.html" />
+<Preview>
+  <h2>Enlace absoluto</h2>
+  <a href="https://developer.mozilla.org/es/docs/Web/HTML">MDN Web Docs — Aprende HTML</a>
+  <h2>Enlace relativo</h2>
+  <a href="/html/02-titulos-parafos">Lección anterior: Títulos y párrafos</a>
+  <h2>Enlace interno (ancla)</h2>
+  <a href="#seccion-demo">Ir a la sección de destino</a>
+  <p style="margin-block: 1rem" id="seccion-demo">✅ Has llegado aquí mediante un enlace interno.</p>
+</Preview>
+
+<Aside type="caution" title="Cuidado con el protocolo">
+  Siempre incluye `https://` en enlaces absolutos. Un enlace como `<a href="developer.mozilla.org">` intentará navegar a `developer.mozilla.org` dentro del dominio actual, no al sitio externo.
+</Aside>
+
+## Rutas absolutas vs relativas
+
+| Tipo | Ejemplo | ¿Qué hace? |
+|---|---|---|
+| **Absoluta** | `https://ejemplo.com/pagina` | Apunta a un recurso completo fuera del sitio actual |
+| **Relativa desde la raíz** | `/html/02-titulos-parafos` | Apunta dentro del mismo sitio, comenzando desde la raíz del dominio |
+| **Relativa al archivo actual** | `../ejemplos/enlaces.html` | Apunta usando la ubicación del archivo actual como referencia |
+| **Anclaje interno** | `#introduccion` | Apunta a un elemento con ese `id` dentro de la misma página |
+
+<Aside type="tip">
+  Usa rutas relativas para enlaces dentro de tu propio sitio. Son más fáciles de mantener y funcionan en cualquier entorno (local, staging, producción).
+</Aside>
+
+## Atributos importantes del enlace
+
+<Code code={enlacesAtributos} lang="html" title="enlaces-atributos.html" />
+
+### `target`
+
+Controla dónde se abre el enlace.
+
+```html
+<!-- Misma pestaña (comportamiento por defecto) -->
+<a href="/pagina" target="_self">Abrir aquí</a>
+
+<!-- Nueva pestaña o ventana -->
+<a href="https://ejemplo.com" target="_blank" rel="noopener noreferrer">Abrir fuera</a>
+```
+
+<Aside type="danger" title="Seguridad con target='_blank'">
+  Cuando usas `target="_blank"`, siempre debes añadir `rel="noopener noreferrer"`. Sin estos atributos, la página de destino puede acceder al objeto `window.opener` y redirigir tu página a un sitio malicioso (_tabnabbing_).
+</Aside>
+
+### `rel`
+
+Describe la relación entre la página actual y el destino. Los valores más comunes:
+
+- `noopener` — Evita que la página destino acceda a `window.opener`
+- `noreferrer` — Oculta la cabecera `Referer` al navegador destino
+- `nofollow` — Indica a los motores de búsqueda que no sigan el enlace (útil en enlaces de pago o contenido generado por usuarios)
+
+### `title`
+
+Añade información contextual adicional que aparece como tooltip al pasar el ratón. No es obligatorio, pero puede mejorar la experiencia de usuario.
+
+<Aside type="caution" title="No confíes solo en title">
+  El atributo `title` no es fiable como única fuente de información: no aparece en dispositivos táctiles ni es accesible por teclado. Úsalo solo como complemento.
+</Aside>
+
+### `download`
+
+Indica al navegador que descargue el recurso enlazado en lugar de navegar a él.
+
+```html
+<a href="/informe.pdf" download="informe-anual-2025.pdf">
+  Descargar informe anual
+</a>
+```
+
+## Enlaces especiales
+
+### Correo electrónico: `mailto:`
+
+```html
+<a href="mailto:hola@ejemplo.com">Enviar correo</a>
+```
+
+Puedes predefinir el asunto y el cuerpo del mensaje:
+
+```html
+<a href="mailto:soporte@ejemplo.com?subject=Ayuda%20con%20HTML&body=Hola%2C%20necesito%20ayuda...">
+  Solicitar ayuda
+</a>
+```
+
+### Teléfono: `tel:`
+
+```html
+<a href="tel:+34910000000">Llamar al soporte</a>
+```
+
+En dispositivos móviles, este enlace abre el marcador telefónico directamente. En escritorio, suele abrir una aplicación de llamadas como Skype.
+
+## Accesibilidad en enlaces
+
+### Texto descriptivo
+
+El texto del enlace debe describir su destino sin depender del contexto circundante.
+
+```html
+<!-- ❌ MAL: No dice a dónde lleva -->
+<a href="/guia-html">Haz clic aquí</a>
+
+<!-- ✅ BIEN: Describe el destino -->
+<a href="/guia-html">Guía completa de HTML para principiantes</a>
+```
+
+### Enlaces que abren nueva pestaña
+
+Advierte al usuario cuando un enlace se abre en una nueva pestaña:
+
+```html
+<a href="https://externo.com" target="_blank" rel="noopener noreferrer">
+  Documentación oficial
+  <span class="sr-only">(se abre en nueva pestaña)</span>
+</a>
+```
+
+<Aside type="tip" title="Decide si usar nueva pestaña">
+  Abrir enlaces externos en una nueva pestaña es una decisión de diseño controvertida. Los usuarios avanzados saben usar los atajos del navegador (Ctrl+clic) para decidir por sí mismos. En documentos de referencia (como esta documentación), los enlaces internos suelen abrirse en la misma pestaña y los externos en nueva pestaña.
+</Aside>
+
+### Contraste y foco visible
+
+Los enlaces deben distinguirse del texto normal no solo por el color. Asegúrate de que tengan un subrayado u otro indicador visual, y que el foco del teclado sea claramente visible.
+
+## Errores comunes
+
+| Error | Versión incorrecta | Versión correcta |
+|---|---|---|
+| Olvidar `https://` | `<a href="google.com">Google</a>` | `<a href="https://google.com">Google</a>` |
+| Enlaces rotos | `<a href="pagina-que-no-existe.html">` | Verificar que la ruta existe |
+| Texto genérico | `<a href="/productos">Haz clic aquí</a>` | `<a href="/productos">Ver todos los productos</a>` |
+| Enlaces vacíos | `<a href="/destino"></a>` | `<a href="/destino">Texto descriptivo</a>` |
+| Anidar bloque dentro de `<a>` | `<a href="#"><div>...</div></a>` | En HTML5 es válido, pero asegura que tenga texto accesible |
+
+## Buenas prácticas
+
+1. **Usa texto de enlace único y descriptivo** — ni "click aquí" ni URLs crudas como `https://ejemplo.com/pagina`
+2. **Prefiere rutas relativas** para enlaces dentro del mismo sitio
+3. **Siempre añade `rel="noopener noreferrer"`** cuando uses `target="_blank"`
+4. **Mantén los enlaces funcionales** — revisa periódicamente que no haya enlaces rotos
+5. **No abuses de los anclajes internos** — úsalos para navegación larga, no para contenido corto
+6. **Los enlaces deben ser reconocibles** — texto subrayado y color distinguible del texto normal
+
+## Resumen
+
+- El elemento `<a>` crea enlaces con el atributo `href`
+- Las rutas pueden ser absolutas, relativas o anclajes internos
+- `target="_blank"` requiere `rel="noopener noreferrer"` por seguridad
+- El texto del enlace debe describir su destino (accesibilidad)
+- Puedes enlazar a correo (`mailto:`) y teléfono (`tel:`) directamente
+
+## Próximo paso
+
+Ahora que sabes conectar páginas entre sí, es hora de aprender a insertar imágenes. Las imágenes enriquecen el contenido visual y tienen sus propias reglas de accesibilidad y optimización.
+
+Continúa con **Imágenes en HTML →** `/html/04-imagenes`
